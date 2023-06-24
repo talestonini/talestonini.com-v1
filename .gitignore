@@ -24,7 +24,10 @@ dist-ssr
 *.sw?
 
 # Scala and Scala.js
+.bloop
 .bsp
 .git
+.idea
+.metals
 project
 target

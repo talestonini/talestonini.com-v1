@@ -1,6 +1,7 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 
-lazy val talestonini = project.in(file("."))
+lazy val talestonini = project
+  .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
   .settings(
     scalaVersion := "3.3.0",
@@ -18,11 +19,18 @@ lazy val talestonini = project.in(file("."))
     scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.ESModule)
         .withModuleSplitStyle(
-          ModuleSplitStyle.SmallModulesFor(List("com.talestonini")))
+          ModuleSplitStyle.SmallModulesFor(List("com.talestonini"))
+        )
     },
 
     /* Depend on the scalajs-dom library.
      * It provides static types for the browser DOM APIs.
      */
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.6.0",
+
+    // Depend on Laminar
+    libraryDependencies += "com.raquo" %%% "laminar" % "15.0.1",
+
+    // Testing framework
+    libraryDependencies += "org.scalameta" %%% "munit" % "0.7.29" % Test
   )
