@@ -6,8 +6,6 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.*
 
 import org.scalajs.dom
-import com.talestonini.Main.appElement
-import com.talestonini.Main.renderDataItem
 
 // import javascriptLogo from "/javascript.svg"
 @js.native @JSImport("/javascript.svg", JSImport.Default)
@@ -35,10 +33,9 @@ object Main:
     table(
       thead(tr(th("Label"), th("Price"), th("Count"), th("Full price"), th("Action"))),
       tbody(
-        children <-- dataSignal.map(data =>
-          data.map { item =>
-            renderDataItem(item.id, item)
-          })
+        children <-- dataSignal.split(_.id) { (id, initial, itemSignal) =>
+          renderDataItem(id, itemSignal)
+        }
       ),
       tfoot(tr(
           td(button("➕", onClick --> (_ => addDataItem(DataItem())))),
@@ -49,12 +46,12 @@ object Main:
     )
   end renderDataTable
 
-  def renderDataItem(id: DataItemID, item: DataItem): Element =
+  def renderDataItem(id: DataItemID, itemSignal: Signal[DataItem]): Element =
     tr(
-      td(item.label),
-      td(item.price),
-      td(item.count),
-      td("%.2f".format(item.fullPrice)),
+      td(child.text <-- itemSignal.map(_.label)),
+      td(child.text <-- itemSignal.map(i => "%.2f".format(i.price))),
+      td(child.text <-- itemSignal.map(_.count)),
+      td(child.text <-- itemSignal.map(i => "%.2f".format(i.fullPrice))),
       td(button("🗑️", onClick --> (_ => removeDataItem(id))))
     )
   end renderDataItem
