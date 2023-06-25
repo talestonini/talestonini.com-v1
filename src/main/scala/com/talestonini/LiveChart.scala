@@ -6,6 +6,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.*
 
 import org.scalajs.dom
+import typings.std.stdStrings.canvas
 
 // import javascriptLogo from "/javascript.svg"
 @js.native @JSImport("/javascript.svg", JSImport.Default)
@@ -19,6 +20,36 @@ def LiveChart(): Unit =
   )
 
 object Main:
+  val chartConfig =
+    import typings.chartJs.mod.*
+    new ChartConfiguration {
+      `type` = ChartType.bar
+      data = new ChartData {
+        datasets = js.Array(
+          new ChartDataSets {
+            label = "Price"
+            borderWidth = 1
+            backgroundColor = "green"
+          },
+          new ChartDataSets {
+            label = "Full price"
+            borderWidth = 1
+            backgroundColor = "blue"
+          }
+        )
+      }
+      options = new ChartOptions {
+        scales = new ChartScales {
+          yAxes = js.Array(new CommonAxe {
+            ticks = new TickOptions {
+              beginAtZero = true
+            }
+          })
+        }
+      }
+    }
+  end chartConfig
+
   val model = new Model
   import model.*
 
@@ -26,6 +57,7 @@ object Main:
     div(
       h1("Live Chart"),
       renderDataTable(),
+      renderDataChart(),
       renderDataList()
     )
   end appElement
@@ -52,11 +84,6 @@ object Main:
     // can manipulate this value; it is simply a method in Laminar
     def inputForString(valueSignal: Signal[String], valueUpdater: Observer[String]): Input =
       input(typ := "text", value <-- valueSignal, onInput.mapToValue --> valueUpdater)
-
-    def makeDataItemUpdater[A](id: DataItemID, f: (DataItem, A) => DataItem): Observer[A] =
-      dataVar.updater { (data, newValue) =>
-        data.map(i => if i.id == id then f(i, newValue) else i)
-      }
 
     def inputForDouble(valueSignal: Signal[Double], valueUpdater: Observer[Double]): Input =
       val strValue = Var[String]("")
@@ -85,6 +112,11 @@ object Main:
         )
       )
 
+    def makeDataItemUpdater[A](id: DataItemID, f: (DataItem, A) => DataItem): Observer[A] =
+      dataVar.updater { (data, newValue) =>
+        data.map(i => if i.id == id then f(i, newValue) else i)
+      }
+
     tr(
       td(inputForString(itemSignal.map(_.label), makeDataItemUpdater(id, (i, newLabel) => i.copy(label = newLabel)))),
       td(inputForDouble(itemSignal.map(_.price), makeDataItemUpdater(id, (i, newPrice) => i.copy(price = newPrice)))),
@@ -93,6 +125,45 @@ object Main:
       td(button("🗑️", onClick --> (_ => removeDataItem(id))))
     )
   end renderDataItem
+
+  def renderDataChart(): Element =
+    import scala.scalajs.js.JSConverters.*
+    import typings.chartJs.mod.*
+
+    var optChart: Option[Chart] = None
+
+    canvasTag(
+      // Regular properties of the canvas
+      width  := "100%",
+      height := "200px",
+
+      // onMountUnmount callback to bridge the Laminar world and the Chart.js world
+      onMountUnmountCallback(
+        // on mount, create the `Chart` instance and store it in optChart
+        mount = { nodeCtx =>
+          val domCanvas: dom.HTMLCanvasElement = nodeCtx.thisNode.ref
+          val chart                            = Chart.apply.newInstance2(domCanvas, chartConfig)
+          optChart = Some(chart)
+        },
+        // on unmount, destroy the `Chart` instance
+        unmount = { thisNode =>
+          for (chart <- optChart)
+            chart.destroy()
+          optChart = None
+        }
+      ),
+
+      // Bridge the FRP world of dataSignal to the imperative world of the `chart.data`
+      dataSignal --> { data =>
+        for (chart <- optChart) {
+          chart.data.labels = data.map(_.label).toJSArray
+          chart.data.datasets.get(0).data = data.map(_.price).toJSArray
+          chart.data.datasets.get(1).data = data.map(_.fullPrice).toJSArray
+          chart.update()
+        }
+      }
+    )
+  end renderDataChart
 
   def renderDataList(): Element =
     ul(

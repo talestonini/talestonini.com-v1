@@ -3,6 +3,7 @@ import org.scalajs.linker.interface.ModuleSplitStyle
 lazy val talestonini = project
   .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
+  .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .settings(
     scalaVersion := "3.3.0",
 
@@ -32,5 +33,8 @@ lazy val talestonini = project
     libraryDependencies += "com.raquo" %%% "laminar" % "15.0.1",
 
     // Testing framework
-    libraryDependencies += "org.scalameta" %%% "munit" % "0.7.29" % Test
+    libraryDependencies += "org.scalameta" %%% "munit" % "0.7.29" % Test,
+
+    // Tell ScalablyTyped that we manage `npm install` ourselves
+    externalNpm := baseDirectory.value
   )
