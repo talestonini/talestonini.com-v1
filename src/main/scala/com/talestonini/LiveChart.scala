@@ -48,20 +48,47 @@ object Main:
   end renderDataTable
 
   def renderDataItem(id: DataItemID, itemSignal: Signal[DataItem]): Element =
-    def renderLabelInput(): Element = td(
+    // this is what many UI frameworks call a "component" - input is a model value, output is a UI element that
+    // can manipulate this value; it is simply a method in Laminar
+    def inputForString(valueSignal: Signal[String], valueUpdater: Observer[String]): Input =
+      input(typ := "text", value <-- valueSignal, onInput.mapToValue --> valueUpdater)
+
+    def makeDataItemUpdater[A](id: DataItemID, f: (DataItem, A) => DataItem): Observer[A] =
+      dataVar.updater { (data, newValue) =>
+        data.map(i => if i.id == id then f(i, newValue) else i)
+      }
+
+    def inputForDouble(valueSignal: Signal[Double], valueUpdater: Observer[Double]): Input =
+      val strValue = Var[String]("")
       input(
         typ := "text",
-        value <-- itemSignal.map(_.label),
-        onInput.mapToValue --> { (newLabel: String) =>
-          dataVar.update(data => data.map(i => if i.id == id then i.copy(label = newLabel) else i))
+        value <-- strValue.signal,
+        onInput.mapToValue --> strValue,
+        valueSignal --> strValue.updater[Double] { (prevStr, newValue) =>
+          if prevStr.toDoubleOption.contains(newValue) then prevStr
+          else "%.2f".format(newValue)
+        },
+        strValue.signal --> { valueStr =>
+          valueStr.toDoubleOption.foreach(valueUpdater.onNext)
         }
       )
-    )
+    end inputForDouble
+
+    def inputForInt(valueSignal: Signal[Int], valueUpdater: Observer[Int]): Input =
+      input(
+        typ := "text",
+        controlled(
+          value <-- valueSignal.map(_.toString()),
+          onInput.mapToValue.map(_.toIntOption).collect { case Some(newCount) =>
+            newCount
+          } --> valueUpdater
+        )
+      )
 
     tr(
-      td(renderLabelInput()),
-      td(child.text <-- itemSignal.map(i => "%.2f".format(i.price))),
-      td(child.text <-- itemSignal.map(_.count)),
+      td(inputForString(itemSignal.map(_.label), makeDataItemUpdater(id, (i, newLabel) => i.copy(label = newLabel)))),
+      td(inputForDouble(itemSignal.map(_.price), makeDataItemUpdater(id, (i, newPrice) => i.copy(price = newPrice)))),
+      td(inputForInt(itemSignal.map(_.count), makeDataItemUpdater(id, (i, newCount) => i.copy(count = newCount)))),
       td(child.text <-- itemSignal.map(i => "%.2f".format(i.fullPrice))),
       td(button("🗑️", onClick --> (_ => removeDataItem(id))))
     )
