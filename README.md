@@ -18,5 +18,5 @@ In SBT:
 
 In another terminal:
 
-    npm run build
+    npm run build      <-- this is what places artifacts in `dist`
     npm run preview
