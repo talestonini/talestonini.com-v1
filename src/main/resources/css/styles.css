@@ -160,8 +160,9 @@ h3 {
   font-size: 14px;
 }
 
-.no-decoration {
+.footer-icon {
   text-decoration: none;
+  padding: 0 5px 0 5px;
 }
 
 .w3-padding-8 {
