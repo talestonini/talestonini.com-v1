@@ -1,5 +1,8 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 
+val circeVersion  = "0.15.0-M1"
+val http4sVersion = "1.0.0-M32"
+
 lazy val ttDotCom = project
   .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
@@ -28,19 +31,36 @@ lazy val ttDotCom = project
     buildInfoKeys    := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     buildInfoPackage := "com.talestonini",
 
-    /* Depend on the scalajs-dom library.
-     * It provides static types for the browser DOM APIs.
-     */
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.6.0",
+    // Dependencies
+    libraryDependencies ++= Seq(
+      /* Depend on the scalajs-dom library.
+       * It provides static types for the browser DOM APIs.
+       */
+      "org.scala-js" %%% "scalajs-dom" % "2.6.0",
 
-    // Depend on Laminar
-    libraryDependencies += "com.raquo" %%% "laminar" % "16.0.0",
-    libraryDependencies += "com.raquo" %%% "waypoint" % "7.0.0", // routing, independent of Laminar
+      // Depend on Laminar
+      "com.raquo" %%% "laminar"  % "16.0.0",
+      "com.raquo" %%% "waypoint" % "7.0.0", // routing, independent of Laminar
 
-    // Testing framework
-    libraryDependencies += "org.scalameta" %%% "munit" % "1.0.0-M8" % Test,
+      // Http4s
+      "io.circe"   %%% "circe-core"      % circeVersion,
+      "io.circe"   %%% "circe-generic"   % circeVersion,
+      "io.circe"   %%% "circe-parser"    % circeVersion,
+      "org.http4s" %%% "http4s-circe"    % http4sVersion,
+      "org.http4s" %%% "http4s-client"   % http4sVersion,
+      "org.http4s" %%% "http4s-dom"      % http4sVersion exclude ("org.scala-js", "scalajs-dom_sjs1_2.13"),
+      "io.monix"   %%% "monix-execution" % "3.4.0",
 
-    // Java Time for Scala.js
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0"
+      // Java Time for Scala.js
+      "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0",
+
+      // Testing framework
+      "org.scalameta" %%% "munit"               % "1.0.0-M8" % Test,
+      "org.scalatest" %%% "scalatest"           % "3.3.0-SNAP4" % Test,
+      "org.typelevel" %%% "munit-cats-effect-3" % "1.0.7"    % Test
+    )
   )
+
+// Test setup
+Test / jsEnv := new org.scalajs.jsenv.selenium.SeleniumJSEnv(new org.openqa.selenium.firefox.FirefoxOptions())
