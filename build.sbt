@@ -1,7 +1,7 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 
 val circeVersion  = "0.15.0-M1"
-val http4sVersion = "1.0.0-M32"
+val http4sVersion = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
 
 lazy val ttDotCom = project
   .in(file("."))
@@ -48,8 +48,8 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-parser"    % circeVersion,
       "org.http4s" %%% "http4s-circe"    % http4sVersion,
       "org.http4s" %%% "http4s-client"   % http4sVersion,
-      "org.http4s" %%% "http4s-dom"      % http4sVersion exclude ("org.scala-js", "scalajs-dom_sjs1_2.13"),
-      "io.monix"   %%% "monix-execution" % "3.4.0",
+      "org.http4s" %%% "http4s-dom"      % http4sVersion,
+      "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
       "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
