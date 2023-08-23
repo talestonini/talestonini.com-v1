@@ -5,16 +5,17 @@
  * Do not modify it directly, as compilation will ovewrite your modifications.
  *
  **************************************************************************************************/
-package com.talestonini.pages.sourcegen
+package com.talestonini.pages.sourcegen.posts
 
 import com.talestonini.CodeSnippets
 import scala.xml._
 
-object ${class.name} {
+object FunProgCapstone {
 
-  def apply(): Elem =
+  def postContent(): Elem =
     <div>
-      ${cursor.currentDocument.content}
+      <p>It&#39;s very easy to make some words <strong>bold</strong> and other words <em>italic</em> with Markdown. You can even
+      <a href="http://google.com">link to Google!</a></p>
     </div>
 
 }
