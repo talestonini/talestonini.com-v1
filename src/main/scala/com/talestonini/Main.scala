@@ -9,13 +9,14 @@ import org.scalajs.dom
 import com.talestonini.components.{Logo, Menu, Footer}
 
 @main
-def main(): Unit =
+def TalesToniniDotCom(): Unit =
+  // bootstraps Laminar by installing a Laminar Element in an existing DOM element
   renderOnDomContentLoaded(
     dom.document.getElementById("app"),
-    App.appElement()
+    Main.appElement()
   )
 
-object App:
+object Main:
   val model = new Model
   import model.*
 
@@ -28,4 +29,4 @@ object App:
       div(className("footer w3-container w3-padding-16 w3-center w3-hide-large w3-hide-medium"), Footer())
     )
   end appElement
-end App
+end Main
