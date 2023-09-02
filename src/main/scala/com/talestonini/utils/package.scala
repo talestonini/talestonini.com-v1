@@ -1,9 +1,9 @@
 package com.talestonini
 
-import java.time._
+import com.raquo.airstream.state.Var
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatter.{ofPattern => pattern}
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 
@@ -13,19 +13,20 @@ package object utils {
 
   private var lengthyOperationsInPlace: Set[String] = Set.empty
 
-  // def displayLoading(isLoading: Var[Boolean], forOperation: String): Unit = {
-  //   lengthyOperationsInPlace = lengthyOperationsInPlace + forOperation
-  //   isLoading.value = true
-  // }
-  //
-  // def hideLoading(isLoading: Var[Boolean], forOperation: String): Unit = {
-  //   lengthyOperationsInPlace = lengthyOperationsInPlace - forOperation
-  //   if (lengthyOperationsInPlace.isEmpty) isLoading.value = false
-  // }
+  def displayLoading(isLoadingVar: Var[Boolean], forOperation: String): Unit = {
+    lengthyOperationsInPlace = lengthyOperationsInPlace + forOperation
+    isLoadingVar.update(_ => true)
+  }
+
+  def hideLoading(isLoadingVar: Var[Boolean], forOperation: String): Unit = {
+    lengthyOperationsInPlace = lengthyOperationsInPlace - forOperation
+    if (lengthyOperationsInPlace.isEmpty)
+      isLoadingVar.update(_ => false)
+  }
 
   object javascript {
 
-    def display(flag: Boolean): String =
+    def jsDisplay(flag: Boolean): String =
       if (flag) "block" else "none"
 
   }

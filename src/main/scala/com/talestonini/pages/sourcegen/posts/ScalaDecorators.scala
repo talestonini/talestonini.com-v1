@@ -8,9 +8,10 @@
 package com.talestonini.pages.sourcegen.posts
 
 import com.talestonini.CodeSnippets
-import scala.xml._
+import com.talestonini.pages.BasePostPage
+import scala.xml.Elem
 
-object ScalaDecorators {
+object ScalaDecorators extends BasePostPage {
 
   def postContent(): Elem =
     <div>
