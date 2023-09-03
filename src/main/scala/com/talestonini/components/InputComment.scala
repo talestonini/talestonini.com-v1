@@ -5,7 +5,7 @@ import com.talestonini.utils.javascript.jsDisplay
 
 object InputComment {
 
-  // --- data ----------------------------------------------------------------------------------------------------------
+  // --- state ---------------------------------------------------------------------------------------------------------
 
   private val isInputting = Var(false)
 
@@ -82,9 +82,12 @@ object InputComment {
       onInput.mapToValue --> (newName => name.update(_ => newName))
     )
 
-  private def aButton(caption: String, handlerFn: () => Unit): Element = {
-    val buttonClasses = "w3-button w3-ripple w3-padding w3-black"
-    button(typ := "button", className := buttonClasses, onClick --> (_ => handlerFn()), caption)
-  }
+  private def aButton(caption: String, handlerFn: () => Unit): Element =
+    button(
+      typ       := "button",
+      className := "w3-button w3-ripple w3-padding w3-black",
+      onClick --> (_ => handlerFn()),
+      caption
+    )
 
 }

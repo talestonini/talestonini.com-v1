@@ -38,7 +38,12 @@ object Menu {
           paddingTop.px := 8,
           mobileMenu()
         ),
-        div(idAttr := "overlay", className := "w3-overlay", onClick --> toggleSidebar(), cursor := "pointer")
+        div(
+          idAttr    := "overlay",
+          className := "w3-overlay",
+          onClick --> toggleSidebar(),
+          cursor := "pointer"
+        )
       )
 
     if (!isMobile) menuElems else mobileMenuElems
@@ -46,7 +51,12 @@ object Menu {
 
   private def menu() = {
     val classes = "w3-button w3-hover-none w3-border-white w3-bottombar w3-hover-border-black w3-hide-small menu-item"
-    for (mi <- menuItems) yield a(href := mi.hash, className := classes, mi.label)
+    for (mi <- menuItems)
+      yield a(
+        href      := mi.hash,
+        className := classes,
+        mi.label
+      )
   }
 
   private def mobileMenu() = {
