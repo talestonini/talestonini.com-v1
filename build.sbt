@@ -9,6 +9,7 @@ lazy val ttDotCom = project
   .enablePlugins(BuildInfoPlugin, LaikaPlugin)
   .settings(
     scalaVersion := "3.3.0",
+    version      := "1.0.0",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -59,9 +60,9 @@ lazy val ttDotCom = project
       "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0",
 
       // Testing framework
-      "org.scalameta" %%% "munit"               % "1.0.0-M8" % Test,
+      "org.scalameta" %%% "munit"               % "1.0.0-M8"    % Test,
       "org.scalatest" %%% "scalatest"           % "3.3.0-SNAP4" % Test,
-      "org.typelevel" %%% "munit-cats-effect-3" % "1.0.7"    % Test
+      "org.typelevel" %%% "munit-cats-effect-3" % "1.0.7"       % Test
     )
   )
 

@@ -9,14 +9,21 @@ object Footer {
 
   def apply(): Element =
     div(
-      div(className("w3-xlarge"),
-        a(href("https://au.linkedin.com/in/talestonini"), className("footer-icon"), target("_blank"),
-          i(className("fa fa-linkedin w3-hover-opacity"))),
-        a(href("https://github.com/talestonini"), className("footer-icon"), target("_blank"),
-          i(className("fa fa-github w3-hover-opacity"))),
-        a(href("mailto:talestonini@gmail.com"), className("footer-icon"), target("_blank"),
-          i(className("fa fa-envelope w3-hover-opacity")))),
-      div(className("w3-small"), p(footerText()))
+      div(
+        className := "w3-xlarge",
+        iconAnchor("https://au.linkedin.com/in/talestonini", "fa-linkedin"),
+        iconAnchor("https://github.com/talestonini", "fa-github"),
+        iconAnchor("mailto:talestonini@gmail.com", "fa-envelope")
+      ),
+      div(className := "w3-small", p(footerText()))
+    )
+
+  private def iconAnchor(iconHref: String, iconClass: String): Element =
+    a(
+      href      := iconHref,
+      className := "footer-icon",
+      target    := "_blank",
+      i(className := s"fa $iconClass w3-hover-opacity")
     )
 
   private def footerText(): String =
