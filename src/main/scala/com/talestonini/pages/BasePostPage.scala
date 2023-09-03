@@ -42,8 +42,7 @@ trait BasePostPage {
       hr(),
       div(className("post-comments"),
         div(className("header w3-bold"), "Comments (", child <-- comments.map(cs => cs.length.toString), ")"),
-        // {commentInput()}
-        children <-- renderComments())
+        commentInput(), children <-- renderComments())
     )
   }
 
@@ -62,64 +61,62 @@ trait BasePostPage {
       div(i(publishDate), i(className("first-published"), s"(first $firstPublishDate)"))
   }
 
-  // // widget for inputting a new commment
-  // private val isInputtingComment = Var(false)
-  // @html private def commentInput(): Binding[Node] = {
-  //   val initComment = "What do you think?"
-  //   val bComment    = Var(initComment)
-  //   val initName    = "Name"
-  //   val bName       = Var(initName)
-  //
-  //   val commentFocusHandler = { e: Event =>
-  //     bComment.value = ""
-  //     isInputtingComment.value = true
-  //   }
-  //
-  //   val nameFocusHandler = { e: Event =>
-  //     bName.value = ""
-  //   }
-  //
-  //   val bTextArea: NodeBinding[HTMLTextAreaElement] =
-  //     <textarea class="w3-input w3-border" placeholder={initComment} rows="1" value={bComment.bind}
-  //       onclick="this.rows = '5'" onfocus={commentFocusHandler} />
-  //
-  //   val bInput: NodeBinding[HTMLInputElement] =
-  //     <input class="w3-input w3-border" type="text" placeholder={initName} value={bName.bind}
-  //       onfocus={nameFocusHandler} />
-  //
-  //   def cleanCommentInputs() = {
-  //     bComment.value = initComment
-  //     bName.value = initName
-  //     isInputtingComment.value = false
-  //     bTextArea.value.rows = 1
-  //   }
-  //
-  //   val commentButtonHandler = { e: Event =>
-  //     if (bTextArea.value.value.nonEmpty) {
-  //       persistComment(bInput.value.value, bTextArea.value.value)
-  //       cleanCommentInputs()
-  //     }
-  //   }
-  //
-  //   val cancelButtonHandler = { e: Event => cleanCommentInputs() }
-  //
-  //   val buttonClasses = "w3-button w3-ripple w3-padding w3-black"
-  //   val commentInputControls: Binding[Node] =
-  //     <div class="w3-panel w3-light-grey w3-leftbar w3-padding-16">
-  //       {bTextArea.bind}
-  //       <div class="w3-padding-8" style={s"display: ${display(isInputtingComment.bind)}"}>
-  //         {bInput.bind}
-  //       </div>
-  //       <div class="w3-right" style={s"display: ${display(isInputtingComment.bind)}"}>
-  //         <div class="w3-bar">
-  //           <button type="button" class={buttonClasses} onclick={commentButtonHandler}>Comment</button>
-  //           <button type="button" class={buttonClasses} onclick={cancelButtonHandler}>Cancel</button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //
-  //   commentInputControls
-  // }
+  // widget for inputting a new commment
+  private val isInputtingCommentVar = Var(false)
+  private val isInputtingComment    = isInputtingCommentVar.signal
+  private def commentInput(): Element = {
+    val initComment = "What do you think?"
+    val commentVar  = Var(initComment)
+    val comment     = commentVar.signal
+    val rowCount    = Var(1)
+    val initName    = "Name"
+    val nameVar     = Var(initName)
+    val name        = nameVar.signal
+
+    def commentFocusHandler() = {
+      commentVar.update(_ => "")
+      isInputtingCommentVar.update(_ => true)
+    }
+
+    def nameFocusHandler() = {
+      nameVar.update(_ => "")
+    }
+
+    val textAreaControl: Element =
+      textArea(className("w3-input w3-border"), placeholder(initComment), rows <-- rowCount, value <-- comment,
+        onClick --> (_ => rowCount.update(_ => 5)), onFocus --> (_ => commentFocusHandler()),
+        onInput.mapToValue --> (newComment => commentVar.update(_ => newComment)))
+
+    val inputControl: Element =
+      input(className("w3-input w3-border"), typ("text"), placeholder(initName), value <-- name,
+        onFocus --> (_ => nameFocusHandler()), onInput.mapToValue --> (newName => nameVar.update(_ => newName)))
+
+    def clearCommentInputs() = {
+      commentVar.update(_ => initComment)
+      nameVar.update(_ => initName)
+      isInputtingCommentVar.update(_ => false)
+      rowCount.update(_ => 1)
+    }
+
+    def commentButtonHandler() = {
+      if (comment.now().nonEmpty) {
+        persistComment(name.now(), comment.now())
+        clearCommentInputs()
+      }
+    }
+
+    val buttonClasses = "w3-button w3-ripple w3-padding w3-black"
+    val commentInputControls: Element =
+      div(className("w3-panel w3-light-grey w3-leftbar w3-padding-16"), textAreaControl,
+        div(className("w3-padding-8"), styleAttr <-- isInputtingComment.map(b => s"display: ${jsDisplay(b)}"),
+          inputControl),
+        div(className("w3-right"), styleAttr <-- isInputtingComment.map(b => s"display: ${jsDisplay(b)}"),
+          div(className("w3-bar"),
+            button(typ("button"), className(buttonClasses), onClick --> (_ => commentButtonHandler()), "Comment"),
+            button(typ("button"), className(buttonClasses), onClick --> (_ => clearCommentInputs()), "Cancel"))))
+
+    commentInputControls
+  }
 
   private def renderComments(): Signal[Seq[Element]] =
     comments.map(cs => for (c <- cs) yield renderAComment(c.fields))
@@ -158,37 +155,33 @@ trait BasePostPage {
 
   // the binding post document backing this post page
   private val postDocVar: Var[Doc[Post]] = Var(Doc("", Post(None, None, None, None), "", ""))
-  private val postDoc: Signal[Doc[Post]] = postDocVar.signal
+  private val postDoc                    = postDocVar.signal
 
   // the comments on this page
   private val commentsVar: Var[Docs[Comment]] = Var(Seq.empty)
   private val comments: Signal[Docs[Comment]] = commentsVar.signal
 
-  // // persist new comment into db
-  // private def persistComment(name: String, comment: String): Unit = {
-  //   val dbUser = com.talestonini.db.model.User(
-  //     name = Option(name),
-  //     email = Option("---"), // there is no auth anymore
-  //     uid = Option("---")    // there is no auth anymore
-  //   )
-  //   val c = Comment(
-  //     author = Option(dbUser),
-  //     date = Option(now()),
-  //     text = Option(comment)
-  //   )
-  //   CloudFirestore
-  //     .createComment(bPostDoc.value.name, c)
-  //     .unsafeToFuture()
-  //     .onComplete({
-  //       case doc: Success[Doc[Comment]] =>
-  //         bComments.value.prepend(BComment(
-  //             author = Var(doc.value.fields.author.get.name.get),
-  //             date = Var(datetime2Str(doc.value.fields.date)),
-  //             text = Var(doc.value.fields.text.get)
-  //           ))
-  //       case f: Failure[Doc[Comment]] =>
-  //         println("failed creating comment")
-  //     })(queue)
-  // }
+  // persist new comment into db
+  private def persistComment(name: String, comment: String): Unit = {
+    val dbUser = com.talestonini.db.model.User(
+      name = Option(name),
+      email = Option("---"), // there is no auth anymore
+      uid = Option("---")    // there is no auth anymore
+    )
+    val c = Comment(
+      author = Option(dbUser),
+      date = Option(now()),
+      text = Option(comment)
+    )
+    CloudFirestore
+      .createComment(postDoc.now().name, c)
+      .unsafeToFuture()
+      .onComplete({
+        case s: Success[Doc[Comment]] =>
+          commentsVar.update(cs => s.get +: cs)
+        case f: Failure[Doc[Comment]] =>
+          println("failed creating comment")
+      })(queue)
+  }
 
 }

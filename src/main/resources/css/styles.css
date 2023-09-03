@@ -70,7 +70,7 @@
 
 .hamburger {
   /* positions the hr below the hamburger */
-  padding: 0 0 23px 0;
+  padding-bottom: 23px;
   text-align: right;
 }
 
@@ -126,7 +126,7 @@ h3 {
 }
 
 .content .share-post .share-icon {
-  padding: 0 0 0 3px;
+  padding-left: 4px;
 }
 
 .content .post-date a:hover {
@@ -147,6 +147,7 @@ h3 {
 
 .content button {
   width: 120px;
+  margin-left: 4px;
 }
 
 .content hr {
