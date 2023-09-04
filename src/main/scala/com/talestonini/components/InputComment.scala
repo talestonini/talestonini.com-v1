@@ -1,6 +1,7 @@
 package com.talestonini.components
 
 import com.raquo.laminar.api.L.{*, given}
+import com.raquo.laminar.api.features.unitArrows
 import com.talestonini.utils.javascript.jsDisplay
 
 object InputComment {
@@ -67,7 +68,7 @@ object InputComment {
       placeholder := initComment,
       rows <-- rowCount,
       value <-- comment.signal,
-      onFocus --> (_ => onFocusHandler()),
+      onFocus --> onFocusHandler(),
       onInput.mapToValue --> (newComment => comment.update(_ => newComment))
     )
   }
@@ -86,7 +87,7 @@ object InputComment {
     button(
       typ       := "button",
       className := "w3-button w3-ripple w3-padding w3-black",
-      onClick --> (_ => handlerFn()),
+      onClick --> handlerFn(),
       caption
     )
 
