@@ -73,7 +73,8 @@ object Main {
         div(
           className := "content w3-padding-16",
           Spinner(),
-          DbLayerRefactor()
+          // DbLayerRefactor()
+          Posts()
         ),
         hr()
       ),
@@ -101,13 +102,8 @@ object Main {
           val resource = postDoc.fields.resource.get
 
           // to build the posts page, with the list of posts
-          // if (pageMap.keySet.contains(resource))
-          //   Posts.bPostLinks.value += Posts.BPostLink(
-          //     title = Var(p.fields.title.get),
-          //     firstPublishDate = Var(datetime2Str(p.fields.firstPublishDate)),
-          //     publishDate = Var(datetime2Str(p.fields.publishDate)),
-          //     resource = Var(resource)
-          //   )
+          if (pageMap.keySet.contains(resource))
+            Posts.posts.update(data => data :+ postDoc)
 
           // to build each post page
           postDocMap

@@ -8,10 +8,10 @@
 package com.talestonini.pages.sourcegen.posts
 
 import com.talestonini.CodeSnippets
-import com.talestonini.pages.BasePostPage
+import com.talestonini.pages.BasePost
 import scala.xml.Elem
 
-object UrbanForestChallenge extends BasePostPage {
+object UrbanForestChallenge extends BasePost {
 
   def postContent(): Elem =
     <div>
