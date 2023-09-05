@@ -2,13 +2,11 @@ package com.talestonini
 
 import cats.effect.unsafe.implicits.global
 import com.raquo.laminar.api.L.{*, given}
-import com.talestonini.components.{Logo, Menu, Footer}
+import com.talestonini.components.{Logo, Menu, Footer, Spinner}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
 import com.talestonini.pages.*
 import com.talestonini.pages.sourcegen.posts.*
-import com.talestonini.utils.*
-import com.talestonini.utils.javascript.*
 import scala.concurrent.Promise
 import scala.scalajs.concurrent.JSExecutionContext.queue
 import scala.util.{Failure, Success}
@@ -24,10 +22,6 @@ def TalesToniniDotCom(): Unit =
 object Main {
 
   // --- state ---------------------------------------------------------------------------------------------------------
-
-  // whether the app is loading some content or not;
-  // this is the state that backs displaying a loading animation of some kind on the UI
-  val isLoading: Var[Boolean] = Var(false)
 
   private val postDocMap: Map[String, Promise[Doc[Post]]] = Map(
     "dbLayerRefactor"      -> DbLayerRefactor.postDocPromise,
@@ -78,11 +72,7 @@ object Main {
         className := "w3-content",
         div(
           className := "content w3-padding-16",
-          div(
-            className := "w3-center",
-            styleAttr <-- isLoading.signal.map(b => s"display: ${jsDisplay(b)}"),
-            p(i(className := "w3-xxxlarge fa fa-spinner w3-spin"))
-          ),
+          Spinner(),
           DbLayerRefactor()
         ),
         hr()
@@ -101,7 +91,7 @@ object Main {
 
   // retrieve posts from db at application start
   private val retrievingPosts = "retrievingPosts"
-  displayLoading(isLoading, retrievingPosts)
+  Spinner.start(retrievingPosts)
   CloudFirestore
     .getPosts()
     .unsafeToFuture()
@@ -126,10 +116,10 @@ object Main {
               throw new Exception(s"missing entry in postDocMap for $resource")
             ) success postDoc // fulfills the post promise
         }
-        hideLoading(isLoading, retrievingPosts)
+        Spinner.stop(retrievingPosts)
       case f: Failure[Docs[Post]] =>
         println(s"failed getting posts: ${f.exception.getMessage()}")
-        hideLoading(isLoading, retrievingPosts)
+        Spinner.stop(retrievingPosts)
     })(queue)
 
 }

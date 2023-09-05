@@ -11,25 +11,8 @@ package object utils {
 
   // --- UI ------------------------------------------------------------------------------------------------------------
 
-  private var lengthyOperationsInPlace: Set[String] = Set.empty
-
-  def displayLoading(isLoadingVar: Var[Boolean], forOperation: String): Unit = {
-    lengthyOperationsInPlace = lengthyOperationsInPlace + forOperation
-    isLoadingVar.update(_ => true)
-  }
-
-  def hideLoading(isLoadingVar: Var[Boolean], forOperation: String): Unit = {
-    lengthyOperationsInPlace = lengthyOperationsInPlace - forOperation
-    if (lengthyOperationsInPlace.isEmpty)
-      isLoadingVar.update(_ => false)
-  }
-
-  object javascript {
-
-    def jsDisplay(flag: Boolean): String =
-      if (flag) "block" else "none"
-
-  }
+  def jsDisplay(flag: Boolean): String =
+    if (flag) "block" else "none"
 
   // --- general -------------------------------------------------------------------------------------------------------
 

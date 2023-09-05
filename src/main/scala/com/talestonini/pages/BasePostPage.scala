@@ -2,10 +2,9 @@ package com.talestonini.pages
 
 import cats.effect.unsafe.implicits.global
 import com.raquo.laminar.api.L.{*, given}
-import com.talestonini.components.{CommentList, InputComment}
+import com.talestonini.components.{InputComment, Spinner}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
-import com.talestonini.Main.isLoading
 import com.talestonini.utils.*
 import scala.concurrent.Promise
 import scala.scalajs.concurrent.JSExecutionContext.queue
@@ -39,11 +38,11 @@ trait BasePostPage {
         className := "post-date w3-padding-16 w3-display-container",
         div(
           className := "w3-display-left",
-          child <-- postDoc.signal.map(pd => renderPostDate(pd.fields))
+          child <-- postDoc.signal.map(pd => postDate(pd.fields))
         ),
         div(
           className := "share-post w3-display-right",
-          child <-- postDoc.signal.map(pd => div(shareOnLinkedIn(pd), copyLink(pd)))
+          child <-- postDoc.signal.map(pd => div(linkedInShareAnchor(pd), copyLinkShareAnchor(pd)))
         )
       ),
       div(
@@ -64,27 +63,12 @@ trait BasePostPage {
           ")"
         ),
         InputComment(persistComment),
-        children <-- comments.signal.map(cs => CommentList(cs))
+        children <-- comments.signal.map(cs => commentList(cs))
       )
     )
   }
 
-  private def shareOnLinkedIn(pd: Doc[Post]) =
-    renderShareAnchor(
-      "fa-linkedin",
-      lin + tt + pd.fields.resource.getOrElse(""),
-      "Share on LinkedIn"
-    )
-
-  private def copyLink(pd: Doc[Post]) =
-    renderShareAnchor(
-      "fa-link",
-      s"javascript:copyToClipboard('${tt + pd.fields.resource.getOrElse("")}')",
-      "Copy link",
-      "_self"
-    )
-
-  private def renderShareAnchor(anchorIcon: String, hRef: String, tooltipText: String,
+  private def shareAnchor(anchorIcon: String, hRef: String, tooltipText: String,
     anchorTarget: String = "_blank"): Element =
     a(
       href      := hRef,
@@ -94,7 +78,22 @@ trait BasePostPage {
       span(className := "tooltip w3-text w3-tag w3-small", tooltipText)
     )
 
-  private def renderPostDate(p: Post): Element = {
+  private def linkedInShareAnchor(pd: Doc[Post]) =
+    shareAnchor(
+      "fa-linkedin",
+      lin + tt + pd.fields.resource.getOrElse(""),
+      "Share on LinkedIn"
+    )
+
+  private def copyLinkShareAnchor(pd: Doc[Post]) =
+    shareAnchor(
+      "fa-link",
+      s"javascript:copyToClipboard('${tt + pd.fields.resource.getOrElse("")}')",
+      "Copy link",
+      "_self"
+    )
+
+  private def postDate(p: Post): Element = {
     val firstPublishDate = p.firstPublishDate.map(fpd => datetime2Str(fpd, SimpleDateFormatter)).getOrElse("")
     val publishDate      = p.publishDate.map(pd => datetime2Str(pd, SimpleDateFormatter)).getOrElse("")
 
@@ -107,6 +106,21 @@ trait BasePostPage {
       )
   }
 
+  private def commentList(comments: Docs[Comment]): Seq[Element] =
+    for (c <- comments)
+      yield aComment(c.fields)
+
+  private def aComment(c: Comment): Element =
+    div(
+      className := "w3-panel w3-light-grey w3-leftbar",
+      p(i(c.text)),
+      p(
+        c.author.get.name.get,
+        span(styleAttr := "padding: 0 15px 0 15px", "|"),
+        i(datetime2Str(c.date))
+      )
+    )
+
   // --- public --------------------------------------------------------------------------------------------------------
 
   // retrieve the comments from db
@@ -117,17 +131,17 @@ trait BasePostPage {
       case s: Success[Doc[Post]] =>
         postDoc.update(_ => s.get)
         val retrievingComments = s"retrievingComments_${postDoc.signal.map(postDoc => postDoc.fields.resource)}"
-        displayLoading(isLoading, retrievingComments)
+        Spinner.start(retrievingComments)
         CloudFirestore
           .getComments(s.get.name)
           .unsafeToFuture()
           .onComplete({
             case s: Success[Docs[Comment]] =>
               s.get.foreach(commentDoc => comments.update(list => list :+ commentDoc))
-              hideLoading(isLoading, retrievingComments)
+              Spinner.stop(retrievingComments)
             case f: Failure[Docs[Comment]] =>
               println(s"failed getting comments: ${f.exception.getMessage()}")
-              hideLoading(isLoading, retrievingComments)
+              Spinner.stop(retrievingComments)
           })(queue)
       case f: Failure[Doc[Post]] =>
         println(s"failed getting post document name: ${f.exception.getMessage()}")
