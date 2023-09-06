@@ -10,7 +10,7 @@ package com.talestonini.pages.sourcegen
 import com.talestonini.CodeSnippets
 import scala.xml._
 
-object AboutPage {
+object About {
 
   def apply(): Elem =
     <div>

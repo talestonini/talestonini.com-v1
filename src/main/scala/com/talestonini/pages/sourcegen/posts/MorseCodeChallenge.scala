@@ -8,10 +8,10 @@
 package com.talestonini.pages.sourcegen.posts
 
 import com.talestonini.CodeSnippets
-import com.talestonini.pages.BasePostPage
+import com.talestonini.pages.BasePost
 import scala.xml.Elem
 
-object MorseCodeChallengePage extends BasePostPage {
+object MorseCodeChallenge extends BasePost {
 
   def postContent(): Elem =
     <div>
