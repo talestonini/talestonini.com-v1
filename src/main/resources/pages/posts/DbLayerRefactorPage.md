@@ -1,5 +1,5 @@
 {%
-  class.name = DbLayerRefactor
+  class.name = DbLayerRefactorPage
 %}
 <div class="aside">
   <img src="/img/refactoring.png" />

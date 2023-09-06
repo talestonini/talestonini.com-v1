@@ -1,5 +1,5 @@
 {%
-  class.name = ScalaDecorators
+  class.name = ScalaDecoratorsPage
 %}
 Decorator is a structural Design Pattern whose intent, according to Erich Gamma and others in their classic book
 **Design Patterns: Elements of Reusable Object-Oriented Software**, is:

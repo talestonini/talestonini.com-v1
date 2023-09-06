@@ -11,7 +11,7 @@ import scala.scalajs.concurrent.JSExecutionContext.queue
 import scala.util.{Failure, Success}
 import scala.xml.Elem
 
-trait BasePost {
+trait BasePostPage {
 
   private val lin = "https://www.linkedin.com/sharing/share-offsite/?mini=true&url="
   private val tt  = "https%3A%2F%2Ftalestonini.com%2F%23%2F"

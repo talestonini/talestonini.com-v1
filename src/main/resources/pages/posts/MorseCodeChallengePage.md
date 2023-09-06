@@ -1,5 +1,5 @@
 {%
-  class.name = MorseCodeChallenge
+  class.name = MorseCodeChallengePage
 %}
 This is the second code challenge I developed for [Eliiza](https://eliiza.com.au) as we continue to grow our *data
 engineering* practice.

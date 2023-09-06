@@ -1,5 +1,5 @@
 {%
-  class.name = About
+  class.name = AboutPage
 %}
 #About me
 

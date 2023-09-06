@@ -1,5 +1,5 @@
 {%
-  class.name = UrbanForestChallenge
+  class.name = UrbanForestChallengePage
 %}
 When I started at [Eliiza](https://eliiza.com.au) in September 2018, I was the first *data engineer* of the team,
 among a few machine learning engineers, data scientists, our CTO and CEO.  We were only 7 people in total then and

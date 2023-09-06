@@ -24,26 +24,26 @@ object Main {
   // --- state ---------------------------------------------------------------------------------------------------------
 
   private val postDocMap: Map[String, Promise[Doc[Post]]] = Map(
-    "dbLayerRefactor"      -> DbLayerRefactor.postDocPromise,
-    "dockerVim"            -> DockerVim.postDocPromise,
-    "funProgCapstone"      -> FunProgCapstone.postDocPromise,
-    "morseCodeChallenge"   -> MorseCodeChallenge.postDocPromise,
-    "scalaDecorators"      -> ScalaDecorators.postDocPromise,
-    "urbanForestChallenge" -> UrbanForestChallenge.postDocPromise
+    "dbLayerRefactor"      -> DbLayerRefactorPage.postDocPromise,
+    "dockerVim"            -> DockerVimPage.postDocPromise,
+    "funProgCapstone"      -> FunProgCapstonePage.postDocPromise,
+    "morseCodeChallenge"   -> MorseCodeChallengePage.postDocPromise,
+    "scalaDecorators"      -> ScalaDecoratorsPage.postDocPromise,
+    "urbanForestChallenge" -> UrbanForestChallengePage.postDocPromise
   )
 
   private val pageMap: Map[String, Element] = Map(
-    "" -> DbLayerRefactor(),
-    // "about" -> About(),
-    // "posts" -> Posts(),
-    "tags" -> Tags(),
+    "" -> DbLayerRefactorPage(),
+    // "about" -> AboutPage(),
+    // "posts" -> PostsPage(),
+    "tags" -> TagsPage(),
     // posts
-    "funProgCapstone"      -> FunProgCapstone(),
-    "dbLayerRefactor"      -> DbLayerRefactor(),
-    "dockerVim"            -> DockerVim(),
-    "morseCodeChallenge"   -> MorseCodeChallenge(),
-    "scalaDecorators"      -> ScalaDecorators(),
-    "urbanForestChallenge" -> UrbanForestChallenge()
+    "funProgCapstone"      -> FunProgCapstonePage(),
+    "dbLayerRefactor"      -> DbLayerRefactorPage(),
+    "dockerVim"            -> DockerVimPage(),
+    "morseCodeChallenge"   -> MorseCodeChallengePage(),
+    "scalaDecorators"      -> ScalaDecoratorsPage(),
+    "urbanForestChallenge" -> UrbanForestChallengePage()
   )
 
   // --- UI ------------------------------------------------------------------------------------------------------------
@@ -73,8 +73,8 @@ object Main {
         div(
           className := "content w3-padding-16",
           Spinner(),
-          // DbLayerRefactor()
-          Posts()
+          // DbLayerRefactorPage()
+          PostsPage()
         ),
         hr()
       ),
@@ -103,7 +103,7 @@ object Main {
 
           // to build the posts page, with the list of posts
           if (pageMap.keySet.contains(resource))
-            Posts.posts.update(data => data :+ postDoc)
+            PostsPage.posts.update(data => data :+ postDoc)
 
           // to build each post page
           postDocMap

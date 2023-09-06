@@ -1,5 +1,5 @@
 {%
-  class.name = DockerVim
+  class.name = DockerVimPage
 %}
 In this post I would like to share my Scala and Java programming editor:
 [dockervim](https://github.com/talestonini/dockervim).  It's a dockerised [Neovim](https://neovim.io/)

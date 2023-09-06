@@ -4,7 +4,7 @@ import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.db.model.*
 import com.talestonini.utils.datetime2Str
 
-object Posts {
+object PostsPage {
 
   val posts: Var[Docs[Post]] = Var(Seq.empty)
 
