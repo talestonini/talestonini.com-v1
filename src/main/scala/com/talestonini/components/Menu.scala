@@ -10,9 +10,9 @@ object Menu {
   private case class MenuItem(label: String, hash: String)
 
   private val menuItems: Seq[MenuItem] = Seq(
-    MenuItem("Posts", "#/posts"),
-    MenuItem("Tags", "#/tags"),
-    MenuItem("About", "#/about")
+    MenuItem("Posts", "posts"),
+    MenuItem("Tags", "tags"),
+    MenuItem("About", "about")
   )
 
   def apply(isMobile: Boolean = false) = {

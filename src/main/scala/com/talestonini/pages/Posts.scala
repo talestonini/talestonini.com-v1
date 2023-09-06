@@ -24,14 +24,14 @@ object Posts {
           div(
             className := "post-date",
             a(
-              href := s"#/${fields.resource}",
+              href := fields.resource.get,
               i(datetime2Str(fields.publishDate)),
               firstPublishDate(fields)
             )
           ),
           a(
             className := "w3-bold",
-            href      := s"#/${fields.resource}",
+            href      := fields.resource.get,
             fields.title
           )
         )
