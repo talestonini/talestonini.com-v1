@@ -7,12 +7,19 @@
  **************************************************************************************************/
 package com.talestonini.pages.sourcegen
 
+import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.CodeSnippets
 import scala.xml._
 
 object About {
 
-  def apply(): Elem =
+  def apply(): Element = {
+    val element = div()
+    element.ref.innerHTML = elem().toString
+    element
+  }
+
+  def elem(): Elem =
     <div>
       <h1 id="about-me" class="title">About me</h1>
       <div class="aside">

@@ -7,12 +7,19 @@
  **************************************************************************************************/
 package com.talestonini.pages.sourcegen
 
+import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.CodeSnippets
 import scala.xml._
 
 object ${class.name} {
 
-  def apply(): Elem =
+  def apply(): Element = {
+    val element = div()
+    element.ref.innerHTML = elem().toString
+    element
+  }
+
+  def elem(): Elem =
     <div>
       ${cursor.currentDocument.content}
     </div>

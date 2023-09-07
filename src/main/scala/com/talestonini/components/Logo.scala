@@ -1,18 +1,18 @@
 package com.talestonini.components
 
 import com.raquo.laminar.api.L.{*, given}
+import com.talestonini.HomePage
+import com.talestonini.App.navigateTo
 import com.raquo.laminar.codecs.StringAsIsCodec
 
 object Logo {
-
-  private val pronunciationUrl = "https://www.oxfordlearnersdictionaries.com/about/english/pronunciation_english"
 
   def apply(): Element =
     div(
       className := "w3-col w3-left logo",
       styleAttr := "width: 245px",
       a(
-        href := "#/",
+        navigateTo(HomePage),
         table(
           tr(
             td(className := "symbol", "❯"),
@@ -39,7 +39,11 @@ object Logo {
   private def pronunciationTd(p: String): Element =
     td(
       className := "pronunciation",
-      a(href := pronunciationUrl, target := "_blank", p)
+      a(
+        href   := "https://www.oxfordlearnersdictionaries.com/about/english/pronunciation_english",
+        target := "_blank",
+        p
+      )
     )
 
 }

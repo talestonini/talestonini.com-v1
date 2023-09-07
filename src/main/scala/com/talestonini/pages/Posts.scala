@@ -2,6 +2,7 @@ package com.talestonini.pages
 
 import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.db.model.*
+import com.talestonini.App.navigateToPostByResource
 import com.talestonini.utils.datetime2Str
 
 object Posts {
@@ -24,14 +25,14 @@ object Posts {
           div(
             className := "post-date",
             a(
-              href := fields.resource.get,
+              navigateToPostByResource(fields.resource.get),
               i(datetime2Str(fields.publishDate)),
               firstPublishDate(fields)
             )
           ),
           a(
             className := "w3-bold",
-            href      := fields.resource.get,
+            navigateToPostByResource(fields.resource.get),
             fields.title
           )
         )

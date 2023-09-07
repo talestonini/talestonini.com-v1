@@ -2,17 +2,19 @@ package com.talestonini.components
 
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.api.features.unitArrows
+import com.talestonini.*
+import com.talestonini.App.navigateTo
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 
 object Menu {
 
-  private case class MenuItem(label: String, hash: String)
+  private case class MenuItem(label: String, page: Page)
 
   private val menuItems: Seq[MenuItem] = Seq(
-    MenuItem("Posts", "posts"),
-    MenuItem("Tags", "tags"),
-    MenuItem("About", "about")
+    MenuItem("Posts", PostsPage),
+    MenuItem("Tags", TagsPage),
+    MenuItem("About", AboutPage)
   )
 
   def apply(isMobile: Boolean = false) = {
@@ -53,7 +55,7 @@ object Menu {
     val classes = "w3-button w3-hover-none w3-border-white w3-bottombar w3-hover-border-black w3-hide-small menu-item"
     for (mi <- menuItems)
       yield a(
-        href      := mi.hash,
+        navigateTo(mi.page),
         className := classes,
         mi.label
       )
@@ -74,7 +76,7 @@ object Menu {
     val items =
       for ((mi, i) <- menuItems.zipWithIndex)
         yield a(
-          href      := mi.hash,
+          navigateTo(mi.page),
           className := s"$commonClasses w3-xlarge ${w3Color(i)}",
           onClick --> toggleSidebar(),
           mi.label
