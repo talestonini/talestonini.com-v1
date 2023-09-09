@@ -2,8 +2,7 @@ package com.talestonini.components
 
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.api.features.unitArrows
-import com.talestonini.*
-import com.talestonini.App.navigateTo
+import com.talestonini.App.*
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 

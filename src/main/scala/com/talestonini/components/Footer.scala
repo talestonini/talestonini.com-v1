@@ -1,7 +1,6 @@
 package com.talestonini.components
 
 import com.raquo.laminar.api.L.{*, given}
-import com.raquo.laminar.codecs.StringAsIsCodec
 import com.talestonini.BuildInfo
 import java.time.Year
 

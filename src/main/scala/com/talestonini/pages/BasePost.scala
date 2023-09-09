@@ -18,6 +18,10 @@ trait BasePost {
 
   // --- state ---------------------------------------------------------------------------------------------------------
 
+  // promise for the post document backing this page
+  // (public, because the App fulfills it when it retrieves posts data from the database)
+  val postDocPromise = Promise[Doc[Post]]()
+
   // the post document backing this post page
   private val postDoc: Var[Doc[Post]] = Var(Doc("", Post(None, None, None, None), "", ""))
 
@@ -30,6 +34,8 @@ trait BasePost {
   def postContent(): Elem
 
   def apply(): Element = {
+    setupPostDocPromise()
+
     val content = div()
     content.ref.innerHTML = postContent().toString
 
@@ -62,7 +68,7 @@ trait BasePost {
           child <-- comments.signal.map(cs => cs.length.toString),
           ")"
         ),
-        InputComment(persistComment),
+        InputComment(persistCommentIntoDb),
         children <-- comments.signal.map(cs => commentList(cs))
       )
     )
@@ -121,36 +127,33 @@ trait BasePost {
       )
     )
 
-  // --- public --------------------------------------------------------------------------------------------------------
-
-  // retrieve the comments from db
-  // when the promise for the post document which this page's comments belong to fulfills
-  val postDocPromise = Promise[Doc[Post]]() // promise for the post document backing this page
-  postDocPromise.future
-    .onComplete({
-      case s: Success[Doc[Post]] =>
-        postDoc.update(_ => s.get)
-        val retrievingComments = s"retrievingComments_${postDoc.signal.map(postDoc => postDoc.fields.resource)}"
-        Spinner.start(retrievingComments)
-        CloudFirestore
-          .getComments(s.get.name)
-          .unsafeToFuture()
-          .onComplete({
-            case s: Success[Docs[Comment]] =>
-              s.get.foreach(commentDoc => comments.update(list => list :+ commentDoc))
-              Spinner.stop(retrievingComments)
-            case f: Failure[Docs[Comment]] =>
-              println(s"failed getting comments: ${f.exception.getMessage()}")
-              Spinner.stop(retrievingComments)
-          })(queue)
-      case f: Failure[Doc[Post]] =>
-        println(s"failed getting post document name: ${f.exception.getMessage()}")
-    })(queue)
-
   // --- private -------------------------------------------------------------------------------------------------------
 
-  // persist new comment into db
-  private def persistComment(name: String, comment: String): Unit = {
+  // retrieves comments from the database
+  // when the promise for the post document which this page's comments belong to fulfills
+  private def setupPostDocPromise(): Unit =
+    postDocPromise.future
+      .onComplete({
+        case s: Success[Doc[Post]] =>
+          postDoc.update(_ => s.get)
+          val retrievingComments = s"retrievingComments_${postDoc.signal.map(postDoc => postDoc.fields.resource)}"
+          Spinner.start(retrievingComments)
+          CloudFirestore
+            .getComments(s.get.name)
+            .unsafeToFuture()
+            .onComplete({
+              case s: Success[Docs[Comment]] =>
+                s.get.foreach(commentDoc => comments.update(list => list :+ commentDoc))
+                Spinner.stop(retrievingComments)
+              case f: Failure[Docs[Comment]] =>
+                println(s"failed getting comments: ${f.exception.getMessage()}")
+                Spinner.stop(retrievingComments)
+            })(queue)
+        case f: Failure[Doc[Post]] =>
+          println(s"failed getting post document name: ${f.exception.getMessage()}")
+      })(queue)
+
+  private def persistCommentIntoDb(name: String, comment: String): Unit = {
     val dbUser = com.talestonini.db.model.User(
       name = Option(name),
       email = Option("---"), // there is no auth anymore

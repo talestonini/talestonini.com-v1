@@ -17,7 +17,7 @@ object InputComment {
   private val initName = "Name"
   private val name     = Var(initName)
 
-  // --- public --------------------------------------------------------------------------------------------------------
+  // --- UI ------------------------------------------------------------------------------------------------------------
 
   def apply(persistCommentFn: (author: String, comment: String) => Unit): Element = {
     def commentButtonHandler() = {

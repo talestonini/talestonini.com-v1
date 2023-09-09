@@ -1,9 +1,7 @@
 package com.talestonini.components
 
 import com.raquo.laminar.api.L.{*, given}
-import com.talestonini.HomePage
-import com.talestonini.App.navigateTo
-import com.raquo.laminar.codecs.StringAsIsCodec
+import com.talestonini.App.*
 
 object Logo {
 
