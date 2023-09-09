@@ -127,18 +127,29 @@ object App {
     owner = L.unsafeWindowOwner                    // this router will live as long as the window
   )
 
+  private lazy val homeElement                 = DbLayerRefactor()
+  private lazy val postsElement                = Posts()
+  private lazy val tagsElement                 = Tags()
+  private lazy val aboutElement                = About()
+  private lazy val dbLayerRefactorElement      = DbLayerRefactor()
+  private lazy val scalaDecoratorsElement      = ScalaDecorators()
+  private lazy val dockerVimElement            = DockerVim()
+  private lazy val morseCodeChallengeElement   = MorseCodeChallenge()
+  private lazy val urbanForestChallengeElement = UrbanForestChallenge()
+  private lazy val funProgCapstoneElement      = FunProgCapstone()
+
   private def render(page: Page): Element = {
     page match {
-      case HomePage                 => DbLayerRefactor()
-      case PostsPage                => Posts()
-      case TagsPage                 => Tags()
-      case AboutPage                => About()
-      case DbLayerRefactorPage      => DbLayerRefactor()
-      case ScalaDecoratorsPage      => ScalaDecorators()
-      case DockerVimPage            => DockerVim()
-      case MorseCodeChallengePage   => MorseCodeChallenge()
-      case UrbanForestChallengePage => UrbanForestChallenge()
-      case FunProgCapstonePage      => FunProgCapstone()
+      case HomePage                 => dbLayerRefactorElement
+      case PostsPage                => postsElement
+      case TagsPage                 => tagsElement
+      case AboutPage                => aboutElement
+      case DbLayerRefactorPage      => dbLayerRefactorElement
+      case ScalaDecoratorsPage      => scalaDecoratorsElement
+      case DockerVimPage            => dockerVimElement
+      case MorseCodeChallengePage   => morseCodeChallengeElement
+      case UrbanForestChallengePage => urbanForestChallengeElement
+      case FunProgCapstonePage      => funProgCapstoneElement
     }
   }
 

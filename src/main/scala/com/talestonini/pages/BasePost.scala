@@ -21,6 +21,7 @@ trait BasePost {
   // promise for the post document backing this page
   // (public, because the App fulfills it when it retrieves posts data from the database)
   val postDocPromise = Promise[Doc[Post]]()
+  setupPostDocPromise() // must be setup from object creation, so that comments are retrieved asap from database
 
   // the post document backing this post page
   private val postDoc: Var[Doc[Post]] = Var(Doc("", Post(None, None, None, None), "", ""))
@@ -34,8 +35,6 @@ trait BasePost {
   def postContent(): Elem
 
   def apply(): Element = {
-    setupPostDocPromise()
-
     val content = div()
     content.ref.innerHTML = postContent().toString
 
