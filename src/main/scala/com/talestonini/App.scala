@@ -10,6 +10,7 @@ import com.talestonini.db.model.*
 import com.talestonini.pages.*
 import com.talestonini.pages.sourcegen.*
 import com.talestonini.pages.sourcegen.posts.*
+import com.talestonini.utils.{prismHighlightAll, sendGtagEvent}
 import org.scalajs.dom
 import scala.concurrent.Promise
 import scala.scalajs.concurrent.JSExecutionContext.queue
@@ -106,19 +107,28 @@ object App {
 
   // --- private -------------------------------------------------------------------------------------------------------
 
+  private case class PageEntry(path: String, element: Element)
+  private val pagesMap: Map[Page, PageEntry] = Map(
+    HomePage                 -> PageEntry("", DbLayerRefactor()),
+    PostsPage                -> PageEntry("posts", Posts()),
+    TagsPage                 -> PageEntry("tags", Tags()),
+    AboutPage                -> PageEntry("about", About()),
+    DbLayerRefactorPage      -> PageEntry("dbLayerRefactor", DbLayerRefactor()),
+    ScalaDecoratorsPage      -> PageEntry("scalaDecorators", ScalaDecorators()),
+    DockerVimPage            -> PageEntry("dockerVim", DockerVim()),
+    MorseCodeChallengePage   -> PageEntry("morseCodeChallenge", MorseCodeChallenge()),
+    UrbanForestChallengePage -> PageEntry("urbanForestChallenge", UrbanForestChallenge()),
+    FunProgCapstonePage      -> PageEntry("funProgCapstone", FunProgCapstone())
+  )
+
+  private def buildRoute(page: Page) =
+    if (page == HomePage)
+      Route.static(HomePage, root / endOfSegments, basePath = Route.fragmentBasePath)
+    else
+      Route.static(page, root / pagesMap.get(page).get.path / endOfSegments, basePath = Route.fragmentBasePath)
+
   private val router = new Router[Page](
-    routes = List(
-      Route.static(HomePage, root / endOfSegments),
-      Route.static(PostsPage, root / "posts" / endOfSegments),
-      Route.static(TagsPage, root / "tags" / endOfSegments),
-      Route.static(AboutPage, root / "about" / endOfSegments),
-      Route.static(DbLayerRefactorPage, root / "dbLayerRefactor" / endOfSegments),
-      Route.static(ScalaDecoratorsPage, root / "scalaDecorators" / endOfSegments),
-      Route.static(DockerVimPage, root / "dockerVim" / endOfSegments),
-      Route.static(MorseCodeChallengePage, root / "morseCodeChallenge" / endOfSegments),
-      Route.static(UrbanForestChallengePage, root / "urbanForestChallenge" / endOfSegments),
-      Route.static(FunProgCapstonePage, root / "funProgCapstone" / endOfSegments)
-    ),
+    routes = pagesMap.keySet.map(pe => buildRoute(pe)).toList,
     getPageTitle = _.toString,                 // mock page title (displayed in the browser tab next to favicon)
     serializePage = page => write(page),       // serialize page data for storage in History API log
     deserializePage = pageStr => read(pageStr) // deserialize the above
@@ -127,30 +137,11 @@ object App {
     owner = L.unsafeWindowOwner                    // this router will live as long as the window
   )
 
-  private lazy val homeElement                 = DbLayerRefactor()
-  private lazy val postsElement                = Posts()
-  private lazy val tagsElement                 = Tags()
-  private lazy val aboutElement                = About()
-  private lazy val dbLayerRefactorElement      = DbLayerRefactor()
-  private lazy val scalaDecoratorsElement      = ScalaDecorators()
-  private lazy val dockerVimElement            = DockerVim()
-  private lazy val morseCodeChallengeElement   = MorseCodeChallenge()
-  private lazy val urbanForestChallengeElement = UrbanForestChallenge()
-  private lazy val funProgCapstoneElement      = FunProgCapstone()
-
   private def render(page: Page): Element = {
-    page match {
-      case HomePage                 => dbLayerRefactorElement
-      case PostsPage                => postsElement
-      case TagsPage                 => tagsElement
-      case AboutPage                => aboutElement
-      case DbLayerRefactorPage      => dbLayerRefactorElement
-      case ScalaDecoratorsPage      => scalaDecoratorsElement
-      case DockerVimPage            => dockerVimElement
-      case MorseCodeChallengePage   => morseCodeChallengeElement
-      case UrbanForestChallengePage => urbanForestChallengeElement
-      case FunProgCapstonePage      => funProgCapstoneElement
-    }
+    val pageEntry = pagesMap.get(page).get
+    sendGtagEvent("page_view", pageEntry.path)
+    prismHighlightAll() // in lieu of '<body onhashchange=...' because Waypoint does not trigger the hashchange event
+    pageEntry.element
   }
 
   // maps post resource names to corresponding page and promise

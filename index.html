@@ -9,36 +9,22 @@
   <!--[> Google Analytics ============================================================================================ <]-->
 
   <!--[> Global site tag (gtag.js) - Google Analytics <]-->
-  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-7S73VXDDSG"></script>-->
-  <!--<script>-->
-    <!--window.dataLayer = window.dataLayer || [];-->
-    <!--function gtag(){dataLayer.push(arguments);}-->
-    <!--gtag('js', new Date());-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S73VXDDSG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    <!--gtag('config', 'G-7S73VXDDSG', {-->
-      <!--send_page_view: false-->
-    <!--});-->
-  <!--</script>-->
+    gtag('config', 'G-7S73VXDDSG', {
+      send_page_view: false
+    });
+  </script>
 
   <!--[> Firebase ==================================================================================================== <]-->
 
-  <!--[> update the version number as needed <]-->
-  <!--<script defer src="/__/firebase/9.23.0/firebase-app-compat.js"></script>-->
-  <!--[> include only the Firebase features as you need <]-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-auth-compat.js"></script><]-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-database-compat.js"></script><]-->
-  <!--<script defer src="/__/firebase/9.23.0/firebase-firestore-compat.js"></script>-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-functions-compat.js"></script><]-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-messaging-compat.js"></script><]-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-storage-compat.js"></script><]-->
-  <!--<script defer src="/__/firebase/9.23.0/firebase-analytics-compat.js"></script>-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-remote-config-compat.js"></script><]-->
-  <!--[><script defer src="/__/firebase/9.23.0/firebase-performance-compat.js"></script><]-->
-  <!---->
-    <!--initialize the SDK after all desired features are loaded, set useEmulator to false-->
-    <!--to avoid connecting the SDK to running emulators.-->
-  <!---->
-  <!--<script defer src="/__/firebase/init.js?useEmulator=true"></script>-->
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics-compat.js"></script>
+  <script src="/__/firebase/init.js"></script>
 
   <!--[> ============================================================================================================= <]-->
 
@@ -49,7 +35,7 @@
   <link rel="stylesheet" href="./css/font-awesome.min.css">
 
   <!-- RequireJS 2.3.6 -->
-  <!--<script src="./js/require.js"></script>-->
+  <script src="./js/require.js"></script>
 
   <!-- PrismJS -->
   <link rel="stylesheet" href="./css/prism-tt.css">
@@ -68,7 +54,7 @@
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 
-<body onhashchange="prismHighlightAll()">
+<body>
   <script src="./js/prism.js"></script>
   <script src="./js/prism-line-numbers.min.js"></script>
 

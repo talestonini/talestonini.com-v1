@@ -45,9 +45,7 @@ object Posts {
     else
       i(
         className := "first-published",
-        " (first ",
-        datetime2Str(fields.firstPublishDate),
-        ")"
+        s" (first ${datetime2Str(fields.firstPublishDate)})"
       )
 
 }

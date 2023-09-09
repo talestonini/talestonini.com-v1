@@ -107,7 +107,10 @@ trait BasePost {
     else
       div(
         i(publishDate),
-        i(className := "first-published", s"(first $firstPublishDate)")
+        i(
+          className := "first-published",
+          s" (first $firstPublishDate)"
+        )
       )
   }
 

@@ -14,6 +14,10 @@ package object utils {
   def jsDisplay(flag: Boolean): String =
     if (flag) "block" else "none"
 
+  @js.native
+  @JSGlobal("prismHighlightAll")
+  def prismHighlightAll(): Unit = js.native
+
   // --- general -------------------------------------------------------------------------------------------------------
 
   def randomAlphaNumericString(length: Int): String = {
