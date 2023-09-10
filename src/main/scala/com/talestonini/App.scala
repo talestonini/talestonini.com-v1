@@ -107,6 +107,7 @@ object App {
 
   // --- private -------------------------------------------------------------------------------------------------------
 
+  // TODO: lazily load page's contents (it avoids downloading all images at startup)
   private case class PageEntry(path: String, element: Element)
   private val pagesMap: Map[Page, PageEntry] = Map(
     HomePage                 -> PageEntry("", DbLayerRefactor()),
