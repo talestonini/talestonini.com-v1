@@ -7,10 +7,10 @@ import com.raquo.waypoint.*
 import com.talestonini.components.{Logo, Menu, Footer, Spinner}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
+import com.talestonini.{Firebase, Prism}
 import com.talestonini.pages.*
 import com.talestonini.pages.sourcegen.*
 import com.talestonini.pages.sourcegen.posts.*
-import com.talestonini.utils.{prismHighlightAll, sendGtagEvent}
 import org.scalajs.dom
 import scala.concurrent.Promise
 import scala.scalajs.concurrent.JSExecutionContext.queue
@@ -140,8 +140,8 @@ object App {
 
   private def render(page: Page): Element = {
     val pageEntry = pagesMap.get(page).get
-    sendGtagEvent("page_view", pageEntry.path)
-    prismHighlightAll() // in lieu of '<body onhashchange=...' because Waypoint does not trigger the hashchange event
+    Firebase.gaViewing(pageEntry.path)
+    Prism.prismHighlightAll() // in lieu of '<body onhashchange=...' as Waypoint does not trigger the hashchange event
     pageEntry.element
   }
 

@@ -1,7 +1,7 @@
 package com.talestonini.components
 
-import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.api.features.unitArrows
+import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.utils.jsDisplay
 
 object InputComment {

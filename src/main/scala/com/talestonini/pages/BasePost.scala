@@ -1,10 +1,12 @@
 package com.talestonini.pages
 
 import cats.effect.unsafe.implicits.global
+import com.raquo.laminar.api.features.unitArrows
 import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.components.{InputComment, Spinner}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
+import com.talestonini.Firebase
 import com.talestonini.utils.*
 import scala.concurrent.Promise
 import scala.scalajs.concurrent.JSExecutionContext.queue
@@ -80,7 +82,8 @@ trait BasePost {
       className := "w3-tooltip no-decoration share-icon",
       target    := anchorTarget,
       i(className    := s"fa $anchorIcon w3-hover-opacity"),
-      span(className := "tooltip w3-text w3-tag w3-small", tooltipText)
+      span(className := "tooltip w3-text w3-tag w3-small", tooltipText),
+      onClick --> Firebase.gaClickedSharing(postDoc.signal.now().fields.resource.getOrElse(""), tooltipText)
     )
 
   private def linkedInShareAnchor(pd: Doc[Post]) =
@@ -138,7 +141,7 @@ trait BasePost {
       .onComplete({
         case s: Success[Doc[Post]] =>
           postDoc.update(_ => s.get)
-          val retrievingComments = s"retrievingComments_${postDoc.signal.map(postDoc => postDoc.fields.resource)}"
+          val retrievingComments = s"retrievingComments_${postDoc.signal.now().fields.resource.getOrElse("")}"
           Spinner.start(retrievingComments)
           CloudFirestore
             .getComments(s.get.name)
@@ -156,6 +159,7 @@ trait BasePost {
       })(queue)
 
   private def persistCommentIntoDb(name: String, comment: String): Unit = {
+    Firebase.gaCommentedOn(postDoc.signal.now().fields.resource.getOrElse(""))
     val dbUser = com.talestonini.db.model.User(
       name = Option(name),
       email = Option("---"), // there is no auth anymore

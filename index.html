@@ -6,22 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TalesTonini.com</title>
 
-  <!-- Google Analytics ============================================================================================ -->
-
-  <!--[> Global site tag (gtag.js) - Google Analytics <]-->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7S73VXDDSG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-7S73VXDDSG', {
-      send_page_view: false
-    });
-  </script>
-
-  <!-- ============================================================================================================= -->
-
   <!-- w3schools.com -->
   <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
   <link rel="stylesheet" href="./css/w3.css">
@@ -70,13 +54,6 @@
         sidebar.style.display = "none";
         overlay.style.display = "none";
       }
-    }
-
-    function sendGtagEvent(eventName, pagePath) {
-      gtag('event', eventName, {
-        page_path: pagePath,
-        send_to: 'G-7S73VXDDSG'
-      })
     }
 
     function copyToClipboard(text) {

@@ -1,11 +1,8 @@
 package com.talestonini
 
-import com.raquo.airstream.state.Var
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatter.{ofPattern => pattern}
-import scala.scalajs.js
-import scala.scalajs.js.annotation.JSGlobal
 
 package object utils {
 
@@ -13,10 +10,6 @@ package object utils {
 
   def jsDisplay(flag: Boolean): String =
     if (flag) "block" else "none"
-
-  @js.native
-  @JSGlobal("prismHighlightAll")
-  def prismHighlightAll(): Unit = js.native
 
   // --- general -------------------------------------------------------------------------------------------------------
 
@@ -33,10 +26,6 @@ package object utils {
     val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
     randomStringFromCharList(length, chars)
   }
-
-  @js.native
-  @JSGlobal("sendGtagEvent")
-  def sendGtagEvent(eventName: String, pagePath: String): Unit = js.native
 
   // --- datetime ------------------------------------------------------------------------------------------------------
 
