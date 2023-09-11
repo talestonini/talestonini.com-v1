@@ -6,6 +6,6 @@ sbt clean
 #sbt test
 
 sbt fullLinkJS
-
-./prep_deploy.sh public
-firebase deploy
+npm run build
+cp firebase.json dist
+firebase deploy --public dist

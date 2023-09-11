@@ -6,8 +6,9 @@ In SBT:
 
     ~fastLinkJS
 
-In another terminal:
+In another terminal, execute `test_local.sh`, which essentially does:
 
+    ./prep_deploy.sh public
     npm run dev
 
 ## Building
@@ -21,14 +22,27 @@ In another terminal:
     npm run build      <-- this is what places artifacts in `dist`
     npm run preview
 
+## Deploying
+
+In SBT:
+
+    fullLinkJS
+
+In another terminal, execute `deploy.sh`, which essentially does:
+
+    npm run build
+    cp firebase.json dist
+    firebase deploy --public dist
+
 ## TODO
 
 ### New features
+- Lazily build posts' `Element`s (improve performance loading images)
 - Update the about page
 - Mastodon
 - Likes
 - ~~Tweet/LinkedIn a post~~
-- Tags with cloud diagram?
+- Tags (with word cloud)
 - ~~JS bundler~~: makes no sense, as the website does not depend on any npm library (that is not delivered by *Firebase
 Hosting*)
 - ~~Laika~~

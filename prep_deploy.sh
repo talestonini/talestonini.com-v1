@@ -1,4 +1,6 @@
 #!/bin/bash
+# With Vite, this script should only be used during development time.
+# For deployment, use `deploy.sh`.
 
 serve_dir=$1
 
@@ -20,6 +22,4 @@ cp -r target/scala-3.3.0/classes/fonts/* $serve_dir/fonts
 cp -r target/scala-3.3.0/classes/img/* $serve_dir/img
 cp -r target/scala-3.3.0/classes/js/* $serve_dir/js
 
-#cp index.html $serve_dir
-#cp main.js $serve_dir
-#cp firebase.json $serve_dir
+cp firebase.json $serve_dir
