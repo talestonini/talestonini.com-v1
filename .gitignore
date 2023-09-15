@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# vite
+# Vite
 public
 
 # Scala and Scala.js
@@ -34,3 +34,6 @@ public
 .metals
 project
 target
+
+# Secrets
+.secrets-*

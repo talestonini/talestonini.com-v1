@@ -16,9 +16,9 @@ import org.typelevel.ci._
 
 object CloudFirestore extends Database[IO] {
 
-  private val ApiKey        = "AIzaSyDSpyLoxb_xSC7XAO-VUDJ0Hd_XyuquAnY" // restricted web app API key
-  private val ProjectId     = "ttdotcom"
-  private val Database      = "(default)"
+  private val ApiKey        = "@API_KEY@" // restricted web app API key
+  private val ProjectId     = "@PROJECT_ID@"
+  private val Database      = "@DATABASE@"
   private val FirestoreHost = "firestore.googleapis.com"
 
   case class CloudFirestoreException(msg: String) extends Exception(msg)

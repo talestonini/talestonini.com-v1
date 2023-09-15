@@ -1,4 +1,5 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
+import sbt.internal.util.ManagedLogger
 
 val circeVersion  = "0.15.0-M1"
 val http4sVersion = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
@@ -8,7 +9,7 @@ lazy val ttDotCom = project
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
   .enablePlugins(BuildInfoPlugin, LaikaPlugin)
   .settings(
-    scalaVersion := "3.3.0",
+    scalaVersion := "3.3.1",
     version      := "1.0.0",
 
     // Tell Scala.js that this is an application with a main method
@@ -73,6 +74,78 @@ lazy val ttDotCom = project
 // Test setup
 Test / jsEnv := new org.scalajs.jsenv.selenium.SeleniumJSEnv(new org.openqa.selenium.firefox.FirefoxOptions())
 
+// Firebase
+lazy val replaceDevSecrets = taskKey[Unit]("Replaces secret references in the code for fast linking")
+replaceDevSecrets := {
+  val log = streams.value.log
+  log.info("Replacing DEV secret references:")
+  loadSecretsFrom(baseDirectory.value / ".secrets-dev").foreach { entry =>
+    replaceString(
+      log,
+      baseDirectory.value / "target/scala-3.3.1/ttdotcom-fastopt",
+      "com.talestonini*.js",
+      entry._1,
+      entry._2
+    )
+  }
+}
+
+lazy val replaceProdSecrets = taskKey[Unit]("Replaces secret references in the code for full linking")
+replaceProdSecrets := {
+  val log = streams.value.log
+  log.info("Replacing PROD secret references:")
+  loadSecretsFrom(baseDirectory.value / ".secrets-prod").foreach { entry =>
+    replaceString(
+      log,
+      baseDirectory.value / "target/scala-3.3.1/ttdotcom-opt",
+      "com.talestonini*.js",
+      entry._1,
+      entry._2
+    )
+  }
+}
+
+def replaceString(log: ManagedLogger, dir: File, fileFilter: String, from: String, to: String) = {
+  val toReplace = s"@$from@"
+  val files     = (dir ** fileFilter).get
+  log.info(s"* ${files.size} files to check for secret $from")
+  files.foreach { f =>
+    val content = IO.read(f)
+    if (content.contains(toReplace)) {
+      log.info(s"* replacing $from in file ${f.name}")
+      val replacement = content.replace(toReplace, to)
+      IO.write(f, replacement)
+    }
+  }
+}
+
+def loadSecretsFrom(file: File): Seq[(String, String)] = {
+  scala.io.Source
+    .fromFile(file)
+    .getLines()
+    .map(line => {
+      val entry = line.split('=').toList
+      (entry.head, entry.tail.head)
+    })
+    .toSeq
+}
+
+fastLinkJS := (Def.taskDyn {
+  val fljs = (Compile / fastLinkJS).value
+  Def.task {
+    val rs = replaceDevSecrets.value
+    fljs
+  }
+}).value
+
+fullLinkJS := (Def.taskDyn {
+  val fljs = (Compile / fullLinkJS).value
+  Def.task {
+    val rs = replaceProdSecrets.value
+    fljs
+  }
+}).value
+
 // LaikaPlugin
 Laika / sourceDirectories := Seq(sourceDirectory.value / "main/resources/pages")
 laikaSite / target        := sourceDirectory.value / "main/scala/com/talestonini/pages/sourcegen"
@@ -98,6 +171,6 @@ def renameHtmlToScala(dir: File) = {
     })
 }
 
-lazy val laikaPrep = taskKey[Unit]("Runs all Laika-related tasks at once.")
+lazy val laikaPrep = taskKey[Unit]("Runs all Laika-related tasks at once")
 laikaPrep         := Def.sequential(laikaHTML, laikaHTML2Scala).value
 Compile / compile := ((Compile / compile) dependsOn laikaPrep).value

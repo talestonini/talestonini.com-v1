@@ -1,78 +1,56 @@
+package com.talestonini
+
 import scala.scalajs.js
-import scala.scalajs.js.annotation._
-import scala.scalajs.js.|
+import js.annotation.JSImport
+import js.JSConverters.JSRichMap
 
-package firebase {
+object Firebase {
 
-  @js.native
-  @JSGlobal("firebase.Promise")
-  class Promise[T] extends Promise_Instance[T] {}
+  @js.native @JSImport("firebase/app", "initializeApp")
+  def initializeApp(firebaseConfig: js.Dictionary[String]): js.Object = js.native
+  // Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  @js.native
-  @JSGlobal("firebase.Promise_Instance")
-  class Promise_Instance[T] protected () extends firebase.Thenable[js.Any] {
-    def this(resolver: js.Function2[js.Function1[T, Unit], js.Function1[Error, Unit], Any]) = this()
-  }
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  private val firebaseConfig = js.Dictionary(
+    "apiKey"            -> "@API_KEY@",
+    "authDomain"        -> "@AUTH_DOMAIN@",
+    "databaseURL"       -> "@DATABASE_URL@",
+    "projectId"         -> "@PROJECT_ID@",
+    "storageBucket"     -> "@STORAGE_BUCKET@",
+    "messagingSenderId" -> "@MESSAGING_SENDER_ID@",
+    "appId"             -> "@APP_ID@",
+    "measurementId"     -> "@MEASUREMENT_ID@"
+  )
 
-  @js.native
-  trait Thenable[T] extends js.Object {
-    def `catch`(onReject: js.Function1[Error, Any] = ???): js.Dynamic = js.native
+  // Initialize Firebase
+  private val app = initializeApp(firebaseConfig)
 
-    // 'then' is in JS native code here
-    // @annotation.nowarn
-    // def then(onResolve: js.Function1[T, Any] = ???,
-    // onReject: js.Function1[Error, Any] = ???): firebase.Thenable[js.Any] = js.native
-  }
+  // --- analytics -----------------------------------------------------------------------------------------------------
 
-  @js.native
-  trait User extends firebase.UserInfo {
-    def getIdToken(forceRefresh: Boolean = ???): firebase.Promise[js.Any] = js.native
-  }
+  @js.native @JSImport("firebase/analytics", "getAnalytics")
+  def getAnalytics(app: js.Object): js.Object = js.native
 
-  @js.native
-  trait UserInfo extends js.Object {
-    var displayName: String | Null = js.native
-    var email: String | Null       = js.native
-    var photoURL: String | Null    = js.native
-    var providerId: String         = js.native
-    var uid: String                = js.native
-  }
+  @js.native @JSImport("firebase/analytics", "logEvent")
+  def logEvent(analytics: js.Object, eventName: String, event: js.Dictionary[Any]): Unit = js.native
 
-  package app {
+  // Initialize Analytics and get a reference to the service
+  private val analytics = getAnalytics(app)
 
-    @js.native
-    trait App extends js.Object {
-      def auth(): firebase.auth.Auth = js.native
-    }
+  private def logEvent(eventName: String, event: Map[String, Any]): Unit =
+    logEvent(analytics, eventName, event.toJSDictionary)
 
-  }
+  def gaViewing(page: String): Unit =
+    logEvent("viewing", Map("page" -> page))
 
-  package auth {
+  def gaCommentedOn(post: String): Unit =
+    logEvent("commented_on", Map("post" -> post))
 
-    @js.native
-    trait Auth extends js.Object {
-      def onAuthStateChanged(nextOrObserver: js.Function1[User, _], error: js.Function1[firebase.auth.Error, Any] = ???,
-        completed: js.Function0[Any] = ???): js.Function0[Any] = js.native
+  def gaClickedSharing(post: String, how: String): Unit =
+    logEvent("clicked_sharing", Map("post" -> post, "how" -> how))
 
-      def signOut(): firebase.Promise[js.Any] = js.native
-    }
-
-    @js.native
-    trait Error extends js.Object {
-      var code: String    = js.native
-      var message: String = js.native
-    }
-
-  }
-
-  @js.native
-  @JSGlobal("firebase")
-  object Firebase extends js.Object {
-    def app(name: String = ???): firebase.app.App = js.native
-
-    var apps: js.Array[firebase.app.App | Null] = js.native
-
-    def auth(app: firebase.app.App = ???): firebase.auth.Auth = js.native
-  }
+  def gaClickedFooter(target: String): Unit =
+    logEvent("clicked_footer", Map("target" -> target))
 
 }
