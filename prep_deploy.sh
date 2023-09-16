@@ -16,10 +16,10 @@ mkdir -p $serve_dir/fonts
 mkdir -p $serve_dir/img
 mkdir -p $serve_dir/js
 
-cp -r target/scala-3.3.0/classes/css/* $serve_dir/css
-cp -r target/scala-3.3.0/classes/favicom/* $serve_dir/favicom
-cp -r target/scala-3.3.0/classes/fonts/* $serve_dir/fonts
-cp -r target/scala-3.3.0/classes/img/* $serve_dir/img
-cp -r target/scala-3.3.0/classes/js/* $serve_dir/js
+cp -r target/scala-3.3.1/classes/css/* $serve_dir/css
+cp -r target/scala-3.3.1/classes/favicom/* $serve_dir/favicom
+cp -r target/scala-3.3.1/classes/fonts/* $serve_dir/fonts
+cp -r target/scala-3.3.1/classes/img/* $serve_dir/img
+cp -r target/scala-3.3.1/classes/js/* $serve_dir/js
 
 cp firebase.json $serve_dir

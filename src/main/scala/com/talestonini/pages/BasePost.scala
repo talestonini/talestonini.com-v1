@@ -15,8 +15,9 @@ import scala.xml.Elem
 
 trait BasePost {
 
-  private val lin = "https://www.linkedin.com/sharing/share-offsite/?mini=true&url="
-  private val tt  = "https%3A%2F%2Ftalestonini.com%2F"
+  private val linkedIn = "https://www.linkedin.com/sharing/share-offsite/?mini=true&url="
+  private val mastodon = "https://mastodonshare.com?url="
+  private val baseUrl  = "https%3A%2F%2Ftalestonini.com%2F%23%2F"
 
   // --- state ---------------------------------------------------------------------------------------------------------
 
@@ -49,7 +50,8 @@ trait BasePost {
         ),
         div(
           className := "share-post w3-display-right",
-          child <-- postDoc.signal.map(pd => div(linkedInShareAnchor(pd), copyLinkShareAnchor(pd)))
+          child <-- postDoc.signal.map(pd =>
+            div(linkedInShareAnchor(pd), mastodonShareAnchor(pd), copyLinkShareAnchor(pd)))
         )
       ),
       div(
@@ -89,14 +91,21 @@ trait BasePost {
   private def linkedInShareAnchor(pd: Doc[Post]) =
     shareAnchor(
       "fa-linkedin",
-      lin + tt + pd.fields.resource.getOrElse(""),
+      linkedIn + baseUrl + pd.fields.resource.getOrElse(""),
       "Share on LinkedIn"
+    )
+
+  private def mastodonShareAnchor(pd: Doc[Post]) =
+    shareAnchor(
+      "fa-mastodon",
+      mastodon + baseUrl + pd.fields.resource.getOrElse(""),
+      "Share on Mastodon"
     )
 
   private def copyLinkShareAnchor(pd: Doc[Post]) =
     shareAnchor(
       "fa-link",
-      s"javascript:copyToClipboard('${tt + pd.fields.resource.getOrElse("")}')",
+      s"javascript:copyToClipboard('${baseUrl + pd.fields.resource.getOrElse("")}')",
       "Copy link",
       "_self"
     )

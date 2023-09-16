@@ -11,8 +11,9 @@ object Footer {
     div(
       div(
         className := "w3-xlarge",
-        iconAnchor("https://au.linkedin.com/in/talestonini", "fa-linkedin", "LinkedIn"),
         iconAnchor("https://github.com/talestonini", "fa-github", "GitHub"),
+        iconAnchor("https://au.linkedin.com/in/talestonini", "fa-linkedin", "LinkedIn"),
+        iconAnchor("https://mastodon.world/@talestonini", "fa-mastodon", "Mastodon"),
         iconAnchor("mailto:talestonini@gmail.com", "fa-envelope", "Email")
       ),
       div(className := "w3-small", p(footerText()))
