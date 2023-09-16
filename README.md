@@ -37,7 +37,7 @@ In another terminal, execute `deploy.sh`, which essentially does:
 ## TODO
 
 ### New features
-- Lazily build posts' `Element`s (improve performance loading images)
+- ~~Lazily build posts' `Element`s (improve performance loading images)~~
 - Update the about page
 - Mastodon
 - Likes

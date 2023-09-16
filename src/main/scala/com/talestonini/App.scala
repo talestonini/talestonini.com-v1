@@ -103,33 +103,59 @@ object App {
   }
 
   def navigateByPostResource(resource: String) =
-    navigateTo(postsMap(resource).page)
+    navigateTo(postMap(resource).page)
 
   // --- private -------------------------------------------------------------------------------------------------------
 
-  // TODO: lazily load page's contents (it avoids downloading all images at startup)
-  private case class PageEntry(path: String, element: Element)
-  private val pagesMap: Map[Page, PageEntry] = Map(
-    HomePage                 -> PageEntry("", DbLayerRefactor()),
-    PostsPage                -> PageEntry("posts", Posts()),
-    TagsPage                 -> PageEntry("tags", Tags()),
-    AboutPage                -> PageEntry("about", About()),
-    DbLayerRefactorPage      -> PageEntry("dbLayerRefactor", DbLayerRefactor()),
-    ScalaDecoratorsPage      -> PageEntry("scalaDecorators", ScalaDecorators()),
-    DockerVimPage            -> PageEntry("dockerVim", DockerVim()),
-    MorseCodeChallengePage   -> PageEntry("morseCodeChallenge", MorseCodeChallenge()),
-    UrbanForestChallengePage -> PageEntry("urbanForestChallenge", UrbanForestChallenge()),
-    FunProgCapstonePage      -> PageEntry("funProgCapstone", FunProgCapstone())
+  private lazy val pagePathMap: Map[Page, String] = Map(
+    HomePage                 -> "",
+    PostsPage                -> "posts",
+    TagsPage                 -> "tags",
+    AboutPage                -> "about",
+    DbLayerRefactorPage      -> "dbLayerRefactor",
+    ScalaDecoratorsPage      -> "scalaDecorators",
+    DockerVimPage            -> "dockerVim",
+    MorseCodeChallengePage   -> "morseCodeChallenge",
+    UrbanForestChallengePage -> "urbanForestChallenge",
+    FunProgCapstonePage      -> "funProgCapstone"
   )
+
+  private lazy val postsElement                = Posts()
+  private lazy val tagsElement                 = Tags()
+  private lazy val aboutElement                = About()
+  private lazy val dbLayerRefactorElement      = DbLayerRefactor()
+  private lazy val scalaDecoratorsElement      = ScalaDecorators()
+  private lazy val dockerVimElement            = DockerVim()
+  private lazy val morseCodeChallengeElement   = MorseCodeChallenge()
+  private lazy val urbanForestChallengeElement = UrbanForestChallenge()
+  private lazy val funProgCapstoneElement      = FunProgCapstone()
+
+  private def pageElement(page: Page): Element =
+    page match {
+      case HomePage                 => dbLayerRefactorElement
+      case PostsPage                => postsElement
+      case TagsPage                 => tagsElement
+      case AboutPage                => aboutElement
+      case DbLayerRefactorPage      => dbLayerRefactorElement
+      case ScalaDecoratorsPage      => scalaDecoratorsElement
+      case DockerVimPage            => dockerVimElement
+      case MorseCodeChallengePage   => morseCodeChallengeElement
+      case UrbanForestChallengePage => urbanForestChallengeElement
+      case FunProgCapstonePage      => funProgCapstoneElement
+    }
 
   private def buildRoute(page: Page) =
     if (page == HomePage)
       Route.static(HomePage, root / endOfSegments, basePath = Route.fragmentBasePath)
     else
-      Route.static(page, root / pagesMap.get(page).get.path / endOfSegments, basePath = Route.fragmentBasePath)
+      Route.static(
+        page,
+        root / pagePathMap.get(page).getOrElse(s"missing page path building route for page $page") / endOfSegments,
+        basePath = Route.fragmentBasePath
+      )
 
   private val router = new Router[Page](
-    routes = pagesMap.keySet.map(pe => buildRoute(pe)).toList,
+    routes = pagePathMap.keySet.map(p => buildRoute(p)).toList,
     getPageTitle = _.toString,                 // mock page title (displayed in the browser tab next to favicon)
     serializePage = page => write(page),       // serialize page data for storage in History API log
     deserializePage = pageStr => read(pageStr) // deserialize the above
@@ -139,16 +165,15 @@ object App {
   )
 
   private def render(page: Page): Element = {
-    val pageEntry = pagesMap.get(page).get
-    Firebase.gaViewing(pageEntry.path)
+    Firebase.gaViewing(pagePathMap.get(page).getOrElse(throw new Exception(s"missing page path rendering page $page")))
     Prism.prismHighlightAll() // in lieu of '<body onhashchange=...' as Waypoint does not trigger the hashchange event
-    pageEntry.element
+    pageElement(page)
   }
 
   // maps post resource names to corresponding page and promise
   // (the post promise, which is fulfilled when posts data is retrieved from the database)
   private case class PostEntry(page: Page, promise: Promise[Doc[Post]])
-  private val postsMap: Map[String, PostEntry] = Map(
+  private val postMap: Map[String, PostEntry] = Map(
     "dbLayerRefactor"      -> PostEntry(DbLayerRefactorPage, DbLayerRefactor.postDocPromise),
     "scalaDecorators"      -> PostEntry(ScalaDecoratorsPage, ScalaDecorators.postDocPromise),
     "dockerVim"            -> PostEntry(DockerVimPage, DockerVim.postDocPromise),
@@ -172,11 +197,11 @@ object App {
             val resource = postDoc.fields.resource.get
 
             // to build the posts page, with the list of posts
-            if (postsMap.keySet.contains(resource))
+            if (postMap.keySet.contains(resource))
               Posts.posts.update(data => data :+ postDoc)
 
             // to build each post page
-            postsMap
+            postMap
               .get(resource)
               .getOrElse(
                 throw new Exception(s"missing entry in postsMap for $resource")

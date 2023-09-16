@@ -34,7 +34,7 @@ trait BasePost {
   // --- UI ------------------------------------------------------------------------------------------------------------
 
   // where each post builds its content, converted from MarkDown to HTML by Laika
-  def postContent(): Elem
+  protected def postContent(): Elem
 
   def apply(): Element = {
     val content = div()
