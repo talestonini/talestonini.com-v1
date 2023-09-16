@@ -71,10 +71,19 @@ lazy val ttDotCom = project
     )
   )
 
+// ---------------------------------------------------------------------------------------------------------------------
 // Test setup
+// ---------------------------------------------------------------------------------------------------------------------
 Test / jsEnv := new org.scalajs.jsenv.selenium.SeleniumJSEnv(new org.openqa.selenium.firefox.FirefoxOptions())
+Test / test  := ((Test / test) dependsOn replaceTestSecrets).value
+// NOTE: Test calls fastLinkJS as a dependency when it notices a code change, but it does not call my fastLinkJS
+//       (redefined below). Therefore, manually call my fastLinkJS before testing, or the test dependency on
+//       replaceTestSecrets may not suffice. I believe SBT not calling a redefinition of fastLinkJS is an SBT bug.
 
-// Firebase
+// ---------------------------------------------------------------------------------------------------------------------
+// Firebase setup
+// Tasks fastLinkJS and fullLinkJS to replace code secrets from files .secrets-dev and .secrets-prod
+// ---------------------------------------------------------------------------------------------------------------------
 lazy val replaceDevSecrets = taskKey[Unit]("Replaces secret references in the code for fast linking")
 replaceDevSecrets := {
   val log = streams.value.log
@@ -83,6 +92,21 @@ replaceDevSecrets := {
     replaceString(
       log,
       baseDirectory.value / "target/scala-3.3.1/ttdotcom-fastopt",
+      "com.talestonini*.js",
+      entry._1,
+      entry._2
+    )
+  }
+}
+
+lazy val replaceTestSecrets = taskKey[Unit]("Replaces secret references in the code for test fast linking")
+replaceTestSecrets := {
+  val log = streams.value.log
+  log.info("Replacing TEST secret references:")
+  loadSecretsFrom(baseDirectory.value / ".secrets-dev").foreach { entry =>
+    replaceString(
+      log,
+      baseDirectory.value / "target/scala-3.3.1/ttdotcom-test-fastopt",
       "com.talestonini*.js",
       entry._1,
       entry._2
@@ -146,7 +170,10 @@ fullLinkJS := (Def.taskDyn {
   }
 }).value
 
-// LaikaPlugin
+// ---------------------------------------------------------------------------------------------------------------------
+// LaikaPlugin setup
+// Tasks to generate scala classes from MarkDown pages
+// ---------------------------------------------------------------------------------------------------------------------
 Laika / sourceDirectories := Seq(sourceDirectory.value / "main/resources/pages")
 laikaSite / target        := sourceDirectory.value / "main/scala/com/talestonini/pages/sourcegen"
 laikaTheme                := laika.theme.Theme.empty
