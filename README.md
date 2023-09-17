@@ -38,7 +38,7 @@ In another terminal, execute `deploy.sh`, which essentially does:
 
 ### New features
 - ~~Lazily build posts' `Element`s (improve performance loading images)~~
-- Update the about page
+- ~~Update the about page~~
 - ~~Mastodon~~
 - Likes
 - ~~Tweet/LinkedIn a post~~

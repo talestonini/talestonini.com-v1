@@ -28,7 +28,7 @@ object About {
             <td style="padding-right: 15px; width: 30%;"><img src="/img/talestonini.jpg"/></td>
             <td>
               <p>Hi!, my name is <strong>Tales Tonini</strong> and I&#39;m a software engineer interested in Functional Programming, Distributed Systems and the Scala language.</p>
-              <p>I work in data engineering for an AI consultancy called <a href="https://eliiza.com.au/">Eliiza</a>, and for the past 5 years I&#39;ve mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
+              <p>I work for a digital solutions consultancy called <a href="https://digio.com.au/">digio</a>, and for the past 5 years I&#39;ve mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
             </td>
           </tr>
           <tr>
@@ -46,7 +46,7 @@ object About {
           </tr>
           <tr>
             <td colspan="2">
-              <p>I work in data engineering for an AI consultancy called <a href="https://eliiza.com.au/">Eliiza</a>, and for the past 5 years I&#39;ve mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
+              <p>I work for a digital solutions consultancy called <a href="https://digio.com.au/">digio</a>, and for the past 5 years I&#39;ve mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
               <p>I live in Melbourne, Australia, but am originally from Brazil. Aside from programming, I like to spend time with family and friends, swimming and the outdoors.</p>
             </td>
           </tr>
@@ -57,9 +57,10 @@ object About {
       <p>I started this website to share my interests and learnings and as a way to play around with Scala.js. These are some of
       the technologies and libraries that I use to build it:</p>
       <ul>
-        <li><a href="https://www.scala-lang.org/">Scala 2.13</a></li>
+        <li><a href="https://www.scala-lang.org/">Scala 3</a></li>
         <li><a href="https://www.scala-js.org/">Scala.js</a></li>
-        <li><a href="https://github.com/ThoughtWorksInc/Binding.scala">ThoughtWorks Binding</a></li>
+        <li><a href="https://laminar.dev/">Laminar</a></li>
+        <li><a href="https://vitejs.dev/">Vite</a></li>
         <li><a href="https://planet42.github.io/Laika/">Laika</a></li>
         <li><a href="https://firebase.google.com/">Firebase</a></li>
         <li><a href="https://firebase.google.com/firebase/cloud-firestore">Cloud Firestore</a></li>
@@ -94,6 +95,13 @@ object About {
       <h3 id="_0-5-x" class="section">0.5.x</h3>
       <ul>
         <li>Code cleanup.</li>
+      </ul>
+      
+      <h3 id="_1-0-x" class="section">1.0.x</h3>
+      <ul>
+        <li>Replaced <a href="https://github.com/ThoughtWorksInc/Binding.scala">ThoughtWorks Binging</a> for <a href="https://laminar.dev/">Laminar</a>,
+        meaning the whole website UI was rewritten.</li>
+        <li>Packaging the app with <a href="http://vitejs.dev/">Vite</a>.</li>
       </ul>
     </div>
 

@@ -9,7 +9,7 @@
       <td style="padding-right: 15px; width: 30%;"><img src="/img/talestonini.jpg" /></td>
       <td>
         <p>Hi!, my name is <strong>Tales Tonini</strong> and I'm a software engineer interested in Functional Programming, Distributed Systems and the Scala language.</p>
-        <p>I work in data engineering for an AI consultancy called <a href="https://eliiza.com.au/">Eliiza</a>, and for the past 5 years I've mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
+        <p>I work for a digital solutions consultancy called <a href="https://digio.com.au/">digio</a>, and for the past 5 years I've mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
       </td>
     </tr>
     <tr>
@@ -27,7 +27,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <p>I work in data engineering for an AI consultancy called <a href="https://eliiza.com.au/">Eliiza</a>, and for the past 5 years I've mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
+        <p>I work for a digital solutions consultancy called <a href="https://digio.com.au/">digio</a>, and for the past 5 years I've mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
         <p>I live in Melbourne, Australia, but am originally from Brazil. Aside from programming, I like to spend time with family and friends, swimming and the outdoors.</p>
       </td>
     </tr>
@@ -39,9 +39,10 @@
 I started this website to share my interests and learnings and as a way to play around with Scala.js. These are some of
 the technologies and libraries that I use to build it:
 
-- [Scala 2.13](https://www.scala-lang.org/)
+- [Scala 3](https://www.scala-lang.org/)
 - [Scala.js](https://www.scala-js.org/)
-- [ThoughtWorks Binding](https://github.com/ThoughtWorksInc/Binding.scala)
+- [Laminar](https://laminar.dev/)
+- [Vite](https://vitejs.dev/)
 - [Laika](https://planet42.github.io/Laika/)
 - [Firebase](https://firebase.google.com/)
 - [Cloud Firestore](https://firebase.google.com/firebase/cloud-firestore)
@@ -70,3 +71,8 @@ the database layer, implementing API calls to Cloud Firestore.
 
 ###0.5.x
 - Code cleanup.
+
+###1.0.x
+- Replaced [ThoughtWorks Binging](https://github.com/ThoughtWorksInc/Binding.scala) for [Laminar](https://laminar.dev/),
+meaning the whole website UI was rewritten.
+- Packaging the app with [Vite](http://vitejs.dev/).
