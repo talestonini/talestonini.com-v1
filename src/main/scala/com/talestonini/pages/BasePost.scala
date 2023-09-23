@@ -134,11 +134,13 @@ trait BasePost {
     tags match {
       case Some(ts) =>
         for (t <- ts)
-          yield div(
-            className := "tag",
-            i(className := s"icon fa fa-tag w3-hover-opacity"),
-            t.tag
-          )
+          yield span(className := "tag w3-hover-opacity",
+            a(
+              styleAttr := "text-decoration: none",
+              href      := "",
+              span(className := s"icon fa fa-tag"),
+              t.tag
+            ))
       case None => Seq.empty
     }
 
