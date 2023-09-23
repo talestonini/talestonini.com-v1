@@ -59,8 +59,12 @@ trait BasePost {
         child <-- postDoc.signal.map(pd => pd.fields.title.getOrElse(""))
       ),
       div(
-        styleAttr := "display: inline-flex",
-        children <-- postDoc.signal.map(pd => tagList(pd.fields.tags))
+        className := "w3-padding-8 w3-display-container",
+        div(
+          className := "w3-display-right",
+          styleAttr := "display: inline-flex",
+          children <-- postDoc.signal.map(pd => tagList(pd.fields.tags))
+        )
       ),
       div(
         className := "w3-padding-16 line-numbers",

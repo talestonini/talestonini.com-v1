@@ -102,6 +102,7 @@ object About {
         <li>Replaced <a href="https://github.com/ThoughtWorksInc/Binding.scala">ThoughtWorks Binging</a> for <a href="https://laminar.dev/">Laminar</a>,
         meaning the whole website UI was rewritten.</li>
         <li>Packaging the app with <a href="http://vitejs.dev/">Vite</a>.</li>
+        <li>Added tags to posts and the Tags page.</li>
       </ul>
     </div>
 

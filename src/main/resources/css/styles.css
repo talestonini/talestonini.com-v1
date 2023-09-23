@@ -270,7 +270,8 @@ blockquote p {
 .tag {
   font-style: italic;
   font-size: 13px;
-  padding-right: 15px;
+  text-align: right;
+  padding-left: 15px;
 }
 
 .tag .icon {

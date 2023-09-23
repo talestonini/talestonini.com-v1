@@ -76,3 +76,4 @@ the database layer, implementing API calls to Cloud Firestore.
 - Replaced [ThoughtWorks Binging](https://github.com/ThoughtWorksInc/Binding.scala) for [Laminar](https://laminar.dev/),
 meaning the whole website UI was rewritten.
 - Packaging the app with [Vite](http://vitejs.dev/).
+- Added tags to posts and the Tags page.
