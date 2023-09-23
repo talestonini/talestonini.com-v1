@@ -26,9 +26,11 @@ abstract class CreatePostSuite extends CatsEffectSuite {
   val resource         = "dbLayerRefactor"
   val title            = "Refactoring the database access layer"
   val firstPublishDate = ZonedDateTime.now()
+  val tags             = Array(Tag("aaa"), Tag("bbb"))
 
   test("create a post") {
-    val newPost = Post(Some(resource), Some(title), Some(firstPublishDate), Some(firstPublishDate), Some(true))
+    val newPost =
+      Post(Some(resource), Some(title), Some(firstPublishDate), Some(firstPublishDate), Some(tags), Some(true))
 
     CloudFirestore.upsertDocument[Post](getTestToken(), newPostPath, newPost) flatMap { post =>
       IO(assertEquals(post.fields.resource.get, resource))

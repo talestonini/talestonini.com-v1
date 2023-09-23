@@ -14,6 +14,7 @@ class packageSpec extends AsyncWordSpec with Matchers {
     Some("a title"),
     Some(ZonedDateTime.parse("2022-01-01T00:00:00Z")),
     Some(ZonedDateTime.parse("2022-03-21T19:20:33Z")),
+    Some(Array(Tag("1st tag"), Tag("2nd tag"))),
     Some(true)
   )
 
@@ -35,6 +36,18 @@ class packageSpec extends AsyncWordSpec with Matchers {
           |  },
           |  "publish_date" : {
           |    "timestampValue" : "2022-03-21T19:20:33.000Z"
+          |  },
+          |  "tags" : {
+          |    "arrayValue" : {
+          |      "values" : [
+          |        {
+          |          "stringValue" : "1st tag"
+          |        },
+          |        {
+          |          "stringValue" : "2nd tag"
+          |        }
+          |      ]
+          |    }
           |  },
           |  "enabled" : {
           |    "booleanValue" : true
@@ -58,6 +71,18 @@ class packageSpec extends AsyncWordSpec with Matchers {
           |    },
           |    "publish_date" : {
           |      "timestampValue" : "2022-03-21T19:20:33.000Z"
+          |    },
+          |    "tags" : {
+          |      "arrayValue" : {
+          |        "values" : [
+          |          {
+          |            "stringValue" : "1st tag"
+          |          },
+          |          {
+          |            "stringValue" : "2nd tag"
+          |          }
+          |        ]
+          |      }
           |    },
           |    "enabled" : {
           |      "booleanValue" : true

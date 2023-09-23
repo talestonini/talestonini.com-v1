@@ -27,7 +27,7 @@ trait BasePost {
   setupPostDocPromise() // must be setup from object creation, so that comments are retrieved asap from database
 
   // the post document backing this post page
-  private val postDoc: Var[Doc[Post]] = Var(Doc("", Post(None, None, None, None), "", ""))
+  private val postDoc: Var[Doc[Post]] = Var(Doc("", Post(None, None, None, None, None), "", ""))
 
   // the comments on this page
   private val comments: Var[Docs[Comment]] = Var(Seq.empty)
@@ -57,6 +57,10 @@ trait BasePost {
       div(
         className := "post-title w3-padding-8",
         child <-- postDoc.signal.map(pd => pd.fields.title.getOrElse(""))
+      ),
+      div(
+        styleAttr := "display: inline-flex",
+        children <-- postDoc.signal.map(pd => tagList(pd.fields.tags))
       ),
       div(
         className := "w3-padding-16 line-numbers",
@@ -125,6 +129,18 @@ trait BasePost {
         )
       )
   }
+
+  private def tagList(tags: Option[Array[Tag]]): Seq[Element] =
+    tags match {
+      case Some(ts) =>
+        for (t <- ts)
+          yield div(
+            className := "tag",
+            i(className := s"icon fa fa-tag w3-hover-opacity"),
+            t.tag
+          )
+      case None => Seq.empty
+    }
 
   private def commentList(comments: Docs[Comment]): Seq[Element] =
     for (c <- comments)

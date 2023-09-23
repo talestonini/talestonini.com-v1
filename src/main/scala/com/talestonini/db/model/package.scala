@@ -1,11 +1,11 @@
 package com.talestonini.db
 
-import java.time._
-import java.time.format.DateTimeFormatter.ofPattern
-
 import cats.effect.IO
 import com.talestonini.utils._
 import io.circe._
+import io.circe.syntax._
+import java.time._
+import java.time.format.DateTimeFormatter.ofPattern
 import org.http4s.circe._
 import org.http4s.{EntityDecoder, EntityEncoder}
 import scala.language.implicitConversions
@@ -70,9 +70,9 @@ package object model {
 
   case class Post(
     resource: Option[String], title: Option[String], firstPublishDate: Option[ZonedDateTime],
-    publishDate: Option[ZonedDateTime], enabled: Option[Boolean] = Some(true)
+    publishDate: Option[ZonedDateTime], tags: Option[Array[Tag]], enabled: Option[Boolean] = Some(true)
   ) extends Model {
-    def dbFields: Seq[String] = Seq("resource", "title", "first_publish_date", "publish_date", "enabled")
+    def dbFields: Seq[String] = Seq("resource", "title", "first_publish_date", "publish_date", "tags", "enabled")
     def content: String       = title.getOrElse("")
     def sortingField: String  = datetime2Str(publishDate.getOrElse(InitDateTime), DateTimeCompareFormatter)
   }
@@ -87,6 +87,7 @@ package object model {
             p.firstPublishDate.map(fpd =>
               "first_publish_date" -> field("timestampValue", fpd.format(LongDateTimeFormatter))),
             p.publishDate.map(pd => "publish_date" -> field("timestampValue", pd.format(LongDateTimeFormatter))),
+            p.tags.map(ts => "tags" -> field("arrayValue", field("values", ts.map(t => tagEncoder.apply(t))))),
             p.enabled.map(e => "enabled" -> field("booleanValue", e))
           ).filter(_.isDefined).map(_.get): _*
         )
@@ -102,8 +103,10 @@ package object model {
           title            <- c.downField("title").get[String]("stringValue")
           firstPublishDate <- c.downField("first_publish_date").getOrElse[ZonedDateTime]("timestampValue")(InitDateTime)
           publishDate      <- c.downField("publish_date").getOrElse[ZonedDateTime]("timestampValue")(InitDateTime)
+          tags             <- c.downField("tags").downField("arrayValue").get[Array[Tag]]("values")
           enabled          <- c.downField("enabled").getOrElse[Boolean]("booleanValue")(true)
-        } yield Post(Option(resource), Option(title), Option(firstPublishDate), Option(publishDate), Option(enabled))
+        } yield Post(Option(resource), Option(title), Option(firstPublishDate), Option(publishDate), Option(tags),
+          Option(enabled))
     }
 
   // --- comment -------------------------------------------------------------------------------------------------------
@@ -175,6 +178,24 @@ package object model {
 
   implicit def userAsJson(user: User): Json = userEncoder(user)
 
+  // --- tag -----------------------------------------------------------------------------------------------------------
+
+  case class Tag(tag: String)
+
+  implicit lazy val tagEncoder: Encoder[Tag] =
+    new Encoder[Tag] {
+      final def apply(t: Tag): Json =
+        field("stringValue", t.tag)
+    }
+
+  implicit lazy val tagDecoder: Decoder[Tag] =
+    new Decoder[Tag] {
+      final def apply(c: HCursor): Decoder.Result[Tag] =
+        for {
+          tag <- c.get[String]("stringValue")
+        } yield Tag(tag)
+    }
+
   // -------------------------------------------------------------------------------------------------------------------
 
   private def field(`type`: String, value: String): Json =
@@ -183,5 +204,7 @@ package object model {
     Json.fromJsonObject(JsonObject((`type`, Json.fromBoolean(value))))
   private def field(`type`: String, value: Json): Json =
     Json.fromJsonObject(JsonObject((`type`, value)))
+  private def field(`type`: String, value: Array[Json]): Json =
+    Json.fromJsonObject(JsonObject((`type`, value.asJson)))
 
 }

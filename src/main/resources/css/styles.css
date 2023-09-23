@@ -266,3 +266,13 @@ blockquote p {
   opacity: 0.60;
   color: white;
 }
+
+.tag {
+  font-style: italic;
+  font-size: 13px;
+  padding-right: 15px;
+}
+
+.tag .icon {
+  padding-right: 3px;
+}
