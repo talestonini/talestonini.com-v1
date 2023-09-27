@@ -13,6 +13,8 @@
     "vite": "^4.4.9"
   },
   "dependencies": {
-    "firebase": "^10.3.1"
+    "d3": "^7.8.5",
+    "firebase": "^10.3.1",
+    "tags": "file:./src/main/node/tags"
   }
 }
