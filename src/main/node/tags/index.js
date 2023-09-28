@@ -33,8 +33,8 @@ svg.append("g")
   .attr("transform", `translate(${marginLeft},0)`)
   .call(d3.axisLeft(y));
 
-export function d3Content() {
-  return svg.node();
-}
+const serializer = new XMLSerializer();
 
-// module.exports = d3Content;
+export function d3Content() {
+  return serializer.serializeToString(svg.node());
+}

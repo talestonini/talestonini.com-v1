@@ -8,11 +8,11 @@ import scala.xml.Elem
 object TagsJS {
 
   @js.native @JSImport("tags", "d3Content")
-  def d3Content(): Elem = js.native
+  def d3Content(): String = js.native
 
   def apply(): Element = {
     val element = div()
-    element.ref.innerHTML = d3Content().toString
+    element.ref.innerHTML = d3Content()
     element
   }
 

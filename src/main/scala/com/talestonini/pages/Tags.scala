@@ -6,6 +6,6 @@ import com.talestonini.TagsJS
 object Tags {
 
   def apply(): Element =
-    div(TagsJS())
+    div(className := "w3-center", TagsJS())
 
 }
