@@ -7,13 +7,10 @@ import scala.xml.Elem
 
 object TagsJS {
 
-  @js.native @JSImport("tags", "d3Content")
-  def d3Content(): String = js.native
+  @js.native @JSImport("tags", "drawWordCloud")
+  def drawWordCloud(): Unit = js.native
 
-  def apply(): Element = {
-    val element = div()
-    element.ref.innerHTML = d3Content()
-    element
-  }
+  def apply(): Unit =
+    drawWordCloud()
 
 }

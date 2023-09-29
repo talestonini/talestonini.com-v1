@@ -1,40 +1,38 @@
 import * as d3 from "d3";
+import { cloud } from "d3-cloud"
 
-// Declare the chart dimensions and margins.
-const width = 640;
-const height = 400;
-const marginTop = 20;
-const marginRight = 20;
-const marginBottom = 30;
-const marginLeft = 40;
+export function drawWordCloud() {
+  var words = ["Hello", "world", "normally", "you", "want", "more", "words",
+    "than", "this"];
 
-// Declare the x (horizontal position) scale.
-const x = d3.scaleUtc()
-  .domain([new Date("2023-01-01"), new Date("2024-01-01")])
-  .range([marginLeft, width - marginRight]);
+  var layout = cloud()
+    .size([500, 500])
+    .words(words.map(function(d) {
+      return { text: d, size: 10 + Math.random() * 90, test: "haha" };
+    }))
+    .padding(5)
+    .rotate(function() { return ~~(Math.random() * 2) * 90; })
+    .font("Impact")
+    .fontSize(function(d) { return d.size; })
+    .on("end", draw);
 
-// Declare the y (vertical position) scale.
-const y = d3.scaleLinear()
-  .domain([0, 100])
-  .range([height - marginBottom, marginTop]);
+  layout.start();
 
-// Create the SVG container.
-const svg = d3.create("svg")
-  .attr("width", width)
-  .attr("height", height);
-
-// Add the x-axis.
-svg.append("g")
-  .attr("transform", `translate(0,${height - marginBottom})`)
-  .call(d3.axisBottom(x));
-
-// Add the y-axis.
-svg.append("g")
-  .attr("transform", `translate(${marginLeft},0)`)
-  .call(d3.axisLeft(y));
-
-const serializer = new XMLSerializer();
-
-export function d3Content() {
-  return serializer.serializeToString(svg.node());
+  function draw(words) {
+    d3.select("#tags").append("svg")
+      .attr("width", layout.size()[0])
+      .attr("height", layout.size()[1])
+      .append("g")
+      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+      .selectAll("text")
+      .data(words)
+      .enter().append("text")
+      .style("font-size", function(d) { return d.size + "px"; })
+      .style("font-family", "Impact")
+      .attr("text-anchor", "middle")
+      .attr("transform", function(d) {
+        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+      })
+      .text(function(d) { return d.text; });
+  }
 }
