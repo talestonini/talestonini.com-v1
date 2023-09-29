@@ -5,9 +5,9 @@ import scala.scalajs.js
 import js.annotation.JSImport
 import scala.xml.Elem
 
-object TagsJS {
+object WordCloudJS {
 
-  @js.native @JSImport("tags", "drawWordCloud")
+  @js.native @JSImport("word-cloud", "drawWordCloud")
   def drawWordCloud(): Unit = js.native
 
   def apply(): Unit =

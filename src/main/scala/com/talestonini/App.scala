@@ -209,7 +209,7 @@ object App {
               .promise success postDoc // fulfills the post promise
           }
           Spinner.stop(retrievingPosts)
-          TagsJS()
+          WordCloudJS()
         case f: Failure[Docs[Post]] =>
           println(s"failed getting posts: ${f.exception.getMessage()}")
           Spinner.stop(retrievingPosts)
