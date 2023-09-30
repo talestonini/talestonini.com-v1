@@ -8,9 +8,9 @@ import scala.xml.Elem
 object WordCloudJS {
 
   @js.native @JSImport("word-cloud", "drawWordCloud")
-  def drawWordCloud(): Unit = js.native
+  def drawWordCloud(words: js.Array[String]): Unit = js.native
 
-  def apply(): Unit =
-    drawWordCloud()
+  def apply(words: List[String]): Unit =
+    drawWordCloud(js.Array(words: _*))
 
 }

@@ -74,6 +74,8 @@ object App {
 
   // --- public --------------------------------------------------------------------------------------------------------
 
+  var allTags: Set[String] = Set.empty
+
   sealed trait Page derives ReadWriter
   case object HomePage                 extends Page
   case object PostsPage                extends Page
@@ -207,9 +209,11 @@ object App {
                 throw new Exception(s"missing entry in postsMap for $resource")
               )
               .promise success postDoc // fulfills the post promise
+
+            allTags = allTags ++ postDoc.fields.tags.get.map(t => t.tag).toSet
           }
           Spinner.stop(retrievingPosts)
-          WordCloudJS()
+          WordCloudJS(allTags.toList)
         case f: Failure[Docs[Post]] =>
           println(s"failed getting posts: ${f.exception.getMessage()}")
           Spinner.stop(retrievingPosts)

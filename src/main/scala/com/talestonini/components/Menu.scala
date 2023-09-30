@@ -2,17 +2,20 @@ package com.talestonini.components
 
 import com.raquo.laminar.api.features.unitArrows
 import com.raquo.laminar.api.L.{*, given}
-import com.talestonini.App.*
+import com.talestonini.App
+import App.*
+import com.talestonini.WordCloudJS
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 
 object Menu {
 
-  private case class MenuItem(label: String, page: Page)
+  type Action = Option[() => Unit]
+  private case class MenuItem(label: String, page: Page, action: Action = None)
 
   private val menuItems: Seq[MenuItem] = Seq(
     MenuItem("Posts", PostsPage),
-    MenuItem("Tags", TagsPage),
+    MenuItem("Tags", TagsPage, Some(() => WordCloudJS(App.allTags.toList))),
     MenuItem("About", AboutPage)
   )
 
@@ -56,7 +59,8 @@ object Menu {
       yield a(
         navigateTo(mi.page),
         className := classes,
-        mi.label
+        mi.label,
+        onClick --> handleAction(mi.action)
       )
   }
 
@@ -78,11 +82,16 @@ object Menu {
           navigateTo(mi.page),
           className := s"$commonClasses w3-xlarge ${w3Color(i)}",
           onClick --> toggleSidebar(),
-          mi.label
+          mi.label,
+          onClick --> handleAction(mi.action)
         )
 
     close +: items
   }
+
+  def handleAction(action: Action): Unit =
+    if (action.isDefined)
+      action.get.apply()
 
   @js.native
   @JSGlobal
