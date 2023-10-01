@@ -9,11 +9,14 @@ const height = 1000;
 export function drawWordCloud(words) {
   const fontFamily = "Verdana, Arial, Helvetica, sans-serif";
 
-  const svg = d3.select("#tags").append("svg")
+  const svg = d3.create("svg")
     .attr("id", "word-cloud")
     .attr("viewBox", [0, 0, width, height])
     .attr("font-family", fontFamily)
     .attr("text-anchor", "middle");
+
+  const toReplace = d3.select("#tags").select("#word-cloud");
+  toReplace.node().replaceWith(svg.node());
 
   const c = cloud()
     .size([width, height])
@@ -55,7 +58,8 @@ export function drawWordCloud(words) {
 
       function handleClick(d, i) {
         var e = d3.select(this);
-        console.log(">>> clicked on: " + e.text());
+        var lcw = e.text();
+        console.log(">>> last clicked word: " + lcw);
         e.classed("word-selected", !e.classed("word-selected"));
       }
     });
