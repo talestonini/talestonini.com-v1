@@ -6,7 +6,13 @@ const height = 1000;
 
 // reference:
 // https://observablehq.com/@zhoiii/d3-wordcolud
-export function drawWordCloud(words) {
+export function drawWordCloud(whereSelector, words) {
+  // only draw the word cloud if the given whereSelector can provide an element where to place it,
+  // otherwise simply return
+  const toReplace = d3.select(whereSelector);
+  if (toReplace.node() === null)
+    return;
+
   const fontFamily = "Verdana, Arial, Helvetica, sans-serif";
 
   const svg = d3.create("svg")
@@ -14,8 +20,6 @@ export function drawWordCloud(words) {
     .attr("viewBox", [0, 0, width, height])
     .attr("font-family", fontFamily)
     .attr("text-anchor", "middle");
-
-  const toReplace = d3.select("#tags").select("#word-cloud");
   toReplace.node().replaceWith(svg.node());
 
   const c = cloud()
@@ -58,8 +62,23 @@ export function drawWordCloud(words) {
 
       function handleClick(d, i) {
         var e = d3.select(this);
-        var lcw = e.text();
-        console.log(">>> last clicked word: " + lcw);
+        var lastClickedWord = e.text();
+
+        var clipboardEvent = new Event('paste');
+        Object.defineProperty(clipboardEvent, 'clipboardData', {
+          value: {
+            getData: function(format) {
+              if (format == "text/plain")
+                return lastClickedWord;
+              else
+                return undefined;
+            }
+          }
+        });
+
+        var clipboard = document.getElementById("clipboardDiv");
+        clipboard.dispatchEvent(clipboardEvent);
+
         e.classed("word-selected", !e.classed("word-selected"));
       }
     });

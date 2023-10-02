@@ -213,7 +213,7 @@ object App {
             allTags = allTags ++ postDoc.fields.tags.get.map(t => t.tag).toSet
           }
           Spinner.stop(retrievingPosts)
-          WordCloudJS(allTags.toList)
+          WordCloud(Tags.wordCloudElementSelector(), allTags.toList)
         case f: Failure[Docs[Post]] =>
           println(s"failed getting posts: ${f.exception.getMessage()}")
           Spinner.stop(retrievingPosts)

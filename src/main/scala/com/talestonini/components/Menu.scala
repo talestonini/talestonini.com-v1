@@ -4,7 +4,8 @@ import com.raquo.laminar.api.features.unitArrows
 import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.App
 import App.*
-import com.talestonini.WordCloudJS
+import com.talestonini.pages.Tags
+import com.talestonini.WordCloud
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 
@@ -15,7 +16,7 @@ object Menu {
 
   private val menuItems: Seq[MenuItem] = Seq(
     MenuItem("Posts", PostsPage),
-    MenuItem("Tags", TagsPage, Some(() => WordCloudJS(App.allTags.toList))),
+    MenuItem("Tags", TagsPage, Some(() => WordCloud(Tags.wordCloudElementSelector(), App.allTags.toList))),
     MenuItem("About", AboutPage)
   )
 
