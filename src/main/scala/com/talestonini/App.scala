@@ -4,7 +4,7 @@ import cats.effect.unsafe.implicits.global
 import com.raquo.laminar.api.*
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.waypoint.*
-import com.talestonini.components.{Logo, Menu, Footer, Spinner}
+import com.talestonini.components.{Logo, Menu, Footer, LoadingHr}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
 import com.talestonini.{Firebase, Prism}
@@ -41,7 +41,7 @@ object App {
           Logo(),
           Menu()
         ),
-        hr()
+        LoadingHr()
       ),
       div(
         className := "w3-content w3-row w3-hide-large w3-hide-medium",
@@ -50,16 +50,15 @@ object App {
           Logo(),
           Menu(isMobile = true)
         ),
-        hr()
+        LoadingHr()
       ),
       div(
         className := "w3-content",
         div(
           className := "content w3-padding-16",
-          Spinner(),
           child <-- router.currentPageSignal.map(render)
         ),
-        hr()
+        LoadingHr()
       ),
       div(
         className := "footer w3-container w3-padding-8 w3-center w3-hide-small",
@@ -186,7 +185,7 @@ object App {
 
   private def retrievePostsDataFromDb(): Unit = {
     val retrievingPosts = "retrievingPosts"
-    Spinner.start(retrievingPosts)
+    LoadingHr.start(retrievingPosts)
     CloudFirestore
       .getPosts()
       .unsafeToFuture()
@@ -212,11 +211,11 @@ object App {
 
             allTags = allTags ++ postDoc.fields.tags.get.map(t => t.tag).toSet
           }
-          Spinner.stop(retrievingPosts)
+          LoadingHr.stop(retrievingPosts)
           WordCloud(Tags.wordCloudElementSelector(), allTags.toList)
         case f: Failure[Docs[Post]] =>
           println(s"failed getting posts: ${f.exception.getMessage()}")
-          Spinner.stop(retrievingPosts)
+          LoadingHr.stop(retrievingPosts)
       })(queue)
   }
 

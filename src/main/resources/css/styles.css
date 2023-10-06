@@ -198,6 +198,15 @@ h3 {
   }
 }
 
+@keyframes slideAnimation {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0% 0;
+    }
+}
+
 hr {
   background-image: url(/img/wave.png);
   background-size: 80px;
