@@ -37,7 +37,7 @@ object App {
       div(
         className := "w3-content w3-row w3-hide-small",
         div(
-          className := "w3-padding-16",
+          className := "w3-padding-8",
           Logo(),
           Menu()
         ),
@@ -62,11 +62,11 @@ object App {
         hr()
       ),
       div(
-        className := "footer w3-container w3-padding-16 w3-center w3-hide-small",
+        className := "footer w3-container w3-padding-8 w3-center w3-hide-small",
         Footer()
       ),
       div(
-        className := "footer w3-container w3-padding-16 w3-center w3-hide-large w3-hide-medium",
+        className := "footer w3-container w3-padding-8 w3-center w3-hide-large w3-hide-medium",
         Footer()
       )
     )

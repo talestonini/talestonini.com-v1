@@ -70,7 +70,6 @@ trait BasePost {
         className := "w3-padding-16 line-numbers",
         content
       ),
-      hr(),
       div(
         className := "post-comments",
         div(
