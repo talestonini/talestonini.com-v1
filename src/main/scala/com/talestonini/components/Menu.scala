@@ -58,10 +58,9 @@ object Menu {
     val classes = "w3-button w3-hover-none w3-border-white w3-bottombar w3-hover-border-black w3-hide-small menu-item"
     for (mi <- menuItems)
       yield a(
-        navigateTo(mi.page),
         className := classes,
         mi.label,
-        onClick --> handleAction(mi.action)
+        navigateTo(mi.page, postNav = Some(() => handleAction(mi.action)))
       )
   }
 
@@ -80,11 +79,10 @@ object Menu {
     val items =
       for ((mi, i) <- menuItems.zipWithIndex)
         yield a(
-          navigateTo(mi.page),
           className := s"$commonClasses w3-xlarge ${w3Color(i)}",
           onClick --> toggleSidebar(),
           mi.label,
-          onClick --> handleAction(mi.action)
+          navigateTo(mi.page, postNav = Some(() => handleAction(mi.action)))
         )
 
     close +: items

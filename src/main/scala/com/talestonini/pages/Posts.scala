@@ -9,17 +9,18 @@ object Posts {
 
   val posts: Var[Docs[Post]] = Var(Seq.empty)
 
-  def apply(): Element =
+  def apply(filter: Option[Seq[Tag]] = None): Element =
     div(
       className := "post-list",
-      children <-- buildPostLinks()
+      children <-- buildPostLinks(filter.getOrElse(Seq.empty))
     )
 
-  private def buildPostLinks(): Signal[Seq[Element]] =
+  private def buildPostLinks(filter: Seq[Tag]): Signal[Seq[Element]] =
     posts.signal.map { ps =>
       for {
         post <- ps
         fields = post.fields
+        if fields.tags.map(tags => filter.toSet.subsetOf(tags.toSet)).getOrElse(true)
       } yield div(
         p(
           div(

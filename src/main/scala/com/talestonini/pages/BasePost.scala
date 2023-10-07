@@ -3,6 +3,7 @@ package com.talestonini.pages
 import cats.effect.unsafe.implicits.global
 import com.raquo.laminar.api.features.unitArrows
 import com.raquo.laminar.api.L.{*, given}
+import com.talestonini.App.{navigateTo, TagsPage}
 import com.talestonini.components.{InputComment, Spinner}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
@@ -140,9 +141,9 @@ trait BasePost {
           yield span(className := "tag w3-hover-opacity",
             a(
               styleAttr := "text-decoration: none",
-              href      := "",
               span(className := s"icon fa fa-tag"),
-              t.tag
+              t.tag,
+              navigateTo(TagsPage, preNav = Some(() => Tags.selectedTags.update(ts => ts + t)))
             ))
       case None => Seq.empty
     }

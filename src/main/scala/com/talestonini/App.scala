@@ -87,7 +87,8 @@ object App {
   case object UrbanForestChallengePage extends Page
   case object FunProgCapstonePage      extends Page
 
-  def navigateTo(page: Page): Binder[HtmlElement] = Binder { el =>
+  def navigateTo(page: Page, preNav: Option[() => Unit] = None,
+    postNav: Option[() => Unit] = None): Binder[HtmlElement] = Binder { el =>
     val isLinkElement = el.ref.isInstanceOf[dom.html.Anchor]
     if (isLinkElement) {
       el.amend(href(router.absoluteUrlForPage(page)))
@@ -100,7 +101,14 @@ object App {
     (onClick
       .filter(ev => !(isLinkElement && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey)))
       .preventDefault
-      --> (_ => router.pushState(page))).bind(el)
+      --> (_ => {
+        if (preNav.isDefined)
+          preNav.get()
+        val res = router.pushState(page)
+        if (postNav.isDefined)
+          postNav.get()
+        res
+      })).bind(el)
   }
 
   def navigateByPostResource(resource: String) =

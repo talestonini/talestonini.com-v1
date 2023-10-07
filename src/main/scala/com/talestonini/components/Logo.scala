@@ -10,7 +10,6 @@ object Logo {
       className := "w3-col w3-left logo",
       styleAttr := "width: 245px",
       a(
-        navigateTo(HomePage),
         table(
           tr(
             td(className := "symbol", "❯"),
@@ -30,7 +29,8 @@ object Logo {
             td(className := "com", "com"),
             td()
           )
-        )
+        ),
+        navigateTo(HomePage)
       )
     )
 
