@@ -4,7 +4,7 @@ import cats.effect.unsafe.implicits.global
 import com.raquo.laminar.api.features.unitArrows
 import com.raquo.laminar.api.L.{*, given}
 import com.talestonini.App.{navigateTo, TagsPage}
-import com.talestonini.components.{InputComment, Spinner}
+import com.talestonini.components.{InputComment, LoadingHr, Menu}
 import com.talestonini.db.CloudFirestore
 import com.talestonini.db.model.*
 import com.talestonini.Firebase
@@ -143,7 +143,11 @@ trait BasePost {
               styleAttr := "text-decoration: none",
               span(className := s"icon fa fa-tag"),
               t.tag,
-              navigateTo(TagsPage, preNav = Some(() => Tags.selectedTags.update(ts => ts + t)))
+              navigateTo(
+                TagsPage,
+                preNav = Some(() => Tags.selectedTags.update(ts => ts + t)),
+                postNav = Some(() => Menu.initWordCloud())
+              )
             ))
       case None => Seq.empty
     }
@@ -173,17 +177,17 @@ trait BasePost {
         case s: Success[Doc[Post]] =>
           postDoc.update(_ => s.get)
           val retrievingComments = s"retrievingComments_${postDoc.signal.now().fields.resource.getOrElse("")}"
-          Spinner.start(retrievingComments)
+          LoadingHr.start(retrievingComments)
           CloudFirestore
             .getComments(s.get.name)
             .unsafeToFuture()
             .onComplete({
               case s: Success[Docs[Comment]] =>
                 s.get.foreach(commentDoc => comments.update(list => list :+ commentDoc))
-                Spinner.stop(retrievingComments)
+                LoadingHr.stop(retrievingComments)
               case f: Failure[Docs[Comment]] =>
                 println(s"failed getting comments: ${f.exception.getMessage()}")
-                Spinner.stop(retrievingComments)
+                LoadingHr.stop(retrievingComments)
             })(queue)
         case f: Failure[Doc[Post]] =>
           println(s"failed getting post document name: ${f.exception.getMessage()}")

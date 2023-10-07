@@ -16,7 +16,7 @@ object Menu {
 
   private val menuItems: Seq[MenuItem] = Seq(
     MenuItem("Posts", PostsPage),
-    MenuItem("Tags", TagsPage, Some(() => WordCloud(Tags.wordCloudElementSelector(), App.allTags.toList))),
+    MenuItem("Tags", TagsPage, Some(() => initWordCloud())),
     MenuItem("About", AboutPage)
   )
 
@@ -91,6 +91,9 @@ object Menu {
   def handleAction(action: Action): Unit =
     if (action.isDefined)
       action.get.apply()
+
+  def initWordCloud(): Unit =
+    WordCloud(Tags.wordCloudElementSelector(), App.allTags.toList)
 
   @js.native
   @JSGlobal
