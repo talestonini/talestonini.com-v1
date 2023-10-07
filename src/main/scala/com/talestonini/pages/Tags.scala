@@ -33,7 +33,7 @@ object Tags {
         div(idAttr := "word-cloud")
       ),
       div(
-        i(styleAttr := "font-size: 15px", "Select and unselect tags to filter the posts below:"),
+        i(styleAttr := "font-size: 15px", "Select / unselect tags to filter the list of posts:"),
         child <-- selectedTags.signal.map(ts => div(ts.toSeq.map(tag): _*))
       ),
       child <-- selectedTags.signal.map(ts => Posts(Some(ts.toSeq)))
