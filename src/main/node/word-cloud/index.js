@@ -41,11 +41,11 @@ export function drawWordCloud(whereSelector, words) {
         .style("fill", d3.interpolateRdYlGn(Math.random()))
         .classed("click-only-text", true)
         .classed("word-default", true)
-        .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut)
-        .on("click", handleClick);
+        .on("mouseover", mouseOverHandler)
+        .on("mouseout", mouseOutHandler)
+        .on("click", clickHandler);
 
-      function handleMouseOver(d, i) {
+      function mouseOverHandler(d, i) {
         d3.select(this)
           .classed("word-hovered", true)
           .transition(`mouseover-${text}`).duration(300).ease(d3.easeLinear)
@@ -53,14 +53,14 @@ export function drawWordCloud(whereSelector, words) {
           .attr("font-weight", "bold");
       }
 
-      function handleMouseOut(d, i) {
+      function mouseOutHandler(d, i) {
         d3.select(this)
           .classed("word-hovered", false)
           .interrupt(`mouseover-${text}`)
           .attr("font-size", size);
       }
 
-      function handleClick(d, i) {
+      function clickHandler(d, i) {
         var e = d3.select(this);
         var lastClickedWord = e.text();
 

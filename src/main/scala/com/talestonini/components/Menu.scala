@@ -60,7 +60,7 @@ object Menu {
       yield a(
         className := classes,
         mi.label,
-        navigateTo(mi.page, postNav = Some(() => handleAction(mi.action)))
+        navigateTo(mi.page, postNav = Some(() => actionHandler(mi.action)))
       )
   }
 
@@ -82,18 +82,18 @@ object Menu {
           className := s"$commonClasses w3-xlarge ${w3Color(i)}",
           onClick --> toggleSidebar(),
           mi.label,
-          navigateTo(mi.page, postNav = Some(() => handleAction(mi.action)))
+          navigateTo(mi.page, postNav = Some(() => actionHandler(mi.action)))
         )
 
     close +: items
   }
 
-  def handleAction(action: Action): Unit =
-    if (action.isDefined)
-      action.get.apply()
-
   def initWordCloud(): Unit =
     WordCloud(Tags.wordCloudElementSelector(), App.allTags.toList)
+
+  private def actionHandler(action: Action): Unit =
+    if (action.isDefined)
+      action.get.apply()
 
   @js.native
   @JSGlobal
