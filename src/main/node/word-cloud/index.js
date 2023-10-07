@@ -25,7 +25,7 @@ export function drawWordCloud(whereSelector, words) {
   const c = cloud()
     .size([width, height])
     .words(words.map(function(d) {
-      return { text: d, size: 10 + Math.random() * 90 };
+      return { text: d, size: 15 + Math.random() * 90 };
     }))
     .padding(1)
     .rotate(function() { return ~~(Math.random() * 3) * 30; })
@@ -38,7 +38,7 @@ export function drawWordCloud(whereSelector, words) {
         .attr("transform", `translate(${x},${y}) rotate(${rotate})`)
         .attr("data-counts", text)
         .text(text)
-        .style("fill", d3.interpolateRdYlGn(Math.random()))
+        .style("fill", d3.interpolateRainbow(Math.random()))
         .classed("click-only-text", true)
         .classed("word-default", true)
         .on("mouseover", mouseOverHandler)

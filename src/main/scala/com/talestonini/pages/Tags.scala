@@ -28,14 +28,13 @@ object Tags {
     div(
       clipboard,
       div(
-        styleAttr := "display: inline-flex",
-        "Find posts with tags:",
-        child <-- selectedTags.signal.map(ts => div(ts.toSeq.map(tag): _*))
-      ),
-      div(
         idAttr    := "tags",
         className := "w3-center",
         div(idAttr := "word-cloud")
+      ),
+      div(
+        i(styleAttr := "font-size: 15px", "Select and unselect tags to filter the posts below:"),
+        child <-- selectedTags.signal.map(ts => div(ts.toSeq.map(tag): _*))
       ),
       child <-- selectedTags.signal.map(ts => Posts(Some(ts.toSeq)))
     )
