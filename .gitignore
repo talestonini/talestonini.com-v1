@@ -29,7 +29,6 @@ public
 # Scala and Scala.js
 .bloop
 .bsp
-.git
 .idea
 .metals
 project
@@ -37,3 +36,6 @@ target
 
 # Secrets
 .secrets-*
+
+# Other
+.firebase
