@@ -40,9 +40,9 @@ In another terminal, execute `deploy.sh`, which essentially does:
 - ~~Lazily build posts' `Element`s (improve performance loading images)~~
 - ~~Update the about page~~
 - ~~Mastodon~~
-- Likes
+- ~~Likes~~: not to do anymore, as I removed the login feature
 - ~~Tweet/LinkedIn a post~~
-- Tags (with word cloud)
+- ~~Tags (with word cloud)~~
 - ~~JS bundler~~: makes no sense, as the website does not depend on any npm library (that is not delivered by *Firebase
 Hosting*)
 - ~~Laika~~
