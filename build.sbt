@@ -10,7 +10,7 @@ lazy val ttDotCom = project
   .enablePlugins(BuildInfoPlugin, LaikaPlugin)
   .settings(
     scalaVersion := "3.3.1",
-    version      := "1.0.0",
+    version      := "1.0.1",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,

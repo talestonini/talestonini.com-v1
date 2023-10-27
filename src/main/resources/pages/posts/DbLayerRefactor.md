@@ -2,7 +2,7 @@
   class.name = DbLayerRefactor
 %}
 <div class="aside">
-  <img src="/img/refactoring.png" />
+  <p><img src="/img/refactoring.png" /></p>
 </div>
 
 A few weeks ago I took on the task of updating the database access layer of this website. Some parts of this page are

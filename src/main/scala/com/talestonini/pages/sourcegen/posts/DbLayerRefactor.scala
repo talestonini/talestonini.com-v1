@@ -16,7 +16,7 @@ object DbLayerRefactor extends BasePost {
   def postContent(): Elem =
     <div>
       <div class="aside">
-        <img src="/img/refactoring.png"/>
+        <p><img src="/img/refactoring.png"/></p>
       </div>
       <p>A few weeks ago I took on the task of updating the database access layer of this website. Some parts of this page are
       stored in a Cloud Firestore database, like <em>comments</em> and <em>likes</em> (when I actually implement <em>likes</em>), and are retrieved
