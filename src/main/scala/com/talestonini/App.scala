@@ -141,7 +141,7 @@ object App {
 
   private def pageElement(page: Page): Element =
     page match {
-      case HomePage                 => dbLayerRefactorElement
+      case HomePage                 => tagsElement
       case PostsPage                => postsElement
       case TagsPage                 => tagsElement
       case AboutPage                => aboutElement
