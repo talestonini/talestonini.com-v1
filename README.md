@@ -11,8 +11,10 @@ Attention with the Java version in use.  Java `20` has allowed SBT to launch fin
 Launch SBT with the provided script, for more memory, and then test:
 
     ./sbt.sh
-    coverage
     test
+
+**NOTE:** [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
+supports ScalaJS 2 at the time of writing (8 Aug 2024).
 
 ## Developing
 

@@ -1,16 +1,17 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val circeVersion  = "0.15.0-M1"
-val http4sVersion = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
+val scalaVer  = "3.3.1"
+val circeVer  = "0.15.0-M1"
+val http4sVer = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
 
 lazy val ttDotCom = project
   .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
   .enablePlugins(BuildInfoPlugin, LaikaPlugin)
   .settings(
-    scalaVersion := "3.3.1",
-    version      := "1.1.0",
+    scalaVersion := s"$scalaVer",
+    version      := "1.1.1",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -52,12 +53,12 @@ lazy val ttDotCom = project
       "org.scala-lang.modules" %%% "scala-xml" % "2.2.0",
 
       // Http4s (backend and database stuff)
-      "io.circe"   %%% "circe-core"      % circeVersion,
-      "io.circe"   %%% "circe-generic"   % circeVersion,
-      "io.circe"   %%% "circe-parser"    % circeVersion,
-      "org.http4s" %%% "http4s-circe"    % http4sVersion,
-      "org.http4s" %%% "http4s-client"   % http4sVersion,
-      "org.http4s" %%% "http4s-dom"      % http4sVersion,
+      "io.circe"   %%% "circe-core"      % circeVer,
+      "io.circe"   %%% "circe-generic"   % circeVer,
+      "io.circe"   %%% "circe-parser"    % circeVer,
+      "org.http4s" %%% "http4s-circe"    % http4sVer,
+      "org.http4s" %%% "http4s-client"   % http4sVer,
+      "org.http4s" %%% "http4s-dom"      % http4sVer,
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
@@ -91,7 +92,7 @@ replaceDevSecrets := {
   loadSecretsFrom(baseDirectory.value / ".secrets-dev").foreach { entry =>
     replaceString(
       log,
-      baseDirectory.value / "target/scala-3.3.1/ttdotcom-fastopt",
+      baseDirectory.value / s"target/scala-$scalaVer/ttdotcom-fastopt",
       "com.talestonini*.js",
       entry._1,
       entry._2
@@ -106,7 +107,7 @@ replaceTestSecrets := {
   loadSecretsFrom(baseDirectory.value / ".secrets-dev").foreach { entry =>
     replaceString(
       log,
-      baseDirectory.value / "target/scala-3.3.1/ttdotcom-test-fastopt",
+      baseDirectory.value / s"target/scala-$scalaVer/ttdotcom-test-fastopt",
       "com.talestonini*.js",
       entry._1,
       entry._2
@@ -121,7 +122,7 @@ replaceProdSecrets := {
   loadSecretsFrom(baseDirectory.value / ".secrets-prod").foreach { entry =>
     replaceString(
       log,
-      baseDirectory.value / "target/scala-3.3.1/ttdotcom-opt",
+      baseDirectory.value / s"target/scala-$scalaVer/ttdotcom-opt",
       "com.talestonini*.js",
       entry._1,
       entry._2
