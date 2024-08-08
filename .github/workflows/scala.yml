@@ -28,6 +28,10 @@ jobs:
         java-version: '20'
         distribution: 'temurin'
         cache: 'sbt'
+    - name: Create secret files
+      run:
+        echo ${{ secrets.DEV }} > .secrets-dev
+        echo ${{ secrets.PROD }} > .secrets-prod
     - name: Run tests
       run: sbt test
       # Optional: This step uploads information to the GitHub dependency graph and unblocking Dependabot alerts for the repository
