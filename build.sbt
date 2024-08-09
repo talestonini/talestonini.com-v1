@@ -75,7 +75,7 @@ lazy val ttDotCom = project
 // ---------------------------------------------------------------------------------------------------------------------
 // Test setup
 // ---------------------------------------------------------------------------------------------------------------------
-Test / jsEnv := new org.scalajs.jsenv.selenium.SeleniumJSEnv(new org.openqa.selenium.firefox.FirefoxOptions())
+Test / jsEnv := new jsenv.playwright.PWEnv(browserName = "chrome", headless = true, showLogs = true)
 Test / test  := ((Test / test) dependsOn replaceTestSecrets).value
 // NOTE: Test calls fastLinkJS as a dependency when it notices a code change, but it does not call my fastLinkJS
 //       (redefined below). Therefore, manually call my fastLinkJS before testing, or the test dependency on

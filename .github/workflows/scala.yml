@@ -23,36 +23,21 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Update Ubuntu dependencies and install Xvfb
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'sbt'
 
     - name: Create project secret files
       run: |
         echo ${{ secrets.DEV }} > .secrets-dev
         echo ${{ secrets.PROD }} > .secrets-prod
 
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        java-version: '20'
-        distribution: 'temurin'
-        cache: 'sbt'
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
-
-    - name: Install npm dependencies
-      run: npm install
-
     - name: Run tests
       run: |
-        Xvfb :99 -screen 0 1024x768x16 &
-        export DISPLAY=:99
-        sbt test
+        sbt -J-Xmx3G test
 
     # Optional: This step uploads information to the GitHub dependency graph and unblocking Dependabot alerts for the repository
     - name: Upload dependency graph

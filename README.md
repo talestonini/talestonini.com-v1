@@ -1,10 +1,13 @@
 # TalesTonini.com
 
-This is my personal website, where I add articles about varied stuff. It is developed in Scala.js and hosted with Firebase Hosting.
+This is my personal website, where I add posts about varied stuff. It is developed in Scala.js and hosted with Firebase
+Hosting.
 
 ## Pre-requisites
 
-Attention with the Java version in use.  Java `20` has allowed SBT to launch fine, whereas `22` has not.
+Attention with the Java version in use.  Java `17` and `20` have allowed SBT to launch fine, whereas `21` or `22` have
+not until I updated SBT.  So make sure to have an SBT version that is compatible with your JDK in use (and make sure
+that JDK is compatible with the Scala version of this project).
 
 ## Testing
 
@@ -76,4 +79,5 @@ Hosting*)
 ### Nice to have
 - ~~Open-source the website~~
 - ~~Improve delivery of scripts/styles from `index.html` (Firebase ones are fine, I mean all others)~~
-- Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)
+- ~~Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)~~:
+actually, configure deploy via GitHub Actions
