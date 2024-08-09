@@ -76,10 +76,7 @@ lazy val ttDotCom = project
 // Test setup
 // ---------------------------------------------------------------------------------------------------------------------
 Test / jsEnv := new jsenv.playwright.PWEnv(browserName = "chrome", headless = true, showLogs = true)
-Test / test  := ((Test / test) dependsOn replaceTestSecrets).value
-// NOTE: Test calls fastLinkJS as a dependency when it notices a code change, but it does not call my fastLinkJS
-//       (redefined below). Therefore, manually call my fastLinkJS before testing, or the test dependency on
-//       replaceTestSecrets may not suffice. I believe SBT not calling a redefinition of fastLinkJS is an SBT bug.
+Test / test  := ((Test / test) dependsOn replaceTestSecrets dependsOn (Test / fastLinkJS)).value
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Firebase setup

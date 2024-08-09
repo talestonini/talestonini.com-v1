@@ -11,9 +11,8 @@ that JDK is compatible with the Scala version of this project).
 
 ## Testing
 
-Launch SBT with the provided script, for more memory, and then test:
+Launch SBT with the provided script `sbt.sh` for more memory, and then test:
 
-    ./sbt.sh
     test
 
 **NOTE:** [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
