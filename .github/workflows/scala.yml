@@ -31,9 +31,12 @@ jobs:
         cache: 'sbt'
 
     - name: Create project secret files
+      with:
+        dev_secrets: ${{ secrets.DEV }}
+        prod_secrets: ${{ secrets.PROD }}
       run: |
-        echo ${{ secrets.DEV }} > .secrets-dev
-        echo ${{ secrets.PROD }} > .secrets-prod
+        echo "$dev_secrets" > .secrets-dev
+        echo "$prod_secrets" > .secrets-prod
 
     - name: Run tests
       run: |
