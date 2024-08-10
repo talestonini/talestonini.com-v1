@@ -5,20 +5,26 @@ Hosting.
 
 ## Pre-requisites
 
-Attention with the Java version in use.  Java `17` and `20` have allowed SBT to launch fine, whereas `21` or `22` have
-not until I updated SBT.  So make sure to have an SBT version that is compatible with your JDK in use (and make sure
-that JDK is compatible with the Scala version of this project).
+### Java
 
-## Testing
+Attention with the Java version in use.  Java 17 and 20 have allowed SBT 1.8 to launch fine, whereas 21 or 22 have not
+until I updated to SBT 1.10.  So make sure to have an SBT version that is compatible with the JDK in use, and make sure
+that JDK is compatible with the Scala version of the project.
 
-Launch SBT with the provided script `sbt.sh` for more memory, and then test:
+### SBT
+
+Launch SBT with the provided script `sbt.sh` for more memory.
+
+## Running Unit Tests
+
+In SBT:
 
     test
 
-**NOTE:** [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
+*NOTE:* [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
 supports ScalaJS 2 at the time of writing (8 Aug 2024).
 
-## Developing
+## Developing with Auto-Reload
 
 In SBT:
 
@@ -29,7 +35,7 @@ In another terminal, execute `test_local.sh`, which essentially does:
     ./prep_deploy.sh public
     npm run dev
 
-## Building
+## Building for Deployment
 
 In SBT:
 
@@ -42,12 +48,9 @@ In another terminal:
 
 ## Deploying
 
-In SBT:
+Execute `deploy.sh`, which essentially does:
 
-    fullLinkJS
-
-In another terminal, execute `deploy.sh`, which essentially does:
-
+    sbt fullLinkJS
     npm run build
     cp firebase.json dist
     firebase deploy --public dist

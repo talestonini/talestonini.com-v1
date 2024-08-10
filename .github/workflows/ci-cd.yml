@@ -1,0 +1,73 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - '**'  # all branches
+  pull_request:
+    branches: 
+      - 'main'
+
+permissions:
+  contents: write  # this permission is needed to submit the dependency graph
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'sbt'
+
+    - name: Create project secret files
+      env:
+        dev_secrets: ${{ secrets.DEV }}
+        prod_secrets: ${{ secrets.PROD }}
+      run: |
+        echo "$dev_secrets" > .secrets-dev
+        echo "$prod_secrets" > .secrets-prod
+
+    - name: Run tests
+      run: |
+        sbt test
+
+    # This step uploads information to the GitHub dependency graph, unblocking Dependabot alerts for the repository.
+    - name: Upload dependency graph
+      uses: scalacenter/sbt-dependency-submission@v2
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test                          # only deploy if tests succeed
+    if: github.ref == 'refs/heads/main'  # only deploy if the branch is main
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'sbt'
+
+    - name: Install firebase tools
+      run: |
+        npm install -g firebase-tools
+
+    - name: Create project secret files
+      env:
+        prod_secrets: ${{ secrets.PROD }}
+      run: |
+        echo "$prod_secrets" > .secrets-prod
+
+    - name: Deploy
+      run: |
+        ./deploy.sh
