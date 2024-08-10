@@ -25,11 +25,11 @@ jobs:
 
     - name: Create project secret files
       env:
-        dev_secrets: ${{ secrets.DEV }}
-        prod_secrets: ${{ secrets.PROD }}
+        DEV_SECRETS: ${{ secrets.DEV }}
+        PROD_SECRETS: ${{ secrets.PROD }}
       run: |
-        echo "$dev_secrets" > .secrets-dev
-        echo "$prod_secrets" > .secrets-prod
+        echo "$DEV_SECRETS" > .secrets-dev
+        echo "$PROD_SECRETS" > .secrets-prod
 
     - name: Run tests
       run: |
@@ -55,6 +55,10 @@ jobs:
         distribution: 'temurin'
         cache: 'sbt'
 
+    - name: Install Vite
+      run: |
+        npm install -g vite
+
     - name: Install firebase tools
       run: |
         npm install -g firebase-tools
@@ -66,5 +70,7 @@ jobs:
         echo "$prod_secrets" > .secrets-prod
 
     - name: Deploy
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: |
         ./deploy.sh
