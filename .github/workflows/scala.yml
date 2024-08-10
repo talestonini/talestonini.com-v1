@@ -31,7 +31,7 @@ jobs:
         cache: 'sbt'
 
     - name: Create project secret files
-      with:
+      env:
         dev_secrets: ${{ secrets.DEV }}
         prod_secrets: ${{ secrets.PROD }}
       run: |
