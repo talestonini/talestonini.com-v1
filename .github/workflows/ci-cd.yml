@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - '**'  # all branches
-  pull_request:
-    branches: 
-      - 'main'
 
 permissions:
   contents: write  # this permission is needed to submit the dependency graph
