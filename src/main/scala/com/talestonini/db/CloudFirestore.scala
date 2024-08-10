@@ -60,8 +60,8 @@ object CloudFirestore extends Database[IO] {
     val request = Request[IO](Method.POST, uri).withHeaders(Headers(Header.Raw(ci"Content-Type", "application/json")))
 
     FetchClientBuilder[IO].create
-      .expectOr[AuthTokenResponse](request)(response =>
-        IO(CloudFirestoreException(s"failed requesting signUp token: $response")))
+      .expectOr[AuthTokenResponse](request)(errorResponse =>
+        IO(CloudFirestoreException(s"failed requesting signUp token: $errorResponse")))
       .map(response => response.idToken)
   }
 
@@ -73,7 +73,8 @@ object CloudFirestore extends Database[IO] {
     val request = Request[IO](Method.GET, uri).withHeaders(Header.Raw(CIString("Authorization"), s"Bearer $token"))
 
     FetchClientBuilder[IO].create
-      .expectOr[DocsRes[T]](request)(response => IO(CloudFirestoreException(s"failed getting documents: $response")))
+      .expectOr[DocsRes[T]](request)(errorResponse =>
+          IO(CloudFirestoreException(s"failed getting documents: $errorResponse")))
       .map(docsRes => docsRes.documents.sortBy(_.fields.sortingField).reverse)
   }
 
@@ -90,7 +91,8 @@ object CloudFirestore extends Database[IO] {
         .withHeaders(Header.Raw(CIString("Authorization"), s"Bearer $token"))
 
       FetchClientBuilder[IO].create
-        .expectOr[Doc[T]](request)(response => IO(CloudFirestoreException(s"failed upserting document: $response")))
+        .expectOr[Doc[T]](request)(errorResponse =>
+            IO(CloudFirestoreException(s"failed upserting document: $errorResponse")))
     }
 
   def deleteDocument[T <: Model](token: String,

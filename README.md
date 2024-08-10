@@ -1,20 +1,30 @@
 # TalesTonini.com
 
-This is my personal website, where I add articles about varied stuff. It is developed in Scala.js and hosted with Firebase Hosting.
+This is my personal website, where I add posts about varied stuff. It is developed in Scala.js and hosted with Firebase
+Hosting.
 
 ## Pre-requisites
 
-Attention with the Java version in use.  Java `20` has allowed SBT to launch fine, whereas `22` has not.
+### Java
 
-## Testing
+Attention with the Java version in use.  Java 17 and 20 have allowed SBT 1.8 to launch fine, whereas 21 or 22 have not
+until I updated to SBT 1.10.  So make sure to have an SBT version that is compatible with the JDK in use, and make sure
+that JDK is compatible with the Scala version of the project.
 
-Launch SBT with the provided script, for more memory, and then test:
+### SBT
 
-    ./sbt.sh
-    coverage
+Launch SBT with the provided script `sbt.sh` for more memory.
+
+## Running Unit Tests
+
+In SBT:
+
     test
 
-## Developing
+*NOTE:* [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
+supports ScalaJS 2 at the time of writing (8 Aug 2024).
+
+## Developing with Auto-Reload
 
 In SBT:
 
@@ -25,7 +35,7 @@ In another terminal, execute `test_local.sh`, which essentially does:
     ./prep_deploy.sh public
     npm run dev
 
-## Building
+## Building for Deployment
 
 In SBT:
 
@@ -38,12 +48,9 @@ In another terminal:
 
 ## Deploying
 
-In SBT:
+Execute `deploy.sh`, which essentially does:
 
-    fullLinkJS
-
-In another terminal, execute `deploy.sh`, which essentially does:
-
+    sbt fullLinkJS
     npm run build
     cp firebase.json dist
     firebase deploy --public dist
@@ -74,4 +81,5 @@ Hosting*)
 ### Nice to have
 - ~~Open-source the website~~
 - ~~Improve delivery of scripts/styles from `index.html` (Firebase ones are fine, I mean all others)~~
-- Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)
+- ~~Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)~~:
+actually, configure deploy via GitHub Actions
