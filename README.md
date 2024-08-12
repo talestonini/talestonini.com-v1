@@ -55,6 +55,14 @@ Execute `deploy.sh`, which essentially does:
     cp firebase.json dist
     firebase deploy --public dist
 
+## Firebase Util
+
+To get a Firebase token for headless CI:
+
+    firebase login:ci
+
+Then create an environment variable named `FIREBASE_TOKEN` with the token value.
+
 ## TODO
 
 ### New features
