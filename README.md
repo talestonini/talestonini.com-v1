@@ -30,12 +30,16 @@ In SBT:
 
     ~fastLinkJS
 
-In another terminal, execute `test_local.sh`, which essentially does:
+In another terminal, execute `dev_local.sh`, which essentially does:
 
-    ./prep_deploy.sh public
+    ./prep_public.sh public
     npm run dev
 
 ## Building for Deployment
+
+These are the steps to build the final (optimised) version of the website for testing before deployment to Firebase
+Hosting (ie, Vite preview).  For deployment per-se, they are not necessary, as everything is automated in script
+`deploy.sh`.
 
 In SBT:
 
@@ -43,17 +47,13 @@ In SBT:
 
 In another terminal:
 
-    npm run build      <-- this is what places artifacts in `dist`
+    ./prep_public.sh public   <-- must be before `npm run build`, as that
+    npm run build             <-- places `public` artifacts in `dist`
     npm run preview
 
 ## Deploying
 
-Execute `deploy.sh`, which essentially does:
-
-    sbt fullLinkJS
-    npm run build
-    cp firebase.json dist
-    firebase deploy --public dist
+    ./deploy.sh
 
 ## Firebase Util
 
@@ -90,4 +90,4 @@ Hosting*)
 - ~~Open-source the website~~
 - ~~Improve delivery of scripts/styles from `index.html` (Firebase ones are fine, I mean all others)~~
 - ~~Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)~~:
-actually, configure deploy via GitHub Actions
+no; actually, configure deploy via GitHub Actions

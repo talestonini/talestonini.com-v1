@@ -81,3 +81,4 @@ meaning the whole website UI was rewritten.
 
 ###1.1.x
 - Made Tags the home page.
+- Configured deployment via GitHub Actions.

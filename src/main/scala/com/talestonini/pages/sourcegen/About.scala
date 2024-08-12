@@ -109,6 +109,7 @@ object About {
       <h3 id="_1-1-x" class="section">1.1.x</h3>
       <ul>
         <li>Made Tags the home page.</li>
+        <li>Configured deployment via GitHub Actions.</li>
       </ul>
     </div>
 

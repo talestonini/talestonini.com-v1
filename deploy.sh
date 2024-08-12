@@ -1,26 +1,22 @@
 #!/bin/bash
 
-echo ">>> Installing firebase-tools (it's a node tool)"
-npm install -g firebase-tools
-
-echo ">>> Installing all npm dependencies"
-npm install
-
-echo ">>> Cleaning the repo"
+echo ">>> Step 1: Clean the repo"
 sbt clean
 
-# tests only pass with the DEV API key
-#echo ">>> Unit-testing"
-#sbt test
-
-echo ">>> Performing full JS link"
+echo ">>> Step 2: Perform full JS link (compile and build Scala.js code)"
 sbt fullLinkJS
 
-echo ">>> Building"
+echo ">>> Step 3: Prepare public assets directory for hosting in Firebase"
+./prep_public.sh public
+
+echo ">>> Step 4: Instal firebase-tools (it's a node tool)"
+npm install -g firebase-tools
+
+echo ">>> Step 5: Instal all npm dependencies"
+npm install
+
+echo ">>> Step 6: Build the website with Vite (vite build)"
 npm run build
 
-echo ">>> Copying firebase.json to the dist folder in prep for deploy"
-cp firebase.json dist
-
-echo ">>> Deploying to Firebase"
+echo ">>> Step 7: Deploy to Firebase"
 firebase deploy --public dist
