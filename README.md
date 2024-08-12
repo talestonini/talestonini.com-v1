@@ -21,7 +21,7 @@ In SBT:
 
     test
 
-*NOTE:* [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
+*Note:* [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
 supports ScalaJS 2 at the time of writing (8 Aug 2024).
 
 ## Developing with Auto-Reload
@@ -89,5 +89,5 @@ Hosting*)
 ### Nice to have
 - ~~Open-source the website~~
 - ~~Improve delivery of scripts/styles from `index.html` (Firebase ones are fine, I mean all others)~~
-- ~~Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)~~:
-no; actually, configure deploy via GitHub Actions
+- ~~Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)?
+no; actually, configure deploy via GitHub Actions with a workflow of my own~~
