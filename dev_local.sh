@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./prep_deploy.sh public
+./prep_public.sh public
 npm run dev
