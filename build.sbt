@@ -1,7 +1,7 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer  = "3.3.1"
+val scalaVer  = "3.3.1"     // update prep_public.sh to match this version
 val circeVer  = "0.15.0-M1"
 val http4sVer = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
 
