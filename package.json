@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "d3": "^7.8.5",
-    "firebase": "^10.3.1",
+    "firebase": "^10.13.2",
     "word-cloud": "file:./src/main/node/word-cloud"
   }
 }
