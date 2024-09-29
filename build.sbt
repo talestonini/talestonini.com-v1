@@ -1,8 +1,8 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer  = "3.5.1"     // update prep_public.sh to match this version
-val circeVer  = "0.14.10"
+val scalaVer = "3.5.1" // update prep_public.sh to match this version
+val circeVer = "0.14.10"
 
 lazy val ttDotCom = project
   .in(file("."))
