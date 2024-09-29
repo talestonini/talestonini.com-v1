@@ -89,7 +89,7 @@ package object model {
             p.publishDate.map(pd => "publish_date" -> field("timestampValue", pd.format(LongDateTimeFormatter))),
             p.tags.map(ts => "tags" -> field("arrayValue", field("values", ts.map(t => tagEncoder.apply(t))))),
             p.enabled.map(e => "enabled" -> field("booleanValue", e))
-          ).filter(_.isDefined).map(_.get): _*
+          ).filter(_.isDefined).map(_.get)*
         )
       }
     }
@@ -127,7 +127,7 @@ package object model {
             c.author.map(a => "author" -> field("mapValue", Json.obj(("fields", a)))),
             c.date.map(d => "date" -> field("timestampValue", d.format(LongDateTimeFormatter))),
             c.text.map(t => "text" -> field("stringValue", t))
-          ).filter(_.isDefined).map(_.get): _*
+          ).filter(_.isDefined).map(_.get)*
         )
       }
     }
@@ -161,7 +161,7 @@ package object model {
             u.name.map(n => "name" -> field("stringValue", n)),
             u.email.map(e => "email" -> field("stringValue", e)),
             u.uid.map(uid => "uid" -> field("stringValue", uid))
-          ).filter(_.isDefined).map(_.get): _*
+          ).filter(_.isDefined).map(_.get)*
         )
       }
     }

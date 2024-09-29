@@ -61,9 +61,9 @@ object About {
         <li><a href="https://www.scala-js.org/">Scala.js</a></li>
         <li><a href="https://laminar.dev/">Laminar</a></li>
         <li><a href="https://vitejs.dev/">Vite</a></li>
-        <li><a href="https://planet42.github.io/Laika/">Laika</a></li>
+        <li><a href="https://typelevel.org/Laika/">Laika</a></li>
         <li><a href="https://firebase.google.com/">Firebase</a></li>
-        <li><a href="https://firebase.google.com/firebase/cloud-firestore">Cloud Firestore</a></li>
+        <li><a href="https://firebase.google.com/docs/firestore">Cloud Firestore</a></li>
         <li><a href="https://www.w3schools.com/w3css/default.asp">W3.CSS</a></li>
         <li><a href="https://prismjs.com/index.html">PrismJS</a></li>
         <li><a href="https://www.jasondavies.com/wordcloud/">Jason Davies&#39; Word Cloud Generator</a> using <a href="https://d3js.org/">D3</a></li>
