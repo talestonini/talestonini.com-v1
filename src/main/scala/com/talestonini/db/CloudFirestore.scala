@@ -74,7 +74,7 @@ object CloudFirestore extends Database[IO] {
 
     FetchClientBuilder[IO].create
       .expectOr[DocsRes[T]](request)(errorResponse =>
-          IO(CloudFirestoreException(s"failed getting documents: $errorResponse")))
+        IO(CloudFirestoreException(s"failed getting documents: $errorResponse")))
       .map(docsRes => docsRes.documents.sortBy(_.fields.sortingField).reverse)
   }
 
@@ -92,7 +92,7 @@ object CloudFirestore extends Database[IO] {
 
       FetchClientBuilder[IO].create
         .expectOr[Doc[T]](request)(errorResponse =>
-            IO(CloudFirestoreException(s"failed upserting document: $errorResponse")))
+          IO(CloudFirestoreException(s"failed upserting document: $errorResponse")))
     }
 
   def deleteDocument[T <: Model](token: String,
