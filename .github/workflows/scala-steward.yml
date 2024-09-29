@@ -1,0 +1,21 @@
+name: Scala Steward
+on:
+  schedule:
+    - cron: "0 0 * * 5"  # runs every Friday at midnight
+  workflow_dispatch:     # allows manual triggering
+
+jobs:
+  scala-steward:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Scala
+        uses: olafurpg/setup-scala@v11
+        with:
+          java-version: '21'
+      - name: Run Scala Steward
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -Lo coursier https://git.io/coursier-cli && chmod +x coursier && ./coursier launch -r https://oss.sonatype.org/content/repositories/public ch.epfl.scala:scala-steward-core_2.13:0.12.0 --main scala_steward_core.StewardCli -- --workspace . --repos-file .github/repos.md --git-ask-pass .github/askpass.sh
