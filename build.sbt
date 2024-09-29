@@ -1,22 +1,22 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer  = "3.5.1"      // update prep_public.sh to match this version
+val scalaVer  = "3.5.1"     // update prep_public.sh to match this version
 val circeVer  = "0.14.10"
-val http4sVer = "1.0.0-M32"  // proving hard to upgrade this dependency (23 Aug 2023)
+val http4sVer = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
 
 lazy val ttDotCom = project
   .in(file("."))
-  .enablePlugins(ScalaJSPlugin)  // Enable the Scala.js plugin in this project
+  .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
   .enablePlugins(BuildInfoPlugin, LaikaPlugin)
   .settings(
     scalaVersion := s"$scalaVer",
     scalacOptions ++= Seq(
-      "-deprecation",  // emit warning and location for usages of deprecated APIs
-      "-feature",      // emit warning and location for usages of features that should be imported explicitly
-      "-unchecked",    // enable additional warnings where generated code depends on assumptions
+      "-deprecation", // emit warning and location for usages of deprecated APIs
+      "-feature",     // emit warning and location for usages of features that should be imported explicitly
+      "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version      := "1.1.10",
+    version := "1.1.10",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
