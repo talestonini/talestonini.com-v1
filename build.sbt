@@ -3,7 +3,6 @@ import sbt.internal.util.ManagedLogger
 
 val scalaVer  = "3.5.1"     // update prep_public.sh to match this version
 val circeVer  = "0.14.10"
-val http4sVer = "1.0.0-M32" // proving hard to upgrade this dependency (23 Aug 2023)
 
 lazy val ttDotCom = project
   .in(file("."))
@@ -61,9 +60,9 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-core"      % circeVer,
       "io.circe"   %%% "circe-generic"   % circeVer,
       "io.circe"   %%% "circe-parser"    % circeVer,
-      "org.http4s" %%% "http4s-circe"    % http4sVer,
-      "org.http4s" %%% "http4s-client"   % http4sVer,
-      "org.http4s" %%% "http4s-dom"      % http4sVer,
+      "org.http4s" %%% "http4s-circe"    % "1.0.0-M32",
+      "org.http4s" %%% "http4s-client"   % "1.0.0-M32",
+      "org.http4s" %%% "http4s-dom"      % "1.0.0-M32",
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
