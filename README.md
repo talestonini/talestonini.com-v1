@@ -51,6 +51,8 @@ In another terminal:
     npm run build             <-- places `public` artifacts in `dist`
     npm run preview
 
+*Note:* Access to the database and the word cloud will not work in the preview.
+
 ## Deploying
 
     ./deploy.sh

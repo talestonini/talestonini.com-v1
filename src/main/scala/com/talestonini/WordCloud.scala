@@ -9,6 +9,6 @@ object WordCloud {
   def drawWordCloud(whereSelector: String, words: js.Array[String]): Unit = js.native
 
   def apply(whereSelector: String, words: List[String]): Unit =
-    drawWordCloud(whereSelector, js.Array(words: _*))
+    drawWordCloud(whereSelector, js.Array(words*))
 
 }
