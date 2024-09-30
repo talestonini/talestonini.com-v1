@@ -69,8 +69,12 @@ package object model {
   // --- post (ie article) ---------------------------------------------------------------------------------------------
 
   case class Post(
-    resource: Option[String], title: Option[String], firstPublishDate: Option[ZonedDateTime],
-    publishDate: Option[ZonedDateTime], tags: Option[Array[Tag]], enabled: Option[Boolean] = Some(true)
+    resource: Option[String],
+    title: Option[String],
+    firstPublishDate: Option[ZonedDateTime],
+    publishDate: Option[ZonedDateTime],
+    tags: Option[Array[Tag]],
+    enabled: Option[Boolean] = Some(true)
   ) extends Model {
     def dbFields: Seq[String] = Seq("resource", "title", "first_publish_date", "publish_date", "tags", "enabled")
     def content: String       = title.getOrElse("")
@@ -112,7 +116,9 @@ package object model {
   // --- comment -------------------------------------------------------------------------------------------------------
 
   case class Comment(
-    author: Option[User], date: Option[ZonedDateTime], text: Option[String]
+    author: Option[User],
+    date: Option[ZonedDateTime],
+    text: Option[String]
   ) extends Model {
     def dbFields: Seq[String] = Seq("author", "date", "text")
     def content: String       = text.getOrElse("")
@@ -146,7 +152,9 @@ package object model {
   // --- user ----------------------------------------------------------------------------------------------------------
 
   case class User(
-    name: Option[String], email: Option[String], uid: Option[String]
+    name: Option[String],
+    email: Option[String],
+    uid: Option[String]
   ) extends Model {
     def dbFields: Seq[String] = Seq("name", "email", "uid")
     def content: String       = name.getOrElse("")

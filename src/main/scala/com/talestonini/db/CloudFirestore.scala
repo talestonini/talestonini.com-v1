@@ -65,8 +65,7 @@ object CloudFirestore extends Database[IO] {
       .map(response => response.idToken)
   }
 
-  def getDocuments[T <: Model](token: String,
-    path: String)(
+  def getDocuments[T <: Model](token: String, path: String)(
     implicit docsResDecoder: Decoder[DocsRes[T]]
   ): IO[Docs[T]] = {
     val uri     = toFirestoreUri(path)
@@ -78,9 +77,9 @@ object CloudFirestore extends Database[IO] {
       .map(docsRes => docsRes.documents.sortBy(_.fields.sortingField).reverse)
   }
 
-  def upsertDocument[T <: Model](token: String, path: String,
-    model: T)(
-    implicit docDecoder: Decoder[Doc[T]], bodyEncoder: Encoder[Body[T]]
+  def upsertDocument[T <: Model](token: String, path: String, model: T)(
+    implicit docDecoder: Decoder[Doc[T]],
+    bodyEncoder: Encoder[Body[T]]
   ): IO[Doc[T]] =
     if (isBadRequest(model.content)) {
       IO.raiseError(new Exception(s"bad request")) // anti hack protection
@@ -95,8 +94,7 @@ object CloudFirestore extends Database[IO] {
           IO(CloudFirestoreException(s"failed upserting document: $errorResponse")))
     }
 
-  def deleteDocument[T <: Model](token: String,
-    path: String)(
+  def deleteDocument[T <: Model](token: String, path: String)(
     implicit docDecoder: Decoder[Doc[T]]
   ): IO[Option[Throwable]] = {
     val uri = toFirestoreUri(path)

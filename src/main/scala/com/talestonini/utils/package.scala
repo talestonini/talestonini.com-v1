@@ -43,7 +43,9 @@ package object utils {
       .format(fmt)
 
   def datetime2Str(
-    datetime: Option[ZonedDateTime], default: String = "no date", fmt: DateTimeFormatter = SimpleDateFormatter
+    datetime: Option[ZonedDateTime],
+    default: String = "no date",
+    fmt: DateTimeFormatter = SimpleDateFormatter
   ): String =
     datetime match {
       case Some(dt) => datetime2Str(dt, fmt)
