@@ -3,7 +3,8 @@
   * THIS CODE IS GENERATED AT COMPILE TIME BY LAIKA SBT PLUGIN.
   *
   * Do not modify it directly, as compilation will ovewrite your modifications.
-  */
+  *
+  *************************************************************************************************/
 package com.talestonini.pages.sourcegen
 
 import com.raquo.laminar.api.L.{*, given}
@@ -51,7 +52,7 @@ object About {
           </tr>
         </table>
       </div>
-      
+
       <h1 id="about-my-website" class="section">About my website</h1>
       <p>I started this website to share my interests and learnings and as a way to play around with Scala.js. These are some of
       the technologies and libraries that I use to build it:</p>
@@ -71,9 +72,9 @@ object About {
       receive feedback about it.</p>
       <p>As you can see, I built a little engine to generate Scala.js code for the posts I write in
       <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>.</p>
-      
+
       <h1 id="release-notes" class="section">Release notes</h1>
-      
+
       <h3 id="_0-2-x" class="section">0.2.x</h3>
       <ul>
         <li>Replaced <a href="https://github.com/hmil/RosHTTP">RösHTTP</a> for <a href="https://http4s.github.io/http4s-dom/">http4s-dom</a> due to the
@@ -81,22 +82,22 @@ object About {
         the database layer, implementing API calls to Cloud Firestore.</li>
         <li>Packaging the app with <a href="https://scalacenter.github.io/scalajs-bundler/">scalajs-bundler</a>.</li>
       </ul>
-      
+
       <h3 id="_0-3-x" class="section">0.3.x</h3>
       <ul>
         <li>Added links that allow for sharing a post via LinkedIn and Twitter, and also for copying a post URL to the clipboard.</li>
       </ul>
-      
+
       <h3 id="_0-4-x" class="section">0.4.x</h3>
       <ul>
         <li>Refactored database package to remove usage of <strong>Future</strong> in favour of <strong>Cats IO</strong>.</li>
       </ul>
-      
+
       <h3 id="_0-5-x" class="section">0.5.x</h3>
       <ul>
         <li>Code cleanup.</li>
       </ul>
-      
+
       <h3 id="_1-0-x" class="section">1.0.x</h3>
       <ul>
         <li>Replaced <a href="https://github.com/ThoughtWorksInc/Binding.scala">ThoughtWorks Binging</a> for <a href="https://laminar.dev/">Laminar</a>,
@@ -104,7 +105,7 @@ object About {
         <li>Packaging the app with <a href="http://vitejs.dev/">Vite</a>.</li>
         <li>Added tags to posts and the Tags page.</li>
       </ul>
-      
+
       <h3 id="_1-1-x" class="section">1.1.x</h3>
       <ul>
         <li>Made Tags the home page.</li>
