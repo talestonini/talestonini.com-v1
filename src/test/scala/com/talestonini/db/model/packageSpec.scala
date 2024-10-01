@@ -22,7 +22,7 @@ class packageSpec extends AsyncWordSpec with Matchers {
 
   "the database model" should {
 
-    "convert a post to a JSON" in {
+    "convert a post to JSON" in {
       post.asJson.toString shouldEqual
         """{
           |  "resource" : {
