@@ -11,6 +11,7 @@ import com.talestonini.{Firebase, Prism}
 import com.talestonini.pages.*
 import com.talestonini.pages.sourcegen.*
 import com.talestonini.pages.sourcegen.posts.*
+import com.talestonini.utils.scrollToTop
 import org.scalajs.dom
 import scala.concurrent.Promise
 import scala.scalajs.concurrent.JSExecutionContext.queue
@@ -176,6 +177,7 @@ object App {
   private def render(page: Page): Element = {
     Firebase.gaViewing(pagePathMap.get(page).getOrElse(throw new Exception(s"missing page path rendering page $page")))
     Prism.prismHighlightAll() // in lieu of '<body onhashchange=...' as Waypoint does not trigger the hashchange event
+    scrollToTop() // without this, new page is rendered and scrolled to the position of the previous page
     pageElement(page)
   }
 
