@@ -59,6 +59,21 @@ object App {
           className := "content w3-padding-16",
           child <-- router.currentPageSignal.map(render)
         ),
+        div(
+          className := "w3-padding-8 w3-center",
+          a(
+            className := "back-to-link w3-hover-opacity",
+            styleAttr := "text-decoration: none",
+            href := "#",
+            "back home"
+          ),
+          a(
+            className := "back-to-link w3-hover-opacity",
+            styleAttr := "text-decoration: none",
+            onClick --> { _ => scrollToTop() },
+            "back to top"
+          )
+        ),
         LoadingHr()
       ),
       div(
