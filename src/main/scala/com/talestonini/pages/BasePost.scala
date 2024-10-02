@@ -137,7 +137,7 @@ trait BasePost {
   private def tagList(tags: Option[Array[Tag]]): Seq[Element] =
     tags match {
       case Some(ts) =>
-        for (t <- ts)
+        for (t <- ts.toIndexedSeq)
           yield span(className := "tag w3-hover-opacity",
             a(
               styleAttr := "text-decoration: none",
@@ -159,13 +159,20 @@ trait BasePost {
   private def aComment(c: Comment): Element =
     div(
       className := "w3-panel w3-light-grey w3-leftbar",
-      p(i(c.text)),
+      p(i(handleLineBreaksForHtml(c.text.get))),
       p(
         c.author.get.name.get,
         span(styleAttr := "padding: 0 15px 0 15px", "|"),
         i(datetime2Str(c.date))
       )
     )
+
+  private def handleLineBreaksForHtml(text: String): HtmlElement = {
+    val parts = text.split("\n")
+    p(
+      parts.flatMap(part => Seq[Modifier[HtmlElement]](span(part), br()))*
+    )
+  }
 
   // --- private -------------------------------------------------------------------------------------------------------
 
