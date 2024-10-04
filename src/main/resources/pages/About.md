@@ -47,7 +47,7 @@ the technologies and libraries that I use to build it:
 - [Firebase](https://firebase.google.com/)
 - [Cloud Firestore](https://firebase.google.com/docs/firestore)
 - [W3.CSS](https://www.w3schools.com/w3css/default.asp)
-- [PrismJS](https://prismjs.com/index.html)
+- [Prism](https://prismjs.com/index.html)
 - [Jason Davies' Word Cloud Generator](https://www.jasondavies.com/wordcloud/) using [D3](https://d3js.org/)
 
 The **source code is open** [in my GitHub account](https://github.com/talestonini/talestonini.com) and I would gladly
