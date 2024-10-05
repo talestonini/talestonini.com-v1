@@ -11,10 +11,10 @@
   <link rel="stylesheet" href="./css/w3.css">
   <link rel="stylesheet" href="./css/fork-awesome.min.css">
 
-  <!-- RequireJS 2.3.6 -->
+  <!-- RequireJS 2.3.7 -->
   <script src="./js/require.js"></script>
 
-  <!-- PrismJS -->
+  <!-- Prism -->
   <link rel="stylesheet" href="./css/prism-tt.css">
   <link rel="stylesheet" href="./css/prism-line-numbers.css">
 
@@ -32,8 +32,16 @@
 </head>
 
 <body>
+  <!-- Prism 1.29.0 (including plugin Line Numbers and supported languages Scala and Java)
+    Note: Line Numbers is the last line of prism.js, which used to be in its own file prism-line-numbers.min.js.
+    Downloading Prism has changed a bit.  Selections of plugins and languages used to come in their own files, but now
+    they are all merged in prism.js and prism.css.  So when downloading Prism now, make sure to tick/select theme Coy
+    (for the website style) and plugin Line Numbers (leave the pre-selected plugins and languages selected).  You can
+    completely replace prism.js with the new file, but for prism.css, you'd need to change a few classes to match
+    current re-styling of code snippets.  See the 2 files I still have: prism-tt.css and prism-line-numbers.css
+    (modified versions of previous downloads).
+  -->
   <script src="./js/prism.js"></script>
-  <script src="./js/prism-line-numbers.min.js"></script>
 
   <script type="text/javascript">
     function prismHighlightAll() {

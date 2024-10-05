@@ -18,25 +18,25 @@ class CloudFirestoreSuite extends CatsEffectSuite {
     }
   }
 
-  val postsPath               = "projects/ttdotcom/databases/(default)/documents/posts"
-  val scalaDecoratorsPostPath = "projects/ttdotcom/databases/(default)/documents/posts/vH6lZRC6NTtZ3O16IfVy"
+  val postsPath        = "projects/ttdotcom/databases/(default)/documents/posts"
+  val unitTestPostPath = "projects/ttdotcom/databases/(default)/documents/posts/unitTestPost"
 
   test("get a post") {
     // let's get the post about Scala Decorators
     CloudFirestore.getDocuments[Post](getTestToken(), postsPath) flatMap { posts =>
-      val filteredPosts = posts.filter(p => p.fields.title.get == "Decorators in Scala")
+      val filteredPosts = posts.filter(p => p.fields.title.get == "Unit Test Post")
       IO(assertEquals(filteredPosts.size, 1))
       val decoratorsInScalaPost = filteredPosts(0)
-      IO(assertEquals(decoratorsInScalaPost.name, scalaDecoratorsPostPath))
+      IO(assertEquals(decoratorsInScalaPost.name, unitTestPostPath))
     }
   }
 
-  val scalaDecoratorsCommentsPath = s"$scalaDecoratorsPostPath/comments"
-  val niceCommentPath             = s"$scalaDecoratorsCommentsPath/${randomAlphaNumericString(20)}"
+  val unitTestCommentsPath = s"$unitTestPostPath/comments"
+  val niceCommentPath      = s"$unitTestCommentsPath/${randomAlphaNumericString(20)}"
 
   test("create a comment") {
     val heather     = User(Some("Heather Miller"), Some("heather.miller@cs.cmu.edu"), Some("111"))
-    val text        = "Great post!"
+    val text        = "Great post!\n\nI really enjoyed reading it.\n\nThanks!"
     val niceComment = Comment(Some(heather), Some(ZonedDateTime.now()), Some(text))
 
     CloudFirestore.upsertDocument[Comment](getTestToken(), niceCommentPath, niceComment) flatMap { comment =>
@@ -47,7 +47,7 @@ class CloudFirestoreSuite extends CatsEffectSuite {
   }
 
   test("get a comment") {
-    CloudFirestore.getDocuments[Comment](getTestToken(), scalaDecoratorsCommentsPath) flatMap { comments =>
+    CloudFirestore.getDocuments[Comment](getTestToken(), unitTestCommentsPath) flatMap { comments =>
       val filteredComments = comments.filter(c => c.fields.author.get.name.get == "Heather Miller")
       IO(assertEquals(filteredComments.size, 1))
       val theNiceComment = filteredComments(0)

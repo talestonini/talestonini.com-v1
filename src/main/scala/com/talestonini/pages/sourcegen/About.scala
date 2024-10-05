@@ -27,8 +27,8 @@ object About {
           <tr>
             <td style="padding-right: 15px; width: 30%;"><img src="/img/talestonini.jpg"/></td>
             <td>
-              <p>Hi!, my name is <strong>Tales Tonini</strong> and I&#39;m a software engineer interested in Functional Programming, Distributed Systems and the Scala language.</p>
-              <p>I work for a digital solutions consultancy called <a href="https://digio.com.au/">digio</a> (<a href="https://mantelgroup.com.au/">Mantel Group</a>), and for the past 5 years I&#39;ve mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
+              <p>Hi!, my name is <strong>Tales Tonini</strong>. I&#39;m a software engineer interested in Functional Programming, Distributed Systems and the Scala language.</p>
+              <p>For the past 6 years I&#39;ve been working at <a href="https://mantelgroup.com.au/">Mantel Group</a> delivering backend API&#39;s and client applications for Spark and Kafka, platforms that I really enjoy to program in. I&#39;ve also extensive experience programming in Java and other JVM languages like Kotlin and Groovy.</p>
             </td>
           </tr>
           <tr>
@@ -41,12 +41,12 @@ object About {
           <tr>
             <td style="padding-right: 10px; width: 30%;"><img src="/img/talestonini.jpg"/></td>
             <td>
-              Hi!, my name is <strong>Tales Tonini</strong> and I&#39;m a software engineer interested in Functional Programming, Distributed Systems and the Scala language.
+              Hi!, my name is <strong>Tales Tonini</strong>. I&#39;m a software engineer interested in Functional Programming, Distributed Systems and the Scala language.
             </td>
           </tr>
           <tr>
             <td colspan="2">
-              <p>I work for a digital solutions consultancy called <a href="https://digio.com.au/">digio</a> (<a href="https://mantelgroup.com.au/">Mantel Group</a>), and for the past 5 years I&#39;ve mainly worked with Spark and Kafka, platforms that I really enjoy to program in.</p>
+              <p>For the past 6 years I&#39;ve been working at <a href="https://mantelgroup.com.au/">Mantel Group</a> delivering backend API&#39;s and client applications for Spark and Kafka, platforms that I really enjoy to program in. I&#39;ve also extensive experience programming in Java and other JVM languages like Kotlin and Groovy.</p>
               <p>I live in Melbourne, Australia, but am originally from Brazil. Aside from programming, I like to spend time with family and friends, swimming and the outdoors.</p>
             </td>
           </tr>
@@ -65,7 +65,7 @@ object About {
         <li><a href="https://firebase.google.com/">Firebase</a></li>
         <li><a href="https://firebase.google.com/docs/firestore">Cloud Firestore</a></li>
         <li><a href="https://www.w3schools.com/w3css/default.asp">W3.CSS</a></li>
-        <li><a href="https://prismjs.com/index.html">PrismJS</a></li>
+        <li><a href="https://prismjs.com/index.html">Prism</a></li>
         <li><a href="https://www.jasondavies.com/wordcloud/">Jason Davies&#39; Word Cloud Generator</a> using <a href="https://d3js.org/">D3</a></li>
       </ul>
       <p>The <strong>source code is open</strong> <a href="https://github.com/talestonini/talestonini.com">in my GitHub account</a> and I would gladly
@@ -104,12 +104,19 @@ object About {
         meaning the whole website UI was rewritten.</li>
         <li>Packaging the app with <a href="http://vitejs.dev/">Vite</a>.</li>
         <li>Added tags to posts and the Tags page.</li>
+        <li>Dropped sharing to Twitter in favour of Mastodon.</li>
       </ul>
       
       <h3 id="_1-1-x" class="section">1.1.x</h3>
       <ul>
         <li>Made Tags the home page.</li>
-        <li>Configured deployment via GitHub Actions.</li>
+        <li>Configured deployment via GitHub Actions, Dependabot and Scala Steward.</li>
+        <li>Bug fixes.</li>
+      </ul>
+      
+      <h3 id="_1-2-x" class="section">1.2.x</h3>
+      <ul>
+        <li>Added links above the footer to jump back home and to the top of the page.</li>
       </ul>
     </div>
 

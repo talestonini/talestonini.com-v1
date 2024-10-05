@@ -296,3 +296,9 @@ blockquote p {
 .tag .icon {
   padding-right: 3px;
 }
+
+.back-to-link {
+  font-style: italic;
+  font-size: 13px;
+  padding: 8px;
+}

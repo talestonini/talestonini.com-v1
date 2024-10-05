@@ -3,6 +3,7 @@ package com.talestonini
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatter.{ofPattern => pattern}
+import org.scalajs.dom
 
 package object utils {
 
@@ -10,6 +11,10 @@ package object utils {
 
   def jsDisplay(flag: Boolean): String =
     if (flag) "block" else "none"
+
+  def scrollToTop(): Unit = {
+    dom.window.scrollTo(0, 0)
+  }
 
   // --- general -------------------------------------------------------------------------------------------------------
 

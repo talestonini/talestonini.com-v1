@@ -71,8 +71,8 @@ object ScalaDecorators extends BasePost {
       <div class="aside"><figcaption>Snippet.5 - Using a Scala 2 decorator</figcaption></div>
       <p>Note how we can call the special function straight from the wrapped class instance. The fact that there is a decorator
       wrapping our library class is actually barely noticeable! But how does that work? The special function belongs to the
-      decorator, not to <em>tps</em>, isn&#39;t it!? Well, the implicit converter function imported into the scope is able to kick in and
-      coerce <em>tps</em> into a Scala2Decorator, because it &quot;knows&quot; how to convert a ThirdPartyStuff into a Scala2Decorator,
+      decorator, not to <em>tps</em>, doesn&#39;t it!? Well, the implicit converter function imported into the scope is able to kick in
+      and coerce <em>tps</em> into a Scala2Decorator, because it &quot;knows&quot; how to convert a ThirdPartyStuff into a Scala2Decorator,
       allowing the newly attached special function to be invoked. Really nice, isn&#39;t it?</p>
       <p>Now, can we improve this even further?</p>
       

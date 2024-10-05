@@ -1,4 +1,5 @@
 # TalesTonini.com
+[![Scala Steward badge](https://img.shields.io/badge/Scala_Steward-helping-blue.svg?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAMAAAARSr4IAAAAVFBMVEUAAACHjojlOy5NWlrKzcYRKjGFjIbp293YycuLa3pYY2LSqql4f3pCUFTgSjNodYRmcXUsPD/NTTbjRS+2jomhgnzNc223cGvZS0HaSD0XLjbaSjElhIr+AAAAAXRSTlMAQObYZgAAAHlJREFUCNdNyosOwyAIhWHAQS1Vt7a77/3fcxxdmv0xwmckutAR1nkm4ggbyEcg/wWmlGLDAA3oL50xi6fk5ffZ3E2E3QfZDCcCN2YtbEWZt+Drc6u6rlqv7Uk0LdKqqr5rk2UCRXOk0vmQKGfc94nOJyQjouF9H/wCc9gECEYfONoAAAAASUVORK5CYII=)](https://scala-steward.org)
 
 This is my personal website, where I add posts about varied stuff. It is developed in Scala.js and hosted with Firebase
 Hosting.
@@ -22,7 +23,7 @@ In SBT:
     test
 
 *Note:* [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
-supports ScalaJS 2 at the time of writing (8 Aug 2024).
+supports Scala 2 at the time of writing (8 Aug 2024).
 
 ## Developing with Auto-Reload
 
@@ -64,32 +65,3 @@ To get a Firebase token for headless CI:
     firebase login:ci
 
 Then create an environment variable named `FIREBASE_TOKEN` with the token value.
-
-## TODO
-
-### New features
-- ~~Lazily build posts' `Element`s (improve performance loading images)~~
-- ~~Update the about page~~
-- ~~Mastodon~~
-- ~~Likes~~: not to do anymore, as I removed the login feature
-- ~~Tweet/LinkedIn a post~~
-- ~~Tags (with word cloud)~~
-- ~~JS bundler~~: makes no sense, as the website does not depend on any npm library (that is not delivered by *Firebase
-Hosting*)
-- ~~Laika~~
-  - ~~code with braces -> escape braces~~
-- ~~Home content~~
-- ~~Version number in footer~~
-
-### Issues
-- ~~Missing a page with terms and conditions / privacy policy~~
-- ~~Improve the about page with sections about me and the website~~
-- ~~Fix loading wheel when incognito~~
-- ~~About page -> layout not good for desktop~~
-- ~~About page with duplicate content when flipping mobile horizontally~~
-
-### Nice to have
-- ~~Open-source the website~~
-- ~~Improve delivery of scripts/styles from `index.html` (Firebase ones are fine, I mean all others)~~
-- ~~Auto-deploy? with [Deploy to Firebase Hosting](https://github.com/marketplace/actions/deploy-to-firebase-hosting)?
-no; actually, configure deploy via GitHub Actions with a workflow of my own~~

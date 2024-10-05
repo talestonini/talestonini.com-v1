@@ -15,7 +15,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.1.12",
+    version := "1.2.2",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -40,9 +40,8 @@ lazy val ttDotCom = project
 
     // Dependencies
     libraryDependencies ++= Seq(
-      /* Depend on the scalajs-dom library.
-       * It provides static types for the browser DOM APIs.
-       */
+      // Depend on the scalajs-dom library.
+      // It provides static types for the browser DOM APIs.
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
 
       // Depend on Laminar (reactive web application pages and routing)
@@ -60,8 +59,8 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-core"      % circeVer,
       "io.circe"   %%% "circe-generic"   % circeVer,
       "io.circe"   %%% "circe-parser"    % circeVer,
-      "org.http4s" %%% "http4s-circe"    % "1.0.0-M32", // proving hard to upgrade these dependencies (23 Aug 2023,
-      "org.http4s" %%% "http4s-client"   % "1.0.0-M32", // 30 Sep 2024)
+      "org.http4s" %%% "http4s-circe"    % "1.0.0-M32", // proving hard to upgrade these dependencies together
+      "org.http4s" %%% "http4s-client"   % "1.0.0-M32", // (23 Aug 2023, 30 Sep 2024)
       "org.http4s" %%% "http4s-dom"      % "1.0.0-M32",
       "io.monix"   %%% "monix-execution" % "3.4.1",
 

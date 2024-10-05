@@ -88,8 +88,8 @@ The following snippet shows how we can invoke the dynamically attached special f
 
 Note how we can call the special function straight from the wrapped class instance. The fact that there is a decorator
 wrapping our library class is actually barely noticeable! But how does that work? The special function belongs to the
-decorator, not to *tps*, isn't it!? Well, the implicit converter function imported into the scope is able to kick in and
-coerce *tps* into a Scala2Decorator, because it "knows" how to convert a ThirdPartyStuff into a Scala2Decorator,
+decorator, not to *tps*, doesn't it!? Well, the implicit converter function imported into the scope is able to kick in
+and coerce *tps* into a Scala2Decorator, because it "knows" how to convert a ThirdPartyStuff into a Scala2Decorator,
 allowing the newly attached special function to be invoked. Really nice, isn't it?
 
 Now, can we improve this even further?
