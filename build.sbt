@@ -59,8 +59,8 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-core"      % circeVer,
       "io.circe"   %%% "circe-generic"   % circeVer,
       "io.circe"   %%% "circe-parser"    % circeVer,
-      "org.http4s" %%% "http4s-circe"    % "1.0.0-M32", // proving hard to upgrade these dependencies together
-      "org.http4s" %%% "http4s-client"   % "1.0.0-M32", // (23 Aug 2023, 30 Sep 2024)
+      "org.http4s" %%% "http4s-circe"    % "1.0.0-M42", // proving hard to upgrade these dependencies together
+      "org.http4s" %%% "http4s-client"   % "1.0.0-M42", // (23 Aug 2023, 30 Sep 2024)
       "org.http4s" %%% "http4s-dom"      % "1.0.0-M32",
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
