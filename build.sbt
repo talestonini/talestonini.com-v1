@@ -40,9 +40,8 @@ lazy val ttDotCom = project
 
     // Dependencies
     libraryDependencies ++= Seq(
-      /* Depend on the scalajs-dom library.
-       * It provides static types for the browser DOM APIs.
-       */
+      // Depend on the scalajs-dom library.
+      // It provides static types for the browser DOM APIs.
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
 
       // Depend on Laminar (reactive web application pages and routing)

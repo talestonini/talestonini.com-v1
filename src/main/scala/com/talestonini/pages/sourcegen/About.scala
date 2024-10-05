@@ -65,7 +65,7 @@ object About {
         <li><a href="https://firebase.google.com/">Firebase</a></li>
         <li><a href="https://firebase.google.com/docs/firestore">Cloud Firestore</a></li>
         <li><a href="https://www.w3schools.com/w3css/default.asp">W3.CSS</a></li>
-        <li><a href="https://prismjs.com/index.html">PrismJS</a></li>
+        <li><a href="https://prismjs.com/index.html">Prism</a></li>
         <li><a href="https://www.jasondavies.com/wordcloud/">Jason Davies&#39; Word Cloud Generator</a> using <a href="https://d3js.org/">D3</a></li>
       </ul>
       <p>The <strong>source code is open</strong> <a href="https://github.com/talestonini/talestonini.com">in my GitHub account</a> and I would gladly
