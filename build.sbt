@@ -1,7 +1,7 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer = "3.5.1" // update prep_public.sh to match this version
+val scalaVer = "3.5.2" // update prep_public.sh to match this version
 val circeVer = "0.14.10"
 
 lazy val ttDotCom = project
@@ -15,7 +15,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.2.2",
+    version := "1.2.3",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,

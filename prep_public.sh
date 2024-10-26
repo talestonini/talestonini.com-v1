@@ -2,7 +2,7 @@
 # Prepares the public directory for both Vite and Firebase.
 
 public_dir=$1
-scala_ver=3.5.1
+scala_ver=3.5.2
 
 rm -rf $public_dir/css
 rm -rf $public_dir/favicom
