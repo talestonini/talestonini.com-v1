@@ -15,7 +15,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.2.3",
+    version := "1.2.4",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -132,7 +132,7 @@ replaceProdSecrets := {
 
 def replaceString(log: ManagedLogger, dir: File, fileFilter: String, from: String, to: String) = {
   val toReplace = s"@$from@"
-  val files     = (dir ** fileFilter).get
+  val files: Seq[File] = Option.apply((dir ** fileFilter).get).getOrElse(Seq.empty[File])
   log.info(s"* ${files.size} files to check for secret $from")
   files.foreach { f =>
     val content = IO.read(f)
