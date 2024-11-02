@@ -23,7 +23,7 @@ In SBT:
     test
 
 *Note:* [`sbt-scoverage`](https://github.com/scoverage/sbt-scoverage) is not configured for this project as it only
-supports Scala 2 at the time of writing (8 Aug 2024).
+supports Scala 2 for Scala.js at the time of writing (8 Aug 2024).
 
 ## Developing with Auto-Reload
 
