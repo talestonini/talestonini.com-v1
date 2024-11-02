@@ -1,9 +1,10 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer  = "3.5.2" // update prep_public.sh to match this version
-val circeVer  = "0.14.10"
-val http4sVer = "0.23.29"
+val scalaVer    = "3.5.2" // update prep_public.sh to match this version
+val circeVer    = "0.14.10"
+val http4sVer   = "0.23.29"
+val javaTimeVer = "2.6.0"
 
 lazy val ttDotCom = project
   .in(file("."))
@@ -16,7 +17,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.2.5",
+    version := "1.2.6",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -66,8 +67,8 @@ lazy val ttDotCom = project
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
-      "io.github.cquiroz" %%% "scala-java-time"      % "2.6.0",
-      "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.6.0",
+      "io.github.cquiroz" %%% "scala-java-time"      % javaTimeVer,
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % javaTimeVer,
 
       // Testing framework
       "org.scalameta" %%% "munit"             % "1.0.2"         % Test,
