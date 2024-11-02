@@ -19,4 +19,9 @@ echo ">>> Step 6: Build the website with Vite (vite build)"
 npm run build
 
 echo ">>> Step 7: Deploy to Firebase"
+# This step (ie command `firebase deploy`) has some pre-requisites:
+# - A Firebase service account with roles `Firebase Admin` and `Firebase App Distribution Admin`;
+# - The service account must have a key in JSON format;
+# - An environment variable GOOGLE_APPLICATION_CREDENTIALS whose value is the path to a temp CI file with the JSON key
+#   content (this is done in the CI step, just before calling this script).
 firebase deploy --public dist
