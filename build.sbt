@@ -62,7 +62,7 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-parser"    % circeVer,
       "org.http4s" %%% "http4s-circe"    % http4sVer,
       "org.http4s" %%% "http4s-client"   % http4sVer,
-      "org.http4s" %%% "http4s-dom"      % "0.2.8", // this is maintained by Arman Bilge
+      "org.http4s" %%% "http4s-dom"      % "0.2.11", // this is maintained by Arman Bilge
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
@@ -132,7 +132,7 @@ replaceProdSecrets := {
 }
 
 def replaceString(log: ManagedLogger, dir: File, fileFilter: String, from: String, to: String) = {
-  val toReplace = s"@$from@"
+  val toReplace        = s"@$from@"
   val files: Seq[File] = Option.apply((dir ** fileFilter).get).getOrElse(Seq.empty[File])
   log.info(s"* ${files.size} files to check for secret $from")
   files.foreach { f =>
