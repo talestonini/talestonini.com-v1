@@ -1,9 +1,10 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer  = "3.5.2" // update prep_public.sh to match this version
-val circeVer  = "0.14.10"
-val http4sVer = "0.23.29"
+val scalaVer    = "3.5.2" // update prep_public.sh to match this version
+val circeVer    = "0.14.10"
+val http4sVer   = "0.23.29"
+val javaTimeVer = "2.6.0"
 
 lazy val ttDotCom = project
   .in(file("."))
@@ -16,7 +17,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.2.5",
+    version := "1.2.6",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -62,12 +63,12 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-parser"    % circeVer,
       "org.http4s" %%% "http4s-circe"    % http4sVer,
       "org.http4s" %%% "http4s-client"   % http4sVer,
-      "org.http4s" %%% "http4s-dom"      % "0.2.8", // this is maintained by Arman Bilge
+      "org.http4s" %%% "http4s-dom"      % "0.2.11", // this is maintained by Arman Bilge
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
-      "io.github.cquiroz" %%% "scala-java-time"      % "2.6.0",
-      "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.6.0",
+      "io.github.cquiroz" %%% "scala-java-time"      % javaTimeVer,
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % javaTimeVer,
 
       // Testing framework
       "org.scalameta" %%% "munit"             % "1.0.2"         % Test,
@@ -132,7 +133,7 @@ replaceProdSecrets := {
 }
 
 def replaceString(log: ManagedLogger, dir: File, fileFilter: String, from: String, to: String) = {
-  val toReplace = s"@$from@"
+  val toReplace        = s"@$from@"
   val files: Seq[File] = Option.apply((dir ** fileFilter).get).getOrElse(Seq.empty[File])
   log.info(s"* ${files.size} files to check for secret $from")
   files.foreach { f =>
