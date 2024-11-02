@@ -19,4 +19,5 @@ echo ">>> Step 6: Build the website with Vite (vite build)"
 npm run build
 
 echo ">>> Step 7: Deploy to Firebase"
+firebase login
 firebase deploy --public dist
