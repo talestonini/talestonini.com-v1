@@ -57,11 +57,3 @@ In another terminal:
 ## Deploying
 
     ./deploy.sh
-
-## Firebase Util
-
-To get a Firebase token for headless CI:
-
-    firebase login:ci
-
-Then create an environment variable named `FIREBASE_TOKEN` with the token value.
