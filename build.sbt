@@ -1,8 +1,9 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer = "3.5.2" // update prep_public.sh to match this version
-val circeVer = "0.14.10"
+val scalaVer  = "3.5.2" // update prep_public.sh to match this version
+val circeVer  = "0.14.10"
+val http4sVer = "0.23.29"
 
 lazy val ttDotCom = project
   .in(file("."))
@@ -15,7 +16,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.2.4",
+    version := "1.2.5",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -59,9 +60,9 @@ lazy val ttDotCom = project
       "io.circe"   %%% "circe-core"      % circeVer,
       "io.circe"   %%% "circe-generic"   % circeVer,
       "io.circe"   %%% "circe-parser"    % circeVer,
-      "org.http4s" %%% "http4s-circe"    % "1.0.0-M43", // proving hard to upgrade these dependencies together
-      "org.http4s" %%% "http4s-client"   % "1.0.0-M43", // (23 Aug 2023, 30 Sep 2024)
-      "org.http4s" %%% "http4s-dom"      % "1.0.0-M32",
+      "org.http4s" %%% "http4s-circe"    % http4sVer,
+      "org.http4s" %%% "http4s-client"   % http4sVer,
+      "org.http4s" %%% "http4s-dom"      % "0.2.8", // this is maintained by Arman Bilge
       "io.monix"   %%% "monix-execution" % "3.4.1",
 
       // Java Time for Scala.js
