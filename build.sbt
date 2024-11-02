@@ -17,7 +17,7 @@ lazy val ttDotCom = project
       "-feature",     // emit warning and location for usages of features that should be imported explicitly
       "-unchecked"    // enable additional warnings where generated code depends on assumptions
     ),
-    version := "1.2.8",
+    version := "1.2.9",
 
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
