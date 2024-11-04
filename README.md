@@ -56,4 +56,6 @@ In another terminal:
 
 ## Deploying
 
+Have the JSON key file path of a Firebase service account pointed by an env var `GOOGLE_APPLICATION_CREDENTIALS` and:
+
     ./deploy.sh
