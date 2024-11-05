@@ -68,15 +68,18 @@ package object model {
 
   // --- post (ie article) ---------------------------------------------------------------------------------------------
 
+  enum EnabledFor:
+    case Prod, Dev, Test, Nothing
+
   case class Post(
     resource: Option[String],
     title: Option[String],
     firstPublishDate: Option[ZonedDateTime],
     publishDate: Option[ZonedDateTime],
     tags: Option[Array[Tag]],
-    enabled: Option[Boolean] = Some(true)
+    enabledFor: Option[EnabledFor] = Some(EnabledFor.Dev)
   ) extends Model {
-    def dbFields: Seq[String] = Seq("resource", "title", "first_publish_date", "publish_date", "tags", "enabled")
+    def dbFields: Seq[String] = Seq("resource", "title", "first_publish_date", "publish_date", "tags", "enabled_for")
     def content: String       = title.getOrElse("")
     def sortingField: String  = datetime2Str(publishDate.getOrElse(InitDateTime), DateTimeCompareFormatter)
   }
@@ -92,7 +95,7 @@ package object model {
               "first_publish_date" -> field("timestampValue", fpd.format(LongDateTimeFormatter))),
             p.publishDate.map(pd => "publish_date" -> field("timestampValue", pd.format(LongDateTimeFormatter))),
             p.tags.map(ts => "tags" -> field("arrayValue", field("values", ts.map(t => tagEncoder.apply(t))))),
-            p.enabled.map(e => "enabled" -> field("booleanValue", e))
+            p.enabledFor.map(ef => "enabled_for" -> field("stringValue", ef))
           ).filter(_.isDefined).map(_.get)*
         )
       }
@@ -108,9 +111,9 @@ package object model {
           firstPublishDate <- c.downField("first_publish_date").getOrElse[ZonedDateTime]("timestampValue")(InitDateTime)
           publishDate      <- c.downField("publish_date").getOrElse[ZonedDateTime]("timestampValue")(InitDateTime)
           tags             <- c.downField("tags").downField("arrayValue").get[Array[Tag]]("values")
-          enabled          <- c.downField("enabled").getOrElse[Boolean]("booleanValue")(true)
+          enabledFor       <- c.downField("enabled_for").getOrElse[String]("stringValue")("Dev")
         } yield Post(Option(resource), Option(title), Option(firstPublishDate), Option(publishDate), Option(tags),
-          Option(enabled))
+          Option(EnabledFor.valueOf(enabledFor)))
     }
 
   // --- comment -------------------------------------------------------------------------------------------------------
@@ -214,5 +217,7 @@ package object model {
     Json.fromJsonObject(JsonObject((`type`, value)))
   private def field(`type`: String, value: Array[Json]): Json =
     Json.fromJsonObject(JsonObject((`type`, value.asJson)))
+  private def field(`type`: String, value: EnabledFor): Json =
+    field(`type`, value.toString)
 
 }

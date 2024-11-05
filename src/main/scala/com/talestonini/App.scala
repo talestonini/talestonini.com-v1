@@ -96,6 +96,7 @@ object App {
   case object PostsPage                extends Page
   case object TagsPage                 extends Page
   case object AboutPage                extends Page
+  case object LambdaDays24Page         extends Page
   case object DbLayerRefactorPage      extends Page
   case object ScalaDecoratorsPage      extends Page
   case object DockerVimPage            extends Page
@@ -137,6 +138,7 @@ object App {
     PostsPage                -> "posts",
     TagsPage                 -> "tags",
     AboutPage                -> "about",
+    LambdaDays24Page         -> "lambdaDays24",
     DbLayerRefactorPage      -> "dbLayerRefactor",
     ScalaDecoratorsPage      -> "scalaDecorators",
     DockerVimPage            -> "dockerVim",
@@ -148,6 +150,7 @@ object App {
   private lazy val postsElement                = Posts()
   private lazy val tagsElement                 = Tags()
   private lazy val aboutElement                = About()
+  private lazy val lambdaDays24Element         = LambdaDays24()
   private lazy val dbLayerRefactorElement      = DbLayerRefactor()
   private lazy val scalaDecoratorsElement      = ScalaDecorators()
   private lazy val dockerVimElement            = DockerVim()
@@ -161,6 +164,7 @@ object App {
       case PostsPage                => postsElement
       case TagsPage                 => tagsElement
       case AboutPage                => aboutElement
+      case LambdaDays24Page         => lambdaDays24Element
       case DbLayerRefactorPage      => dbLayerRefactorElement
       case ScalaDecoratorsPage      => scalaDecoratorsElement
       case DockerVimPage            => dockerVimElement
@@ -200,6 +204,7 @@ object App {
   // (the post promise, which is fulfilled when posts data is retrieved from the database)
   private case class PostEntry(page: Page, promise: Promise[Doc[Post]])
   private val postMap: Map[String, PostEntry] = Map(
+    "lambdaDays24"         -> PostEntry(LambdaDays24Page, LambdaDays24.postDocPromise),
     "dbLayerRefactor"      -> PostEntry(DbLayerRefactorPage, DbLayerRefactor.postDocPromise),
     "scalaDecorators"      -> PostEntry(ScalaDecoratorsPage, ScalaDecorators.postDocPromise),
     "dockerVim"            -> PostEntry(DockerVimPage, DockerVim.postDocPromise),
@@ -207,6 +212,10 @@ object App {
     "urbanForestChallenge" -> PostEntry(UrbanForestChallengePage, UrbanForestChallenge.postDocPromise),
     "funProgCapstone"      -> PostEntry(FunProgCapstonePage, FunProgCapstone.postDocPromise)
   )
+
+  // only posts with enabledFor <= MAX_ENABLED_FOR are retrieved
+  // (for local development, increase this to EnabledFor.Dev)
+  private val MAX_ENABLED_FOR = EnabledFor.Prod
 
   private def retrievePostsDataFromDb(): Unit = {
     val retrievingPosts = "retrievingPosts"
@@ -218,7 +227,7 @@ object App {
         case s: Success[Docs[Post]] =>
           for (
             postDoc <- s.get
-            if postDoc.fields.enabled.getOrElse(true)
+            if postDoc.fields.enabledFor.getOrElse(EnabledFor.Dev).ordinal <= MAX_ENABLED_FOR.ordinal
           ) {
             val resource = postDoc.fields.resource.get
 

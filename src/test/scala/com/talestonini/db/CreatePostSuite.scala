@@ -30,7 +30,8 @@ abstract class CreatePostSuite extends CatsEffectSuite {
 
   test("create a post") {
     val newPost =
-      Post(Some(resource), Some(title), Some(firstPublishDate), Some(firstPublishDate), Some(tags), Some(true))
+      Post(Some(resource), Some(title), Some(firstPublishDate), Some(firstPublishDate), Some(tags),
+        Some(EnabledFor.Prod))
 
     CloudFirestore.upsertDocument[Post](getTestToken(), newPostPath, newPost) flatMap { post =>
       IO(assertEquals(post.fields.resource.get, resource))
