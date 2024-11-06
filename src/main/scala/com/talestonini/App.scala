@@ -227,7 +227,7 @@ object App {
         case s: Success[Docs[Post]] =>
           for (
             postDoc <- s.get
-            if postDoc.fields.enabledFor.getOrElse(EnabledFor.Dev).ordinal <= MAX_ENABLED_FOR.ordinal
+            if postDoc.fields.enabledFor.getOrElse(EnabledFor.Default).ordinal <= MAX_ENABLED_FOR.ordinal
           ) {
             val resource = postDoc.fields.resource.get
 

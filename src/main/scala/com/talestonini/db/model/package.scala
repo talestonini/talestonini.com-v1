@@ -70,6 +70,8 @@ package object model {
 
   enum EnabledFor:
     case Prod, Dev, Test, Nothing
+  object EnabledFor:
+    val Default: EnabledFor = Dev
 
   case class Post(
     resource: Option[String],
@@ -77,7 +79,7 @@ package object model {
     firstPublishDate: Option[ZonedDateTime],
     publishDate: Option[ZonedDateTime],
     tags: Option[Array[Tag]],
-    enabledFor: Option[EnabledFor] = Some(EnabledFor.Dev)
+    enabledFor: Option[EnabledFor] = Some(EnabledFor.Default)
   ) extends Model {
     def dbFields: Seq[String] = Seq("resource", "title", "first_publish_date", "publish_date", "tags", "enabled_for")
     def content: String       = title.getOrElse("")
@@ -111,7 +113,7 @@ package object model {
           firstPublishDate <- c.downField("first_publish_date").getOrElse[ZonedDateTime]("timestampValue")(InitDateTime)
           publishDate      <- c.downField("publish_date").getOrElse[ZonedDateTime]("timestampValue")(InitDateTime)
           tags             <- c.downField("tags").downField("arrayValue").get[Array[Tag]]("values")
-          enabledFor       <- c.downField("enabled_for").getOrElse[String]("stringValue")("Dev")
+          enabledFor       <- c.downField("enabled_for").getOrElse[String]("stringValue")(EnabledFor.Default.toString)
         } yield Post(Option(resource), Option(title), Option(firstPublishDate), Option(publishDate), Option(tags),
           Option(EnabledFor.valueOf(enabledFor)))
     }
