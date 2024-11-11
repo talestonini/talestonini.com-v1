@@ -16,8 +16,9 @@ object LambdaDays24 extends BasePost {
   def postContent(): Elem =
     <div>
       <p>This year I was very fortunate to be sponsored by <strong>Mantel Group</strong> to attend the Lambda Days conference in Krakow,
-      Poland.  Lambda Days is a conference that gravitates around all things <strong>Functional Programming</strong>, bringing together
-      academics, professionals, industry specialists and enthusiasts of FP to share their knowledge and experiences.</p>
+      Poland.  Lambda Days is a conference that gravitates around all things <strong>Functional Programming</strong> &mdash; the
+      declarative paradigm that allows for <em>programs that are easier to reason about</em> &mdash;, bringing together academics,
+      professionals, industry specialists and enthusiasts of FP to share their knowledge and experiences.</p>
       <div style="display:flex">
         <div style="flex:1">
           <img src="/img/lambda-days-24-welcome.jpg" alt="Welcome to Lambda Days 2024"/>
@@ -29,21 +30,22 @@ object LambdaDays24 extends BasePost {
       <p>Besides my curiosity and anticipation for the 2-day schedule, my biggest expectation coming to the conference was being
       able to network with other FP programmers and build an understanding of the scale of FP in the European market.  Working
       in Australia, I feel the isolation and sometimes a delay in the adoption of FP concepts in software engineering, despite
-      the tremendous effort and quality gains they can support.  In the end, I was somewhat relieved to see that FP is growing
-      in adoption but still a niche in Europe too, contraty to my impressions from all the FP repositories and online content
-      I see coming from countries such as the Netherlands, Germany and Poland.</p>
+      the tremendous effort and quality gains they can bring.  Simple things like <em>immutability</em>, <em>referential transparency</em>,
+      <em>pure functions</em> and <em>stateless code</em> can be carelessly overlooked.  In the end, I was somewhat relieved to see that FP
+      is growing in adoption but still a niche in Europe too, contraty to my impressions from all the repositories and online
+      content I see coming from countries such as the Netherlands, Germany and Poland.</p>
       <p>Because the conference is about a programming paradigm and does not focus on a specific technology, talk topics ranged
       vastly, which was an absolute delight for me.  There were talks on <strong>Property-Based Testing</strong> (PBT), embedding a Domain
-      Specific Language (DSL) in a host functional language using <strong>Tagless Final</strong>, a deep dive into <strong>Algebraic Data Types</strong>
-      (ADTs), curiosities of the <strong>Y Combinator</strong>, <strong>Information Flow Control</strong> (IFC), discussions on <em>how programmers think
-      about code</em> and <em>what language features and testing techniques favour people with this or that neuro-diverse trait</em>,
-      among many others.  I also heard of FP languages that are quite popular in the community, like <strong>Elm</strong> and <strong>Elixir</strong>,
-      that I had never heard about before.</p>
+      Specific Language (DSL) in a host functional language using the <strong>Tagless Final</strong> style, a deep dive into <strong>Algebraic
+      Data Types</strong> (ADTs), using the <strong>Y Combinator</strong> for recursion in any language, <strong>Information Flow Control</strong> (IFC),
+      discussions on <em>how programmers think about code</em> and <em>what language features and testing techniques favour people with
+      this or that neuro-diverse trait</em>, among many others.  I also heard about FP languages that are quite popular in the
+      community, like <strong>Elm</strong> and <strong>Elixir</strong>, which I had never heard of before.</p>
       <div class="aside">
         <img src="/img/last-10-years-of-fp.jpg" alt="Last 10 years of Functional Programming"/>
       </div>
-      <p>Below are the recordings of my 2 favourite talks in the conference, which were the opening and closing keynotes of the
-      second day.  The first is about recent research on <strong>Algebraic Effect Handlers</strong> by Ningning Xie</p>
+      <p>Below are the recordings of my 2 favourite talks in the conference, which were the opening and closing keynotes on the
+      second day.  The first is about recent research on Algebraic Effect Handlers by <strong>Research Scientist Ningning Xie</strong>.</p>
       <div class="aside">
         <div class="iframe-container">
           <iframe src="https://www.youtube.com/embed/XCVg_cc9Jo4?si=IIUFLuBJGnWV5QlT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -62,9 +64,9 @@ object LambdaDays24 extends BasePost {
       </div>
       <p>I left the conference inspired to continue to learn FP, despite its generally niche status in the industry and usual
       steep learning curve.  Functional techniques can be adopted slowly and incrementally in any software project and with
-      most general purpose programming languages really (of course, the more functional a language is, the less
-      self-disciplined the programmer needs to be to program functionally).  After all, when it comes to solving problems,
-      plural, complimentary approaches work best.</p>
+      most general-purpose programming languages really (of course, the more functional a language is, the less
+      self-disciplined the programmer needs to be).  After all, when it comes to solving problems, plural, complimentary
+      approaches work best.</p>
       <p>Tchau tchau, beautiful Krakow!  See you next time!</p>
       <div class="aside">
         <img src="/img/vistula-river.jpg" alt="Vistula River"/>
