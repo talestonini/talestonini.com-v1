@@ -45,7 +45,7 @@ second day.  The first is about recent research on Algebraic Effect Handlers by 
   <figcaption>Algebraic Effect Handlers with Parallelizable Computations by Ningning Xie</figcaption>
 </div>
 
-And the second is about the huge efforts of **Planetary Computing professor Anil Madhavapeddy** to create a platform for
+And the second is about the huge efforts of **Planetary Computing Professor Anil Madhavapeddy** to create a platform for
 crunching volumes of satellite data, so to inform policy makers about deforestation in order to conserve flora and fauna
 species.  It was eye-opening to me realising that policy makers need *not only explainable data but also data that can
 be comparable* over the many decades of their collection.

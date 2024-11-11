@@ -14,7 +14,7 @@ import scala.xml.Elem
 object DockerVim extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <p>In this post I would like to share my Scala and Java programming editor:
       <a href="https://github.com/talestonini/dockervim">dockervim</a>.  It&#39;s a dockerised <a href="https://neovim.io/">Neovim</a>
       running in an Ubuntu container, configured with some of the most common Vim plugins, like

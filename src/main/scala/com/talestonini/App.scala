@@ -133,8 +133,11 @@ object App {
 
   // --- private -------------------------------------------------------------------------------------------------------
 
+  private lazy val currentHomeElement: Element = lambdaDays24Element
+
+  // this is the URL path
   private lazy val pagePathMap: Map[Page, String] = Map(
-    HomePage                 -> "",
+    HomePage                 -> "", // do not change the home/root page path
     PostsPage                -> "posts",
     TagsPage                 -> "tags",
     AboutPage                -> "about",
@@ -160,7 +163,7 @@ object App {
 
   private def pageElement(page: Page): Element =
     page match {
-      case HomePage                 => tagsElement
+      case HomePage                 => currentHomeElement
       case PostsPage                => postsElement
       case TagsPage                 => tagsElement
       case AboutPage                => aboutElement
@@ -215,7 +218,7 @@ object App {
 
   // only posts with enabledFor <= MAX_ENABLED_FOR are retrieved
   // (for local development, increase this to EnabledFor.Dev)
-  private val MAX_ENABLED_FOR = EnabledFor.Prod
+  private val MAX_ENABLED_FOR = EnabledFor.Dev
 
   private def retrievePostsDataFromDb(): Unit = {
     val retrievingPosts = "retrievingPosts"

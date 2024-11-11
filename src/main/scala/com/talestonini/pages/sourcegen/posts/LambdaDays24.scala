@@ -14,7 +14,7 @@ import scala.xml.Elem
 object LambdaDays24 extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <p>This year I was very fortunate to be sponsored by <strong>Mantel Group</strong> to attend the Lambda Days conference in Krakow,
       Poland.  Lambda Days is a conference that gravitates around all things <strong>Functional Programming</strong> &mdash; the
       declarative paradigm that allows for <em>programs that are easier to reason about</em> &mdash;, bringing together academics,
@@ -52,7 +52,7 @@ object LambdaDays24 extends BasePost {
         </div>
         <figcaption>Algebraic Effect Handlers with Parallelizable Computations by Ningning Xie</figcaption>
       </div>
-      <p>And the second is about the huge efforts of <strong>Planetary Computing professor Anil Madhavapeddy</strong> to create a platform for
+      <p>And the second is about the huge efforts of <strong>Planetary Computing Professor Anil Madhavapeddy</strong> to create a platform for
       crunching volumes of satellite data, so to inform policy makers about deforestation in order to conserve flora and fauna
       species.  It was eye-opening to me realising that policy makers need <em>not only explainable data but also data that can
       be comparable</em> over the many decades of their collection.</p>

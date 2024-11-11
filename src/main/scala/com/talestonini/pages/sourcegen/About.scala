@@ -118,6 +118,12 @@ object About {
       <ul>
         <li>Added links above the footer to jump back home and to the top of the page.</li>
       </ul>
+      
+      <h3 id="_1-3-x" class="section">1.3.x</h3>
+      <ul>
+        <li>Improved toggle mechanism to dev and publish new posts.</li>
+        <li>Made most recent post the home page again.</li>
+      </ul>
     </div>
 
 }

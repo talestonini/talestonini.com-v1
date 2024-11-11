@@ -103,18 +103,22 @@
   font-size: 40px;
 }
 
-/*
- * Laika translates the very first ## (ie h2) or ### (h3) into h1, because it assumes the first header is a title. We do
- * not use page titles in the MD file, as the title is built by the website code.
- */
-h1, h2 {
+/* must be same as h2 because Laika considers any first heading as h1, regardless of the level you choose in Markdown */
+.markdown-post-body h1 {
   font-family: Roboto-Condensed, sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 35px;
 }
 
-h3 {
+.markdown-post-body h2 {
+  font-family: Roboto-Condensed, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 35px;
+}
+
+.markdown-post-body h3 {
   font-family: Roboto-Condensed, sans-serif;
   font-style: normal;
   font-weight: 700;

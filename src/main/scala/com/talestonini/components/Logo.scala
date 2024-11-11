@@ -30,9 +30,9 @@ object Logo {
             td()
           )
         ),
-        // uncomment if willing to change the logo click behaviour to the default
-        // navigateTo(HomePage)
-        navigateTo(TagsPage, Some(() => Menu.initWordCloud()))
+        navigateTo(HomePage)
+        // uncomment if willing to change the logo click behaviour to another page
+        // navigateTo(TagsPage, Some(() => Menu.initWordCloud()))
       )
     )
 
