@@ -45,7 +45,10 @@ object LambdaDays24 extends BasePost {
         <img src="/img/last-10-years-of-fp.jpg" alt="Last 10 years of Functional Programming"/>
       </div>
       <p>Below are the recordings of my 2 favourite talks in the conference, which were the opening and closing keynotes on the
-      second day.  The first is about recent research on Algebraic Effect Handlers by <strong>Research Scientist Ningning Xie</strong>.</p>
+      second day.  The first is about recent research on Algebraic Effect Handlers by <strong>Research Scientist Ningning Xie</strong>, who
+      starts by explaining the concepts of <strong>Algebraic Effects</strong> and <strong>Effect Handlers</strong> with interesting examples, and then
+      goes on to propose a way of parallelizing computations with multiple handlers, offering a sample implementation in
+      Haskell.</p>
       <div class="aside">
         <div class="iframe-container">
           <iframe src="https://www.youtube.com/embed/XCVg_cc9Jo4?si=IIUFLuBJGnWV5QlT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>

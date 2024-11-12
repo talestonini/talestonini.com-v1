@@ -36,7 +36,10 @@ community, like **Elm** and **Elixir**, which I had never heard of before.
 </div>
 
 Below are the recordings of my 2 favourite talks in the conference, which were the opening and closing keynotes on the
-second day.  The first is about recent research on Algebraic Effect Handlers by **Research Scientist Ningning Xie**.
+second day.  The first is about recent research on Algebraic Effect Handlers by **Research Scientist Ningning Xie**, who
+starts by explaining the concepts of **Algebraic Effects** and **Effect Handlers** with interesting examples, and then
+goes on to propose a way of parallelizing computations with multiple handlers, offering a sample implementation in
+Haskell.
 
 <div class="aside">
   <div class="iframe-container">
