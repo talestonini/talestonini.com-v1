@@ -218,7 +218,7 @@ object App {
 
   // only posts with enabledFor <= MAX_ENABLED_FOR are retrieved
   // (for local development, increase this to EnabledFor.Dev)
-  private val MAX_ENABLED_FOR = EnabledFor.Dev
+  private val MAX_ENABLED_FOR = EnabledFor.Prod
 
   private def retrievePostsDataFromDb(): Unit = {
     val retrievingPosts = "retrievingPosts"
