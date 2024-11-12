@@ -121,7 +121,7 @@ object About {
       
       <h3 id="_1-3-x" class="section">1.3.x</h3>
       <ul>
-        <li>Improved toggle mechanism to dev and publish new posts.</li>
+        <li>Improved toggle mechanism to develop and publish new posts.</li>
         <li>Made most recent post the home page again.</li>
       </ul>
     </div>
