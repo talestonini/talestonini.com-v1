@@ -31,7 +31,7 @@ object LambdaDays24 extends BasePost {
       able to network with other FP programmers and build an understanding of the scale of FP in the European market.  Working
       in Australia, I feel the isolation and sometimes a delay in the adoption of FP concepts in software engineering, despite
       the tremendous effort and quality gains they can bring.  Simple things like <em>immutability</em>, <em>referential transparency</em>,
-      <em>pure functions</em> and <em>stateless code</em> lead to more *correct and maintainable software.  In the end, I was somewhat
+      <em>pure functions</em> and <em>stateless code</em> lead to more <em>correct and maintainable software</em>.  In the end, I was somewhat
       relieved to see that FP is growing in adoption but still a niche in Europe too, contraty to my impressions from all the
       repositories and online content authored in countries such as the Netherlands, Germany and Poland.</p>
       <p>Because the conference is about a programming paradigm and does not focus on a specific technology, talk topics ranged
