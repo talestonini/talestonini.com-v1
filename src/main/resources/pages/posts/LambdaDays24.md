@@ -19,14 +19,14 @@ Besides my curiosity and anticipation for the 2-day schedule, my biggest expecta
 able to network with other FP programmers and build an understanding of the scale of FP in the European market.  Working
 in Australia, I feel the isolation and sometimes a delay in the adoption of FP concepts in software engineering, despite
 the tremendous effort and quality gains they can bring.  Simple things like *immutability*, *referential transparency*,
-*pure functions* and *stateless code* can be carelessly overlooked.  In the end, I was somewhat relieved to see that FP
-is growing in adoption but still a niche in Europe too, contraty to my impressions from all the repositories and online
-content I see coming from countries such as the Netherlands, Germany and Poland.
+*pure functions* and *stateless code* lead to more *correct and maintainable software.  In the end, I was somewhat
+relieved to see that FP is growing in adoption but still a niche in Europe too, contraty to my impressions from all the
+repositories and online content authored in countries such as the Netherlands, Germany and Poland.
 
 Because the conference is about a programming paradigm and does not focus on a specific technology, talk topics ranged
 vastly, which was an absolute delight for me.  There were talks on **Property-Based Testing** (PBT), embedding a Domain
 Specific Language (DSL) in a host functional language using the **Tagless Final** style, a deep dive into **Algebraic
-Data Types** (ADTs), using the **Y Combinator** for recursion in any language, **Information Flow Control** (IFC),
+Data Types** (ADTs), using the **Y Combinator** for recursion in any language, **Information Flow Control** (IFC), AI,
 discussions on *how programmers think about code* and *what language features and testing techniques favour people with
 this or that neuro-diverse trait*, among many others.  I also heard about FP languages that are quite popular in the
 community, like **Elm** and **Elixir**, which I had never heard of before.
