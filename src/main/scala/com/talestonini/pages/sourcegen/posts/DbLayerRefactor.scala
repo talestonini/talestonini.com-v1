@@ -14,7 +14,7 @@ import scala.xml.Elem
 object DbLayerRefactor extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <div class="aside">
         <p><img src="/img/refactoring.png"/></p>
       </div>

@@ -14,7 +14,7 @@ import scala.xml.Elem
 object FunProgCapstone extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <p>It&#39;s very easy to make some words <strong>bold</strong> and other words <em>italic</em> with Markdown. You can even
       <a href="http://google.com">link to Google!</a></p>
     </div>

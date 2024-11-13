@@ -14,7 +14,7 @@ import scala.xml.Elem
 object UrbanForestChallenge extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <p>When I started at <a href="https://eliiza.com.au">Eliiza</a> in September 2018, I was the first <em>data engineer</em> of the team,
       among a few machine learning engineers, data scientists, our CTO and CEO.  We were only 7 people in total then and
       wanted to grow.</p>

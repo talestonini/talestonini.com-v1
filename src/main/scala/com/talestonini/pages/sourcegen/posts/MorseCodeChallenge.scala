@@ -14,7 +14,7 @@ import scala.xml.Elem
 object MorseCodeChallenge extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <p>This is the second code challenge I developed for <a href="https://eliiza.com.au">Eliiza</a> as we continue to grow our <em>data
       engineering</em> practice.</p>
       <p>This time we want to expand our <a href="https://kafka.apache.org">Apache Kafka</a> skills, so in this challenge candidates are
