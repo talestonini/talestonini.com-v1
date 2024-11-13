@@ -19,7 +19,7 @@ Besides my curiosity and anticipation for the 2-day schedule, my biggest expecta
 able to network with other FP programmers and build an understanding of the scale of FP in the European market.  Working
 in Australia, I feel the isolation and sometimes a delay in the adoption of FP concepts in software engineering, despite
 the tremendous effort and quality gains they can bring.  Simple things like *immutability*, *referential transparency*,
-*pure functions* and *stateless code* lead to more *correct and maintainable software.  In the end, I was somewhat
+*pure functions* and *stateless code* lead to more *correct and maintainable software*.  In the end, I was somewhat
 relieved to see that FP is growing in adoption but still a niche in Europe too, contraty to my impressions from all the
 repositories and online content authored in countries such as the Netherlands, Germany and Poland.
 
