@@ -14,7 +14,7 @@ import scala.xml.Elem
 object ScalaDecorators extends BasePost {
 
   def postContent(): Elem =
-    <div>
+    <div class="markdown-post-body">
       <p>Decorator is a structural Design Pattern whose intent, according to Erich Gamma and others in their classic book
       <strong>Design Patterns: Elements of Reusable Object-Oriented Software</strong>, is:</p>
       <blockquote>Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing

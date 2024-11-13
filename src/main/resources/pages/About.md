@@ -87,3 +87,7 @@ meaning the whole website UI was rewritten.
 
 ###1.2.x
 - Added links above the footer to jump back home and to the top of the page.
+
+###1.3.x
+- Improved toggle mechanism to develop and publish new posts.
+- Made most recent post the home page again.

@@ -15,7 +15,7 @@ class packageSpec extends AsyncWordSpec with Matchers {
     Some(ZonedDateTime.parse("2022-01-01T00:00:00Z")),
     Some(ZonedDateTime.parse("2022-03-21T19:20:33Z")),
     Some(Array(Tag("1st tag"), Tag("2nd tag"))),
-    Some(true)
+    Some(EnabledFor.Prod)
   )
 
   val postBody = Body("a name", post)
@@ -49,8 +49,8 @@ class packageSpec extends AsyncWordSpec with Matchers {
           |      ]
           |    }
           |  },
-          |  "enabled" : {
-          |    "booleanValue" : true
+          |  "enabled_for" : {
+          |    "stringValue" : "Prod"
           |  }
           |}""".stripMargin
     }
@@ -84,8 +84,8 @@ class packageSpec extends AsyncWordSpec with Matchers {
           |        ]
           |      }
           |    },
-          |    "enabled" : {
-          |      "booleanValue" : true
+          |    "enabled_for" : {
+          |      "stringValue" : "Prod"
           |    }
           |  }
           |}""".stripMargin
