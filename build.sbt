@@ -150,6 +150,7 @@ def loadSecretsFrom(file: File): Seq[(String, String)] = {
   scala.io.Source
     .fromFile(file)
     .getLines()
+    .filter(_.contains("="))
     .map(line => {
       val entry = line.split('=').toList
       (entry.head, entry.tail.head)
