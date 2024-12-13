@@ -57,9 +57,9 @@ jobs:
 
     - name: Create project secret files
       env:
-        prod_secrets: ${{ secrets.PROD }}
+        PROD_SECRETS: ${{ secrets.PROD }}
       run: |
-        echo "$prod_secrets" > .secrets-prod
+        echo "$PROD_SECRETS" > .secrets-prod
 
     - name: Deploy
       env:
