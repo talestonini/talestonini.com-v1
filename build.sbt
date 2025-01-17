@@ -48,7 +48,7 @@ lazy val ttDotCom = project
 
       // Depend on Laminar (reactive web application pages and routing)
       "com.raquo" %%% "laminar"  % "17.2.0",
-      "com.raquo" %%% "waypoint" % "8.0.1", // routing, independent of Laminar
+      "com.raquo" %%% "waypoint" % "9.0.0", // routing, independent of Laminar
 
       // For serialising page data for storage in History API log
       // (used by the Wayoint routing code)
