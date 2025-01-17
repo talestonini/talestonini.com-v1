@@ -10,25 +10,22 @@ trait Database[M[_]] {
 
   def getAuthToken(): M[String]
 
-  def getDocuments[T <: Model](token: String,
-    path: String)(
+  def getDocuments[T <: Model](token: String, path: String)(
     implicit docsResDecoder: Decoder[DocsRes[T]]
   ): M[Docs[T]]
 
-  def upsertDocument[T <: Model](token: String, path: String,
-    model: T)(
-    implicit docDecoder: Decoder[Doc[T]], bodyEncoder: Encoder[Body[T]]
+  def upsertDocument[T <: Model](token: String, path: String, model: T)(
+    implicit docDecoder: Decoder[Doc[T]],
+    bodyEncoder: Encoder[Body[T]]
   ): M[Doc[T]]
 
-  def deleteDocument[T <: Model](token: String,
-    path: String)(
+  def deleteDocument[T <: Model](token: String, path: String)(
     implicit docDecoder: Decoder[Doc[T]]
   ): M[Option[Throwable]]
 
   // -------------------------------------------------------------------------------------------------------------------
 
-  def getDocuments[T <: Model, M[_]: Monad](db: Database[M],
-    path: String)(
+  def getDocuments[T <: Model, M[_]: Monad](db: Database[M], path: String)(
     implicit docsResDecoder: Decoder[DocsRes[T]]
   ): M[Docs[T]] =
     for {
@@ -36,17 +33,16 @@ trait Database[M[_]] {
       docs  <- db.getDocuments(token, path)
     } yield docs
 
-  def upsertDocument[T <: Model, M[_]: Monad](db: Database[M], path: String,
-    model: T)(
-    implicit docDecoder: Decoder[Doc[T]], bodyEncoder: Encoder[Body[T]]
+  def upsertDocument[T <: Model, M[_]: Monad](db: Database[M], path: String, model: T)(
+    implicit docDecoder: Decoder[Doc[T]],
+    bodyEncoder: Encoder[Body[T]]
   ): M[Doc[T]] =
     for {
       token <- db.getAuthToken()
       doc   <- db.upsertDocument(token, path, model)
     } yield doc
 
-  def deleteDocument[T <: Model, M[_]: Monad](db: Database[M],
-    path: String)(
+  def deleteDocument[T <: Model, M[_]: Monad](db: Database[M], path: String)(
     implicit docDecoder: Decoder[Doc[T]]
   ): M[Option[Throwable]] =
     for {
