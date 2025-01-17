@@ -25,8 +25,7 @@ jobs:
 
     - name: Install SBT
       run: |
-        curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && chmod +x cs && ./cs setup
-        ./cs install sbt
+        curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && chmod +x cs && ./cs install sbt
 
     - name: Create project secret files
       env:
@@ -59,6 +58,10 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: 'sbt'
+
+    - name: Install SBT
+      run: |
+        curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && chmod +x cs && ./cs install sbt
 
     - name: Create project secret files
       env:
