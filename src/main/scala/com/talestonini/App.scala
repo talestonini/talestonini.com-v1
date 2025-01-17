@@ -64,7 +64,7 @@ object App {
           a(
             className := "back-to-link w3-hover-opacity",
             styleAttr := "text-decoration: none",
-            href := "#",
+            href      := "#",
             "back home"
           ),
           a(
@@ -199,7 +199,7 @@ object App {
   private def render(page: Page): Element = {
     Firebase.gaViewing(pagePathMap.get(page).getOrElse(throw new Exception(s"missing page path rendering page $page")))
     Prism.prismHighlightAll() // in lieu of '<body onhashchange=...' as Waypoint does not trigger the hashchange event
-    scrollToTop() // without this, new page is rendered and scrolled to the position of the previous page
+    scrollToTop()             // without this, new page is rendered and scrolled to the position of the previous page
     pageElement(page)
   }
 
