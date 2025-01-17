@@ -77,6 +77,9 @@ lazy val ttDotCom = project
     )
   )
 
+  val log4sExclusionRule = ExclusionRule(organization = "org.log4s", name = "log4s_sjs1_3")
+  libraryDependencies := libraryDependencies.value.map(_.excludeAll(log4sExclusionRule))
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Test setup
 // ---------------------------------------------------------------------------------------------------------------------
