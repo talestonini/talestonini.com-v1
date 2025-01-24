@@ -1,7 +1,7 @@
 import org.scalajs.linker.interface.ModuleSplitStyle
 import sbt.internal.util.ManagedLogger
 
-val scalaVer    = "3.6.2" // update prep_public.sh to match this version
+val scalaVer    = "3.6.3" // update prep_public.sh to match this version
 val circeVer    = "0.14.10"
 val http4sVer   = "0.23.30"
 val javaTimeVer = "2.6.0"
@@ -77,8 +77,8 @@ lazy val ttDotCom = project
     )
   )
 
-  val log4sExclusionRule = ExclusionRule(organization = "org.log4s", name = "log4s_sjs1_3")
-  libraryDependencies := libraryDependencies.value.map(_.excludeAll(log4sExclusionRule))
+val log4sExclusionRule = ExclusionRule(organization = "org.log4s", name = "log4s_sjs1_3")
+libraryDependencies := libraryDependencies.value.map(_.excludeAll(log4sExclusionRule))
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Test setup
