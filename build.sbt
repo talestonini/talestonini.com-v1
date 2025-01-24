@@ -71,14 +71,14 @@ lazy val ttDotCom = project
       "io.github.cquiroz" %%% "scala-java-time-tzdb" % javaTimeVer,
 
       // Testing framework
-      "org.scalameta" %%% "munit"             % "1.0.4"         % Test,
+      "org.scalameta" %%% "munit"             % "1.1.0"         % Test,
       "org.scalatest" %%% "scalatest"         % "3.3.0-alpha.1" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0"         % Test
     )
   )
 
-  val log4sExclusionRule = ExclusionRule(organization = "org.log4s", name = "log4s_sjs1_3")
-  libraryDependencies := libraryDependencies.value.map(_.excludeAll(log4sExclusionRule))
+val log4sExclusionRule = ExclusionRule(organization = "org.log4s", name = "log4s_sjs1_3")
+libraryDependencies := libraryDependencies.value.map(_.excludeAll(log4sExclusionRule))
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Test setup
